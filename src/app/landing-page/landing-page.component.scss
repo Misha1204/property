@@ -1,0 +1,122 @@
+.main-container {
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  width: 100%;
+  height: 841px;
+
+  display: flex;
+}
+
+.header-left-container {
+  width: 50.41%;
+  height: 100%;
+
+  background-image: linear-gradient(
+    135deg,
+    rgb(76, 77, 79) 0%,
+    rgb(5, 8, 14) 100%
+  );
+
+  object-fit: cover;
+}
+
+.header-left-logo {
+  width: 19.8%;
+  height: 61.4px;
+
+  object-fit: contain;
+}
+
+.header-left-content {
+  margin-top: 62px;
+  margin-left: 140px;
+}
+
+.header-left-description {
+  color: white;
+  font-size: 47px;
+  line-height: 68px;
+
+  width: 76.44%;
+  height: 192px;
+
+  margin-top: 243.5px;
+
+  text-align: left;
+}
+
+.header-left-info {
+  display: flex;
+  align-items: center;
+
+  margin-top: 150px;
+
+  p {
+    width: 27.58%;
+    color: rgb(167, 167, 167);
+    font-size: 22px;
+    word-spacing: 0.99px;
+    text-align: left;
+  }
+
+  button {
+    width: 336px;
+    height: 72px;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    background-image: linear-gradient(
+      180deg,
+      rgb(210, 171, 101) 0%,
+      rgb(139, 98, 23) 72%,
+      rgb(141, 100, 27) 100%
+    );
+  }
+}
+
+.header-right-container {
+  width: 49.59%;
+  background-image: url('https://iea.imgix.net/52e23b47-35e7-4fe8-9916-7c7b8109ae8c/shutterstock_140698657.jpg?auto=compress%2Cformat&fit=min&q=80&rect=83%2C0%2C4006%2C2668&w=1800&h=1199&fit=crop&fm=jpg&q=70&auto=format');
+  object-fit: contain;
+  background-repeat: no-repeat;
+}
+
+.header-right-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 76.3px;
+  padding-left: 50px;
+  padding-right: 50px;
+
+  button {
+    width: 157.4px;
+    height: 54px;
+
+    backdrop-filter: blur(18px);
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0.9;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+  }
+}
+
+.language {
+  width: 47px;
+  height: 17px;
+
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
