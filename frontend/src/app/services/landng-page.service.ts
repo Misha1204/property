@@ -1,14 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LandingPageService {
+  constructor(private http: HttpClient) {}
+
   headerImages: { imageSrc: string }[] = [
     {
-      imageSrc:
-        'assets/images/6016.jpg'
-        // 'https://i.guim.co.uk/img/media/ac01822e1237b350779e9e41ab69c8bcc8d292ea/0_0_6016_3611/master/6016.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e8ed1dcb5b915acb79446d4bf5202eac',
+      imageSrc: 'assets/images/6016.jpg',
+      // 'https://i.guim.co.uk/img/media/ac01822e1237b350779e9e41ab69c8bcc8d292ea/0_0_6016_3611/master/6016.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e8ed1dcb5b915acb79446d4bf5202eac',
     },
     {
       imageSrc:
@@ -23,4 +25,8 @@ export class LandingPageService {
         'https://images.unsplash.com/photo-1460472178825-e5240623afd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVpbGRpbmdzfGVufDB8fDB8fA%3D%3D&w=1000&q=80',
     },
   ];
+
+  getPropertyInfo() {
+    return this.http.get(`http://localhost:8080/api/property`);
+  }
 }

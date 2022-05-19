@@ -18,7 +18,12 @@ export class LandingPageComponent implements OnInit {
   constructor(private landingPageService: LandingPageService) {}
 
   ngOnInit(): void {
+    console.log("Rame");
+
     this.headerImages = this.landingPageService.headerImages;
+    this.landingPageService.getPropertyInfo().subscribe(res => {
+      console.log(res);
+    });
   }
 
   // Change Language of the page
