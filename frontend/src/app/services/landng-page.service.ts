@@ -7,7 +7,8 @@ export class LandingPageService {
   headerImages: { imageSrc: string }[] = [
     {
       imageSrc:
-        'https://i.guim.co.uk/img/media/ac01822e1237b350779e9e41ab69c8bcc8d292ea/0_0_6016_3611/master/6016.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e8ed1dcb5b915acb79446d4bf5202eac',
+        'assets/images/6016.jpg'
+        // 'https://i.guim.co.uk/img/media/ac01822e1237b350779e9e41ab69c8bcc8d292ea/0_0_6016_3611/master/6016.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=e8ed1dcb5b915acb79446d4bf5202eac',
     },
     {
       imageSrc:

@@ -42,5 +42,4 @@ testem.log
 Thumbs.db
 
 target/
-/backend/src/main/resources/static/
-/backend/target/
+src/main/resources/static/
