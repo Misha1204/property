@@ -16,22 +16,15 @@ public class Property {
             generator = "property_sequence"
     )
     private long id;
-    String name;
-    String address;
-    String description;
-    String contact;
+    private String name;
+    private String address;
+    private String description;
+    private String image;
 
     public Property() {
     }
 
     public Property(String name, String address, String description) {
-        this.name = name;
-        this.address = address;
-        this.description = description;
-    }
-
-    public Property(long id, String name, String address, String description) {
-        this.id = id;
         this.name = name;
         this.address = address;
         this.description = description;
@@ -69,6 +62,14 @@ public class Property {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
@@ -76,7 +77,6 @@ public class Property {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", description='" + description + '\'' +
-                ", contact='" + contact + '\'' +
                 '}';
     }
 }
