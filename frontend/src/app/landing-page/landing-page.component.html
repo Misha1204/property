@@ -90,6 +90,100 @@
 
   <div class="w-full h-[221px] mt-[26px] bg-black"></div>
 
-  <main></main>
-  <footer></footer>
+  <main class="w-full flex flex-col items-center">
+    <section *ngFor="let section of sections" class="w-[85.41%] mt-[200px]">
+      <h1 class="font-bold text-[36px]">{{ section.name }}</h1>
+      <div class="relative w-full">
+        <img
+          (click)="(activeHeaderImageIndex)"
+          class="w-full h-[551px] cursor-pointer rounded-[8px] object-cover"
+          [src]="headerImages[activeHeaderImageIndex].imageSrc"
+          alt="building" />
+
+        <span
+          class="material-symbols-outlined text-white scale-150 absolute top-[50%] left-[3%] -translate-y-[50%]">
+          arrow_back_ios
+        </span>
+        <span
+          class="material-symbols-outlined text-white scale-150 absolute top-[50%] right-[3%] -translate-y-[50%]">
+          arrow_forward_ios
+        </span>
+
+        <div
+          class="w-[71%] h-[40px] flex justify-between items-center absolute top-[65%] left-[50%] -translate-x-[50%]">
+          <h1 class="font-bold text-[34px] text-white">{{ section.name }}</h1>
+          <div class="w-[17%] flex justify-between">
+            <div
+              class="w-[13px] h-[13px] rounded-full bg-white opacity-[.6]"></div>
+            <div
+              class="w-[13px] h-[13px] rounded-full bg-white opacity-[.6]"></div>
+            <div
+              class="w-[13px] h-[13px] rounded-full bg-white opacity-[.6]"></div>
+            <div
+              class="w-[13px] h-[13px] rounded-full bg-white opacity-[.6]"></div>
+          </div>
+          <button
+            class="w-[17%] h-[54px] bg-[#00000066] text-white rounded-[8px]">
+            Learn More
+          </button>
+        </div>
+
+        <div
+          class="flex justify-between absolute top-[100%] left-[50%] -translate-x-[50%] -translate-y-[50%] w-[71%] h-[260px]">
+          <div
+            class="flex flex-col justify-center items-center w-[49%] h-[260px] rounded-[8px] bg-[#ffffffe6] shadow-[0_14px_28px_0px_rgba(57,57,57,0.18)]">
+            <div class="w-[80%]">
+              <h4 class="font-bold text-[16px] text-[#747474]">
+                {{ section.address }}
+              </h4>
+            </div>
+            <p class="w-[80%] text-[14px] text-[#747474]">
+              {{ section.description }}
+            </p>
+          </div>
+
+          <div
+            class="flex flex-col justify-center items-center relative w-[49%] h-[260px] rounded-[8px] bg-[#ffffffe6] shadow-[0_14px_28px_0px_rgba(57,57,57,0.18)]">
+            <div class="w-[90%]">
+              <h4 class="font-bold text-[16px] text-[#747474]">
+                Send contacts
+              </h4>
+
+              <div class="w-[100%] text-[14px] text-[#747474]">
+                <form [formGroup]="form">
+                  <div class="flex justify-between">
+                    <input
+                      type="text"
+                      placeholder="Fullname"
+                      formControlName="name" />
+                    <input
+                      type="text"
+                      placeholder="Country"
+                      formControlName="address" />
+                  </div>
+                  <div class="flex justify-between mt-[10px]">
+                    <input
+                      type="text"
+                      placeholder="+995555467844"
+                      formControlName="phone" />
+                    <input
+                      type="text"
+                      placeholder="person@gmail.com"
+                      formControlName="email" />
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <button
+              (click)="onSubmit(section.id)"
+              class="absolute top-[100%] left-[65%] -translate-y-[50%] w-[30%] h-[40px] rounded-[8px] font-bold text-white send-btn shadow-[1_11px_19px_0px_rgba(88,64,20,0.34)]">
+              Send
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="w-full h-[500px] mt-[500px]"></footer>
 </div>

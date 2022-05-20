@@ -50,3 +50,30 @@
   border: none;
   outline: none;
 }
+
+.send-btn {
+  background-image: linear-gradient(
+    180deg,
+    rgb(210, 171, 101) 0%,
+    rgb(139, 98, 23) 72%,
+    rgb(141, 100, 27) 100%
+  );
+}
+
+// Input Classes
+// class="w-[48%] h-[47px] bg-white border border-[#e8ebfa] focus:border-[#c1caf9] outline-none rounded-[8px]"
+input {
+  width: 48%;
+  height: 47px;
+  padding-left: 3px;
+
+  background-color: #fff;
+  outline: none;
+
+  border: solid 1px #e8ebfa;
+  border-radius: 8px;
+
+  &:focus {
+    border: solid 1px #c1caf9;
+  }
+}
