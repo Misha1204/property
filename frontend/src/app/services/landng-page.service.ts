@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Section } from '../models/section.model';
+import { UserInfo } from '../models/user-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +29,10 @@ export class LandingPageService {
   ];
 
   getPropertyInfo() {
-    return this.http.get(`http://localhost:8080/api/property`);
+    return this.http.get<Section[]>(`http://localhost:8080/api/property`);
+  }
+
+  addUserInfo(request: UserInfo) {
+    return this.http.post(`http://localhost:8080/api/subscriber`, request);
   }
 }
