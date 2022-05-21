@@ -28,6 +28,45 @@ export class LandingPageService {
     },
   ];
 
+  companyLogos = [
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+    {
+      imageSrc: 'assets/images/6016.jpg',
+    },
+  ];
+
   getPropertyInfo() {
     return this.http.get<Section[]>(`http://localhost:8080/api/property`);
   }

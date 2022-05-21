@@ -6,9 +6,16 @@ import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ScrollLeftDirective } from './directives/scroll-left.directive';
+import { ScrollRightDirective } from './directives/scroll-right.directive';
 
 @NgModule({
-  declarations: [AppComponent, LandingPageComponent],
+  declarations: [
+    AppComponent,
+    LandingPageComponent,
+    ScrollLeftDirective,
+    ScrollRightDirective,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
