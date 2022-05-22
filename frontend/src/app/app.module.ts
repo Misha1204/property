@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollLeftDirective } from './directives/scroll-left.directive';
 import { ScrollRightDirective } from './directives/scroll-right.directive';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ScrollRightDirective } from './directives/scroll-right.directive';
     LandingPageComponent,
     ScrollLeftDirective,
     ScrollRightDirective,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
