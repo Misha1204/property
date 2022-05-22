@@ -1,8 +1,16 @@
 package ge.propertygeorgia.catalogue.property;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -24,6 +32,18 @@ public class PropertyController {
     @PostMapping
     public void postProperty(@RequestBody Property property){
         propertyService.postProperty(property);
+    }
+
+    @Value("${file.upload-dir}")
+    String FILE_DIRECTORY;
+    @PostMapping(path = "/uploadFile")
+    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+        File myFile = new File(FILE_DIRECTORY+file.getOriginalFilename());
+        myFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(myFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "{propertyId}")

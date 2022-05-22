@@ -20,6 +20,7 @@ public class Property {
     private String address;
     private String description;
     private String image;
+    private String file;
 
     public Property() {
     }
@@ -68,6 +69,14 @@ public class Property {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 
     @Override

@@ -22,15 +22,7 @@ export class LandingPageComponent implements OnInit {
   activeHeaderImageIndex: number = 0;
 
   // Sections
-  sections: Section[] = [
-    {
-      id: 1,
-      name: 'Area',
-      address: 'თბილისი',
-      description: 'lorem ipsum',
-      image: null,
-    },
-  ];
+  sections!: Section[];
 
   constructor(
     private landingPageService: LandingPageService,
@@ -44,6 +36,7 @@ export class LandingPageComponent implements OnInit {
       .getPropertyInfo()
       .pipe(
         tap(res => {
+          console.log(res);
           this.sections = res;
         })
       )
