@@ -27,7 +27,7 @@ public class Property {
     private String cityEng;
     private String countryEng;
     private String descriptionEng;
-    private String[] images;
+    private String[] images = new String[4];
     private String file;
 
     public Property() {

@@ -54,6 +54,10 @@ public class PropertyService {
             if (cityEng != null) property.setCityEng(cityEng);
             if (countryEng != null) property.setCountryEng(countryEng);
             if (descriptionEng != null) property.setDescriptionEng(descriptionEng);
+            if (images != null) {
+                String[] slides = {images[0], images[1], images[2], images[3]};
+                property.setImages(slides);
+            }
             if (file !=null) property.setFile(file);
         }
     }
