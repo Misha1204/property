@@ -1,6 +1,7 @@
 package ge.propertygeorgia.catalogue.property;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table
@@ -17,18 +18,37 @@ public class Property {
     )
     private long id;
     private String name;
-    private String address;
+    private String title;
+    private String city;
+    private String country;
     private String description;
-    private String image;
+    private String nameEng;
+    private String titleEng;
+    private String cityEng;
+    private String countryEng;
+    private String descriptionEng;
+    private String[] images;
     private String file;
 
     public Property() {
     }
 
-    public Property(String name, String address, String description) {
+    public Property(long id, String name, String title, String city, String country, String description,
+                    String nameEng, String titleEng, String cityEng, String countryEng, String descriptionEng,
+                    String[] images, String file) {
+        this.id = id;
         this.name = name;
-        this.address = address;
+        this.title = title;
+        this.city = city;
+        this.country = country;
         this.description = description;
+        this.nameEng = nameEng;
+        this.titleEng = titleEng;
+        this.cityEng = cityEng;
+        this.countryEng = countryEng;
+        this.descriptionEng = descriptionEng;
+        this.images = images;
+        this.file = file;
     }
 
     public long getId() {
@@ -47,13 +67,6 @@ public class Property {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getDescription() {
         return description;
@@ -61,14 +74,6 @@ public class Property {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getFile() {
@@ -79,13 +84,94 @@ public class Property {
         this.file = file;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getNameEng() {
+        return nameEng;
+    }
+
+    public void setNameEng(String nameEng) {
+        this.nameEng = nameEng;
+    }
+
+    public String getTitleEng() {
+        return titleEng;
+    }
+
+    public void setTitleEng(String titleEng) {
+        this.titleEng = titleEng;
+    }
+
+    public String getCityEng() {
+        return cityEng;
+    }
+
+    public void setCityEng(String cityEng) {
+        this.cityEng = cityEng;
+    }
+
+    public String getCountryEng() {
+        return countryEng;
+    }
+
+    public void setCountryEng(String countryEng) {
+        this.countryEng = countryEng;
+    }
+
+    public String getDescriptionEng() {
+        return descriptionEng;
+    }
+
+    public void setDescriptionEng(String descriptionEng) {
+        this.descriptionEng = descriptionEng;
+    }
+
+    public String[] getImages() {
+        return images;
+    }
+
+    public void setImages(String[] images) {
+        this.images = images;
+    }
+
     @Override
     public String toString() {
         return "Property{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
+                ", title='" + title + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
                 ", description='" + description + '\'' +
+                ", nameEng='" + nameEng + '\'' +
+                ", titleEng='" + titleEng + '\'' +
+                ", cityEng='" + cityEng + '\'' +
+                ", countryEng='" + countryEng + '\'' +
+                ", descriptionEng='" + descriptionEng + '\'' +
+                ", images=" + Arrays.toString(images) +
+                ", file='" + file + '\'' +
                 '}';
     }
 }

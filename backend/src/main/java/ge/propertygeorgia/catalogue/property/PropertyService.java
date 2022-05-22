@@ -21,6 +21,13 @@ public class PropertyService {
         return propertyRepository.findAll();
     }
 
+    public Property getProperty(Long propertyId) {
+        if (propertyRepository.existsById(propertyId)) {
+            return propertyRepository.getById(propertyId);
+        }
+        return null;
+    }
+
     public void postProperty(Property property) {
         propertyRepository.save(property);
     }
@@ -32,15 +39,24 @@ public class PropertyService {
     }
 
     @Transactional
-    public void updateProperty(long propertyId, String name, String address, String description, String image, String file) {
+    public void updateProperty(Long propertyId, String name, String title, String city, String country, String description,
+                               String nameEng, String titleEng, String cityEng, String countryEng, String descriptionEng, String[] images, String file) {
         if (propertyRepository.existsById(propertyId)) {
             Property property = propertyRepository.findById(propertyId)
                             .orElse(null);
-            if(name != null) property.setName(name);
-            if (address != null) property.setAddress(address);
+            if (name != null) property.setName(name);
+            if (title != null) property.setTitle(title);
+            if (city != null) property.setCity(city);
+            if (country != null) property.setCountry(country);
             if (description != null) property.setDescription(description);
-            if (image !=null) property.setImage(image);
+            if (nameEng != null) property.setNameEng(nameEng);
+            if (titleEng != null) property.setTitleEng(titleEng);
+            if (cityEng != null) property.setCityEng(cityEng);
+            if (countryEng != null) property.setCountryEng(countryEng);
+            if (descriptionEng != null) property.setDescriptionEng(descriptionEng);
             if (file !=null) property.setFile(file);
         }
     }
+
+
 }
