@@ -47,25 +47,25 @@ public class PropertyController {
                                                @RequestParam("image3") MultipartFile image3,
                                                @RequestParam("image4") MultipartFile image4) throws IOException {
 
-        File myImage1 = new File(FILE_DIRECTORY+image1.getOriginalFilename());
+        File myImage1 = new File(IMAGES_DIRECTORY+image1.getOriginalFilename());
         myImage1.createNewFile();
         FileOutputStream fos1 = new FileOutputStream(myImage1);
         fos1.write(image1.getBytes());
         fos1.close();
 
-        File myImage2 = new File(FILE_DIRECTORY+image2.getOriginalFilename());
+        File myImage2 = new File(IMAGES_DIRECTORY+image2.getOriginalFilename());
         myImage2.createNewFile();
         FileOutputStream fos2 = new FileOutputStream(myImage2);
-        fos2.write(image1.getBytes());
+        fos2.write(image2.getBytes());
         fos2.close();
 
-        File myImage3 = new File(FILE_DIRECTORY+image3.getOriginalFilename());
+        File myImage3 = new File(IMAGES_DIRECTORY+image3.getOriginalFilename());
         myImage3.createNewFile();
         FileOutputStream fos3 = new FileOutputStream(myImage3);
-        fos3.write(image1.getBytes());
+        fos3.write(image3.getBytes());
         fos3.close();
 
-        File myImage4 = new File(FILE_DIRECTORY+image4.getOriginalFilename());
+        File myImage4 = new File(IMAGES_DIRECTORY+image4.getOriginalFilename());
         myImage4.createNewFile();
         FileOutputStream fos4 = new FileOutputStream(myImage4);
         fos4.write(image4.getBytes());
