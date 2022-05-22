@@ -32,7 +32,7 @@ public class PropertyService {
     }
 
     @Transactional
-    public void updateProperty(long propertyId, String name, String address, String description, String image) {
+    public void updateProperty(long propertyId, String name, String address, String description, String image, String file) {
         if (propertyRepository.existsById(propertyId)) {
             Property property = propertyRepository.findById(propertyId)
                             .orElse(null);
@@ -40,6 +40,7 @@ public class PropertyService {
             if (address != null) property.setAddress(address);
             if (description != null) property.setDescription(description);
             if (image !=null) property.setImage(image);
+            if (file !=null) property.setFile(file);
         }
     }
 }

@@ -36,13 +36,14 @@ public class PropertyController {
 
     @Value("${file.upload-dir}")
     String FILE_DIRECTORY;
-    @PostMapping(path = "/uploadFile")
-    public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    @PostMapping(path = "/uploadFile/{propertyId}")
+    public ResponseEntity<Object> uploadFile(@PathVariable("propertyId") long propertyId, @RequestParam("file") MultipartFile file) throws IOException {
         File myFile = new File(FILE_DIRECTORY+file.getOriginalFilename());
         myFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(myFile);
         fos.write(file.getBytes());
         fos.close();
+        propertyService.updateProperty(propertyId, null, null, null, null, "assets/" + file.getOriginalFilename());
         return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
     }
 
@@ -56,7 +57,8 @@ public class PropertyController {
                                @RequestParam(required = false) String name,
                                @RequestParam(required = false) String address,
                                @RequestParam(required = false) String description,
-                               @RequestParam(required = false) String image){
-        propertyService.updateProperty(propertyId, name, address, description, image);
+                               @RequestParam(required = false) String image,
+                               @RequestParam(required = false) String file){
+        propertyService.updateProperty(propertyId, name, address, description, image, file);
     }
 }
