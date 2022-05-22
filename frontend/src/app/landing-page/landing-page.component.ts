@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
@@ -15,14 +15,29 @@ export class LandingPageComponent implements OnInit {
 
   // Language variables
   currentLanguage: string = 'Eng';
-  showLanguageOptions: boolean = false;
 
   // Header images
   headerImages!: { imageSrc: string }[];
+  companyLogos!: any;
   activeHeaderImageIndex: number = 0;
 
   // Sections
-  sections!: Section[];
+  sections: Section[] = [
+    {
+      id: 1,
+      name: 'Area',
+      address: 'თბილისი',
+      description: 'lorem ipsum',
+      image: null,
+    },
+    {
+      id: 2,
+      name: 'Area',
+      address: 'თბილისი',
+      description: 'lorem ipsum',
+      image: null,
+    },
+  ];
 
   constructor(
     private landingPageService: LandingPageService,
@@ -31,12 +46,12 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerImages = this.landingPageService.headerImages;
+    this.companyLogos = this.landingPageService.companyLogos;
 
     this.landingPageService
       .getPropertyInfo()
       .pipe(
         tap(res => {
-          console.log(res);
           this.sections = res;
         })
       )
@@ -47,17 +62,16 @@ export class LandingPageComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      name: this.fb.control(''),
-      email: this.fb.control(''),
-      phone: this.fb.control(''),
-      address: this.fb.control(''),
+      name: this.fb.control('', Validators.required),
+      email: this.fb.control('', Validators.required),
+      phone: this.fb.control('', Validators.required),
+      address: this.fb.control('', Validators.required),
     });
   }
 
   // Change Language of the page
-  changeCurrentLanguage(language: string) {
-    this.currentLanguage = language;
-    this.showLanguageOptions = false;
+  changeCurrentLanguage(event: Event) {
+    this.currentLanguage = (event.target as HTMLInputElement).value;
   }
 
   // Slide through images in header
@@ -87,6 +101,13 @@ export class LandingPageComponent implements OnInit {
       sectionId,
     };
 
-    this.landingPageService.addUserInfo(request).subscribe();
+    this.landingPageService.addUserInfo(request).subscribe({
+      next: () => {
+        this.form.reset();
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
   }
 }
