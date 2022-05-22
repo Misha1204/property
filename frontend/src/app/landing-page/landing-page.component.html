@@ -147,11 +147,13 @@
       *ngFor="let section of sections; let i = index"
       class="section"
       [ngClass]="{ 'section-top-margin': i > 0 }">
-      <h1 class="section-title">{{ section.name }}</h1>
+      <h1 class="section-title">
+        {{ currentLanguage === 'Eng' ? section.nameEng : section.name }}
+      </h1>
       <div class="section-info-container">
         <img
           (click)="(activeHeaderImageIndex)"
-          [src]="headerImages[activeHeaderImageIndex].imageSrc"
+          [src]="section.images[1]"
           alt="building" />
 
         <span class="material-symbols-outlined slider-arrow-back">
@@ -162,21 +164,23 @@
         </span>
 
         <div class="section-description-header-container">
-          <h1>{{ section.name }}</h1>
+          <h1>{{ currentLanguage === 'Eng' ? section.titleEng : section.title }}</h1>
           <div class="section-slider-dots-container">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <div *ngFor="let image of section.images"></div>
           </div>
           <button>Learn More</button>
         </div>
 
         <div class="section-description-form-container">
           <div class="section-description">
-            <h4>{{ section.address }}</h4>
+            <h4>
+              {{
+                currentLanguage === 'Eng' ? section.countryEng : section.country
+              }}
+              | {{ currentLanguage === 'Eng' ? section.cityEng : section.city }}
+            </h4>
 
-            <p>{{ section.description }}</p>
+            <p>{{ currentLanguage === 'Eng' ? section.descriptionEng : section.description }}</p>
           </div>
 
           <div class="section-form-container">

@@ -22,22 +22,7 @@ export class LandingPageComponent implements OnInit {
   activeHeaderImageIndex: number = 0;
 
   // Sections
-  sections: Section[] = [
-    {
-      id: 1,
-      name: 'Area',
-      address: 'თბილისი',
-      description: 'lorem ipsum',
-      image: null,
-    },
-    {
-      id: 2,
-      name: 'Area',
-      address: 'თბილისი',
-      description: 'lorem ipsum',
-      image: null,
-    },
-  ];
+  sections: Section[] = [];
 
   constructor(
     private landingPageService: LandingPageService,

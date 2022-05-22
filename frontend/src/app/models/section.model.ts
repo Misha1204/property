@@ -1,7 +1,15 @@
 export interface Section {
   id: number;
   name: string;
-  address: string;
+  title: string;
+  city: string;
+  country: string;
   description: string;
-  image: string | null;
+  nameEng: string;
+  titleEng: string;
+  cityEng: string;
+  countryEng: string;
+  descriptionEng: string;
+  images: string[];
+  file: string;
 }
