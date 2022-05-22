@@ -20,7 +20,6 @@ public class SubscriberService {
     }
 
     public void postSubscriber(Subscriber subscriber) {
-        System.out.println(subscriber);
         subscriberRepository.save(subscriber);
     }
 

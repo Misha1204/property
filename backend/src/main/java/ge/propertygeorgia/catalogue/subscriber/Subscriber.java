@@ -20,15 +20,17 @@ public class Subscriber {
     private String email;
     private String phone;
     private String address;
+    private long propertyId;
 
     public Subscriber() {
     }
 
-    public Subscriber(String name, String email, String phone, String address) {
+    public Subscriber(String name, String email, String phone, String address, long propertyId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
+        this.propertyId = propertyId;
     }
 
     public String getName() {
@@ -61,6 +63,14 @@ public class Subscriber {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public long getPropertyId() {
+        return propertyId;
+    }
+
+    public void setPropertyId(long propertyId) {
+        this.propertyId = propertyId;
     }
 
     @Override

@@ -75,7 +75,7 @@ public class PropertyController {
                 null, null, null, null, null, null,
                 new String[]{"assets/images/" + image1.getOriginalFilename(), "assets/images/" + image2.getOriginalFilename(),
                 "assets/images/" + image3.getOriginalFilename(), "assets/images/" + image4.getOriginalFilename()}, null);
-        return new ResponseEntity<Object>("The images has been uploaded.", HttpStatus.OK);
+        return new ResponseEntity<Object>("The images have been uploaded.", HttpStatus.OK);
     }
 
     @Value("${file.upload-dir}")
