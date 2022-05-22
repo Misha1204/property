@@ -68,6 +68,62 @@
     </div>
   </header>
 
+  <header class="mobile-header">
+    <div class="mobile-header-logo-icons">
+      <div></div>
+      <div class="mobile-logo">
+        <div>
+          <img
+            class="mobile-logo-image"
+            src="../../assets/images/logo.png"
+            alt="logo" />
+        </div>
+      </div>
+      <div>
+        <select
+          class="mobile-select-language"
+          (change)="changeCurrentLanguage($event)"
+          name="language"
+          id="language">
+          <option value="Eng">Eng</option>
+          <option value="Geo">Geo</option>
+        </select>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <div
+      [ngStyle]="{
+        'background-image':
+          'url(' + headerImages[activeHeaderImageIndex]['imageSrc'] + ')'
+      }"
+      class="mobile-image-container">
+      <div class="mobile-header-slider-dots-container">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="mobile-header-description-container">
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry
+      </p>
+
+      <button>
+        {{ currentLanguage === 'Eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
+      </button>
+    </div>
+  </header>
+
   <div class="company-logos-slider">
     <div class="logos-container">
       <span scrollLeft class="material-symbols-outlined company-logos-back">
