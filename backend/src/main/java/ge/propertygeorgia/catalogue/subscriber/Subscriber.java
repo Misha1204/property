@@ -25,7 +25,8 @@ public class Subscriber {
     public Subscriber() {
     }
 
-    public Subscriber(String name, String email, String phone, String address, long propertyId) {
+    public Subscriber(long id, String name, String email, String phone, String address, long propertyId) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -71,6 +72,14 @@ public class Subscriber {
 
     public void setPropertyId(long propertyId) {
         this.propertyId = propertyId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
