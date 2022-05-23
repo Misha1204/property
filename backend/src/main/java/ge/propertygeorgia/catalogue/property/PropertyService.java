@@ -21,9 +21,9 @@ public class PropertyService {
         return propertyRepository.findAll();
     }
 
-    public Property getProperty(Long propertyId) {
+    public Property getProperty(long propertyId) {
         if (propertyRepository.existsById(propertyId)) {
-            return propertyRepository.getById(propertyId);
+            return propertyRepository.findById(propertyId).get();
         }
         return null;
     }
@@ -32,14 +32,14 @@ public class PropertyService {
         propertyRepository.save(property);
     }
 
-    public void deleteProperty(Long propertyId) {
+    public void deleteProperty(long propertyId) {
         if (propertyRepository.existsById(propertyId)) {
             propertyRepository.deleteById(propertyId);
         }
     }
 
     @Transactional
-    public void updateProperty(Long propertyId, String name, String title, String city, String country, String description,
+    public void updateProperty(long propertyId, String name, String title, String city, String country, String description,
                                String nameEng, String titleEng, String cityEng, String countryEng, String descriptionEng, String[] images, String file) {
         if (propertyRepository.existsById(propertyId)) {
             Property property = propertyRepository.findById(propertyId)
