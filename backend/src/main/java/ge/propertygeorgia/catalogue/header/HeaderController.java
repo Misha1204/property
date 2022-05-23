@@ -1,7 +1,5 @@
 package ge.propertygeorgia.catalogue.header;
 
-import ge.propertygeorgia.catalogue.property.Property;
-import ge.propertygeorgia.catalogue.property.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -12,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+
 
 @RestController
 @RequestMapping(path = "/api/header")
