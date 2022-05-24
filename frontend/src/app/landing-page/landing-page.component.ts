@@ -22,7 +22,38 @@ export class LandingPageComponent implements OnInit {
   activeHeaderImageIndex: number = 0;
 
   // Sections
-  sections: Section[] = [];
+  sections: Section[] = [
+    {
+      id: 1,
+      name: 'სახელი',
+      title: 'სათაური',
+      city: 'თბილისი',
+      country: 'საქართველო',
+      description: 'აღწერა',
+      nameEng: 'Name',
+      titleEng: 'Title',
+      cityEng: 'Tbilisi',
+      countryEng: 'Georgia',
+      descriptionEng: 'Description',
+      images: ['assets/images/6016.jpg'],
+      file: '',
+    },
+    {
+      id: 2,
+      name: 'სახელი',
+      title: 'სათაური',
+      city: 'თბილისი',
+      country: 'საქართველო',
+      description: 'აღწერა',
+      nameEng: 'Name',
+      titleEng: 'Title',
+      cityEng: 'Tbilisi',
+      countryEng: 'Georgia',
+      descriptionEng: 'Description',
+      images: ['assets/images/1802071.jpg'],
+      file: '',
+    },
+  ];
 
   constructor(
     private landingPageService: LandingPageService,

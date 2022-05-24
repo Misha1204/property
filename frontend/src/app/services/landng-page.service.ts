@@ -30,40 +30,40 @@ export class LandingPageService {
 
   companyLogos = [
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/gcf.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Fiabci.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/gcf.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Fiabci.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/gcf.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Fiabci.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/gcf.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Fiabci.png',
     },
     {
-      imageSrc: 'assets/images/6016.jpg',
+      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
     },
   ];
 

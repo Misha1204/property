@@ -130,11 +130,9 @@
         arrow_back_ios
       </span>
 
-      <img
-        class="logo"
-        *ngFor="let logo of companyLogos"
-        [src]="logo.imageSrc"
-        alt="" />
+      <a *ngFor="let logo of companyLogos" href="#">
+        <img class="logo" [src]="logo.imageSrc" alt="" />
+      </a>
 
       <span scrollRight class="material-symbols-outlined company-logos-forward">
         arrow_forward_ios
@@ -153,7 +151,7 @@
       <div class="section-info-container">
         <img
           (click)="(activeHeaderImageIndex)"
-          [src]="section.images[1]"
+          [src]="section.images[0]"
           alt="building" />
 
         <span class="material-symbols-outlined slider-arrow-back">
@@ -164,7 +162,9 @@
         </span>
 
         <div class="section-description-header-container">
-          <h1>{{ currentLanguage === 'Eng' ? section.titleEng : section.title }}</h1>
+          <h1>
+            {{ currentLanguage === 'Eng' ? section.titleEng : section.title }}
+          </h1>
           <div class="section-slider-dots-container">
             <div *ngFor="let image of section.images"></div>
           </div>
@@ -180,7 +180,13 @@
               | {{ currentLanguage === 'Eng' ? section.cityEng : section.city }}
             </h4>
 
-            <p>{{ currentLanguage === 'Eng' ? section.descriptionEng : section.description }}</p>
+            <p>
+              {{
+                currentLanguage === 'Eng'
+                  ? section.descriptionEng
+                  : section.description
+              }}
+            </p>
           </div>
 
           <div class="section-form-container">

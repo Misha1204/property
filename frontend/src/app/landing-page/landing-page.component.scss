@@ -43,6 +43,7 @@
   color: #fff;
   font-size: 220%;
   font-weight: bold;
+  line-height: 50px;
 }
 
 .header-left-btn-container {
@@ -187,10 +188,12 @@
 
 .company-logos-back {
   left: 100px;
+  cursor: pointer;
 }
 
 .company-logos-forward {
   right: 100px;
+  cursor: pointer;
 }
 
 .logos-container {
@@ -203,6 +206,11 @@
 
   overflow-x: hidden;
   scroll-behavior: smooth;
+
+  img {
+    height: 100px;
+    object-fit: contain;
+  }
 }
 
 .logo {
