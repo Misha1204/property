@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddSectionComponent } from './add-section/add-section.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthComponent } from './auth/auth.component';
 import { EditSectionComponent } from './edit-section/edit-section.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditSectionComponent,
+  },
+  {
+    path: 'add_section',
+    component: AddSectionComponent,
   },
 ];
 

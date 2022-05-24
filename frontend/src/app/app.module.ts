@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AddSectionComponent } from './add-section/add-section.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     AdminComponent,
     EditSectionComponent,
     AuthComponent,
+    AddSectionComponent,
   ],
   imports: [
     BrowserModule,
