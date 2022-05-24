@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SectionPostRequest } from '../models/add-section.model';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 
@@ -69,6 +70,10 @@ export class LandingPageService {
 
   getPropertyInfo() {
     return this.http.get<Section[]>(`http://localhost:8080/api/property`);
+  }
+
+  addSectionInfo(request: SectionPostRequest) {
+    return this.http.post(`http://localhost:8080/api/property`, { request });
   }
 
   addUserInfo(request: UserInfo) {
