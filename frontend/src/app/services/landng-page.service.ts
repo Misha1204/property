@@ -72,8 +72,15 @@ export class LandingPageService {
     return this.http.get<Section[]>(`http://localhost:8080/api/property`);
   }
 
-  addSectionInfo(request: SectionPostRequest) {
-    return this.http.post(`http://localhost:8080/api/property`, { request });
+  addSectionInfo(formData: any) {
+    return this.http.post(`http://localhost:8080/api/property`, formData);
+  }
+
+  uploadImages(fd: any) {
+    return this.http.post(
+      `http://localhost:8080/api/property/uploadImages/4`,
+      fd
+    );
   }
 
   addUserInfo(request: UserInfo) {

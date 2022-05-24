@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { LandingPageService } from '../services/landng-page.service';
 
 @Component({
   selector: 'app-add-section',
@@ -8,10 +9,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AddSectionComponent implements OnInit {
   form!: FormGroup;
+  formData = new FormData();
 
-  selectedImages: any = [];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private landingPageService: LandingPageService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -29,25 +32,33 @@ export class AddSectionComponent implements OnInit {
       cityEng: this.fb.control(''),
       countryEng: this.fb.control(''),
       descriptionEng: this.fb.control(''),
-      images: this.fb.array([]),
-      file: this.fb.control(null),
     });
   }
 
   onImageSelected(event: any) {
+    let counter = 1;
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
-        this.form.get('images')?.value.push(event.target.files[+property]);
+        this.formData.append(
+          `image${counter}`,
+          event.target.files[+property],
+          event.target.files[+property].name
+        );
+        counter++;
       }
     });
   }
 
   onPdfSelected(event: any) {
-    this.form.get('file')?.setValue(event.target.files[0]);
-    console.log(this.form.value);
+    this.formData.append(
+      'file',
+      event.target.files[0],
+      event.target.files[0].name
+    );
   }
 
   onCreateSection() {
-    console.log(this.form.value);
+    this.formData.append('sectionData', this.form.value);
+    this.landingPageService.addSectionInfo(this.formData).subscribe();
   }
 }
