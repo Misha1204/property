@@ -1,5 +1,6 @@
 package ge.propertygeorgia.catalogue.property;
 
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 @RestController
@@ -48,14 +52,28 @@ public class PropertyController {
             , @RequestPart("image3") MultipartFile image3
             , @RequestPart("image4") MultipartFile image4
             , @RequestPart("file") MultipartFile file
-            , @RequestPart("sectionData") Property property
+            , @RequestPart("name") String name
+            , @RequestPart("title") String title
+            , @RequestPart("city") String city
+            , @RequestPart("country") String country
+            , @RequestPart("description") String description
+            , @RequestPart("nameEng") String nameEng
+            , @RequestPart("titleEng") String titleEng
+            , @RequestPart("cityEng") String cityEng
+            , @RequestPart("countryEng") String countryEng
+            , @RequestPart("descriptionEng") String descriptionEng
     ) throws IOException {
 
-        File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
-        myImage1.createNewFile();
-        FileOutputStream fos1 = new FileOutputStream(myImage1);
-        fos1.write(image1.getBytes());
-        fos1.close();
+//        File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
+//        myImage1.createNewFile();
+//        FileOutputStream fos1 = new FileOutputStream(myImage1);
+//        fos1.write(image1.getBytes());
+//        fos1.close();
+
+        String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
+        String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
+        String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
+        String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
 
         File myImage2 = new File(IMAGES_DIRECTORY + image2.getOriginalFilename());
         myImage2.createNewFile();
@@ -80,8 +98,18 @@ public class PropertyController {
         FileOutputStream fos = new FileOutputStream(myFile);
         fos.write(file.getBytes());
         fos.close();
-
-        property.setImages(new String[]{"assets/images/" + image1.getOriginalFilename(),
+        Property property = new Property();
+        property.setName(name);
+        property.setTitle(title);
+        property.setCity(city);
+        property.setCountry(country);
+        property.setDescription(description);
+        property.setNameEng(nameEng);
+        property.setTitleEng(titleEng);
+        property.setCityEng(cityEng);
+        property.setCountryEng(countryEng);
+        property.setDescriptionEng(descriptionEng);
+        property.setImages(new String[]{ "assets/images/" + imageName1,
                 "assets/images/" + image2.getOriginalFilename(),
                 "assets/images/" + image3.getOriginalFilename(),
                 "assets/images/" + image4.getOriginalFilename()});
@@ -135,5 +163,17 @@ public class PropertyController {
                                @RequestParam(required = false) String file) {
         propertyService.updateProperty(propertyId, name, title, city, country, description,
                 nameEng, titleEng, cityEng, countryEng, descriptionEng, images, file);
+    }
+
+    public static String saveFile(MultipartFile file, String directory, String fileName) {
+        try {
+            Files.write(Paths.get(directory + fileName)
+                    , file.getBytes()
+                    , StandardOpenOption.CREATE);
+            return fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }
