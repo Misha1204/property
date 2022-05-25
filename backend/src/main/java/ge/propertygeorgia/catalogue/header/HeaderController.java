@@ -86,14 +86,14 @@ public class HeaderController {
 
     @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
-    public void updateHeader(@RequestPart("image1") MultipartFile image1
-            , @RequestPart("image2") MultipartFile image2
-            , @RequestPart("image3") MultipartFile image3
-            , @RequestPart("image4") MultipartFile image4
-            , @RequestPart("file1") MultipartFile file1
-            , @RequestPart("file2") MultipartFile file2
-            , @RequestPart("description") String description
-            , @RequestPart("descriptionEng") String descriptionEng) throws IOException {
+    public void updateHeader(@RequestPart(value = "image1", required = false) MultipartFile image1
+            , @RequestPart(value = "image2", required = false) MultipartFile image2
+            , @RequestPart(value = "image3", required = false) MultipartFile image3
+            , @RequestPart(value = "image4", required = false) MultipartFile image4
+            , @RequestPart(value = "file1", required = false) MultipartFile file1
+            , @RequestPart(value = "file2", required = false) MultipartFile file2
+            , @RequestPart(value = "description", required = false) String description
+            , @RequestPart(value = "descriptionEng", required = false) String descriptionEng) throws IOException {
         String[] images = new String[4];
         String[] files = new String[2];
         if (image1 == null) {
