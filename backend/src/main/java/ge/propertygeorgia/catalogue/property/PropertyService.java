@@ -28,8 +28,8 @@ public class PropertyService {
         return null;
     }
 
-    public void postProperty(Property property) {
-        propertyRepository.save(property);
+    public long postProperty(Property property) {
+        return propertyRepository.save(property).getId();
     }
 
     public void deleteProperty(long propertyId) {

@@ -3,6 +3,7 @@ package ge.propertygeorgia.catalogue.property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,20 +34,22 @@ public class PropertyController {
         return propertyService.getProperty(propertyId);
     }
 
-    @PostMapping
-    public void postProperty(@RequestBody Property property) {
-        propertyService.postProperty(property);
-    }
 
     @Value("${images.upload-dir}")
     String IMAGES_DIRECTORY;
+    @Value("${file.upload-dir}")
+    String FILE_DIRECTORY;
 
-    @PostMapping(path = "/uploadImages/{propertyId}")
-    public ResponseEntity<Object> uploadImages(@PathVariable("propertyId") Long propertyId,
-                                               @RequestParam("image1") MultipartFile image1,
-                                               @RequestParam("image2") MultipartFile image2,
-                                               @RequestParam("image3") MultipartFile image3,
-                                               @RequestParam("image4") MultipartFile image4) throws IOException {
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> postProperty(
+            @RequestPart("image1") MultipartFile image1
+            , @RequestPart("image2") MultipartFile image2
+            , @RequestPart("image3") MultipartFile image3
+            , @RequestPart("image4") MultipartFile image4
+            , @RequestPart("file") MultipartFile file
+            , @RequestPart("sectionData") Property property
+    ) throws IOException {
 
         File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
         myImage1.createNewFile();
@@ -72,31 +75,44 @@ public class PropertyController {
         fos4.write(image4.getBytes());
         fos4.close();
 
-        propertyService.updateProperty(propertyId, null, null, null,
-                null, null, null, null,
-                null, null, null,
-                new String[]{"assets/images/" + image1.getOriginalFilename(),
-                        "assets/images/" + image2.getOriginalFilename(),
-                        "assets/images/" + image3.getOriginalFilename(),
-                        "assets/images/" + image4.getOriginalFilename()},
-                null);
-        return new ResponseEntity<Object>("The images have been uploaded.", HttpStatus.OK);
-    }
-
-    @Value("${file.upload-dir}")
-    String FILE_DIRECTORY;
-
-    @PostMapping(path = "/uploadFile/{propertyId}")
-    public ResponseEntity<Object> uploadFile(@PathVariable("propertyId") long propertyId, @RequestParam("file") MultipartFile file) throws IOException {
         File myFile = new File(FILE_DIRECTORY + file.getOriginalFilename());
         myFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(myFile);
         fos.write(file.getBytes());
         fos.close();
-        propertyService.updateProperty(propertyId, null, null, null, null,
-                null, null, null, null, null, null, null, "assets/" + file.getOriginalFilename());
-        return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
+
+        property.setImages(new String[]{"assets/images/" + image1.getOriginalFilename(),
+                "assets/images/" + image2.getOriginalFilename(),
+                "assets/images/" + image3.getOriginalFilename(),
+                "assets/images/" + image4.getOriginalFilename()});
+        property.setFile("assets/" + file.getOriginalFilename());
+        long id = propertyService.postProperty(property);
+        return new ResponseEntity<Object>("sent", HttpStatus.OK);
     }
+
+
+//    @PostMapping(path = "/uploadImages/{propertyId}")
+//    public ResponseEntity<Object> uploadImages(@PathVariable("propertyId") Long propertyId,
+//                                               ) throws IOException {
+//
+//
+//
+//        propertyService.updateProperty(propertyId, null, null, null,
+//                null, null, null, null,
+//                null, null, null,
+//               ,
+//                null);
+//        return new ResponseEntity<Object>("The images have been uploaded.", HttpStatus.OK);
+//    }
+
+
+//    @PostMapping(path = "/uploadFile/{propertyId}")
+//    public ResponseEntity<Object> uploadFile(@PathVariable("propertyId") long propertyId, @RequestParam("file") MultipartFile file) throws IOException {
+//
+//        propertyService.updateProperty(propertyId, null, null, null, null,
+//                null, null, null, null, null, null, null, "assets/" + file.getOriginalFilename());
+//        return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
+//    }
 
     @DeleteMapping(path = "/{propertyId}")
     public void deleteProperty(@PathVariable("propertyId") long propertyId) {
