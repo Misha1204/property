@@ -58,7 +58,13 @@ export class AddSectionComponent implements OnInit {
   }
 
   onCreateSection() {
-    this.formData.append('sectionData', this.form.value);
+    // Object.keys(this.form.value).forEach(key =>
+    //   this.formData.append(key, this.form.value[key])
+    // );
+
+    const dataJson = JSON.stringify(this.form.value);
+    this.formData.append('sectionData', dataJson);
+
     this.landingPageService.addSectionInfo(this.formData).subscribe();
   }
 }
