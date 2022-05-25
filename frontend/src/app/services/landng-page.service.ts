@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SectionPostRequest } from '../models/add-section.model';
+import { Header } from '../models/header.model';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 
@@ -68,8 +69,18 @@ export class LandingPageService {
     },
   ];
 
+  // Header Methods
+  getHeaderInfo() {
+    return this.http.get<Header>(`http://localhost:8080/api/header`);
+  }
+
+  // Section Methods
   getPropertyInfo() {
     return this.http.get<Section[]>(`http://localhost:8080/api/property`);
+  }
+
+  getPropertyInfoById(id: number) {
+    return this.http.get<Section>(`http://localhost:8080/api/property/${id}`);
   }
 
   addSectionInfo(formData: any) {

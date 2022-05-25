@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { tap } from 'rxjs';
+import { Section } from 'src/app/models/section.model';
+import { LandingPageService } from 'src/app/services/landng-page.service';
 
 @Component({
   selector: 'app-sections',
@@ -9,23 +12,27 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SectionsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'actions'];
-  dataSource = new MatTableDataSource<Section>(SECTION_DATA);
+  dataSource!: MatTableDataSource<Section>;
+
+  constructor(private landingPageService: LandingPageService) {}
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.landingPageService
+      .getPropertyInfo()
+      .pipe(
+        tap(res => {
+          this.dataSource = new MatTableDataSource<Section>(res);
+          this.dataSource.paginator = this.paginator;
+        })
+      )
+      .subscribe();
+  }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
   }
-}
 
-export interface Section {
-  id: number;
-  name: string;
+  deleteSection(sectionId: number) {}
 }
-
-const SECTION_DATA: Section[] = [
-  { id: 1, name: 'Header Section' },
-  { id: 2, name: 'Aliance Group Section' },
-];

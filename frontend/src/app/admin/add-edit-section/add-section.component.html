@@ -69,7 +69,7 @@
         </div>
 
         <button (click)="onCreateSection()" type="button">
-          Create Section
+          {{ sectionId ? 'Update Section' : 'Create Section' }}
         </button>
       </form>
     </div>

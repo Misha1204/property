@@ -20,10 +20,14 @@
         <ng-container matColumnDef="actions">
           <th class="text-right" mat-header-cell *matHeaderCellDef>Actions</th>
           <td class="text-right" mat-cell *matCellDef="let element">
-            <a routerLink="edit_section/1">
+            <a routerLink="edit_section/{{ element.id }}">
               <span class="material-symbols-outlined"> edit </span>
             </a>
-            <span class="material-symbols-outlined"> delete </span>
+            <span
+              (click)="deleteSection(element.id)"
+              class="material-symbols-outlined">
+              delete
+            </span>
           </td>
         </ng-container>
 

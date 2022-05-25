@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { pipe, tap } from 'rxjs';
+import { Section } from 'src/app/models/section.model';
 import { LandingPageService } from '../../services/landng-page.service';
 
 @Component({
@@ -11,27 +14,49 @@ export class AddSectionComponent implements OnInit {
   form!: FormGroup;
   formData = new FormData();
 
+  sectionId!: number | null;
+  section!: Section;
+
   constructor(
     private fb: FormBuilder,
-    private landingPageService: LandingPageService
-  ) {}
+    private landingPageService: LandingPageService,
+    private route: ActivatedRoute
+  ) {
+    this.sectionId = <number | null>this.route.snapshot.paramMap.get('id');
+  }
 
   ngOnInit(): void {
-    this.initForm();
+    if (!this.sectionId) {
+      this.initForm();
+    } else {
+      this.landingPageService
+        .getPropertyInfoById(this.sectionId)
+        .pipe(
+          tap(res => {
+            this.section = res;
+            this.initForm();
+          })
+        )
+        .subscribe();
+    }
   }
 
   initForm() {
     this.form = this.fb.group({
-      name: this.fb.control(''),
-      title: this.fb.control(''),
-      city: this.fb.control(''),
-      country: this.fb.control(''),
-      description: this.fb.control(''),
-      nameEng: this.fb.control(''),
-      titleEng: this.fb.control(''),
-      cityEng: this.fb.control(''),
-      countryEng: this.fb.control(''),
-      descriptionEng: this.fb.control(''),
+      name: this.fb.control(this.section ? this.section.name : ''),
+      title: this.fb.control(this.section ? this.section.title : ''),
+      city: this.fb.control(this.section ? this.section.city : ''),
+      country: this.fb.control(this.section ? this.section.country : ''),
+      description: this.fb.control(
+        this.section ? this.section.description : ''
+      ),
+      nameEng: this.fb.control(this.section ? this.section.nameEng : ''),
+      titleEng: this.fb.control(this.section ? this.section.titleEng : ''),
+      cityEng: this.fb.control(this.section ? this.section.cityEng : ''),
+      countryEng: this.fb.control(this.section ? this.section.countryEng : ''),
+      descriptionEng: this.fb.control(
+        this.section ? this.section.descriptionEng : ''
+      ),
     });
   }
 

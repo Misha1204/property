@@ -5,6 +5,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { tap } from 'rxjs';
+import { Header } from 'src/app/models/header.model';
 import { LandingPageService } from 'src/app/services/landng-page.service';
 
 @Component({
@@ -16,15 +18,41 @@ export class AddHeaderComponent implements OnInit {
   form!: FormGroup;
   formData = new FormData();
 
+  headerInfo!: Header;
+
   constructor(
     private fb: FormBuilder,
     private landingPageService: LandingPageService
   ) {}
 
   ngOnInit(): void {
+    this.landingPageService
+      .getHeaderInfo()
+      .pipe(
+        tap(res => {
+          console.log(res);
+
+          if (res) {
+            this.headerInfo = res;
+            this.initForm();
+          } else {
+            this.initForm();
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  initForm() {
     this.form = this.fb.group({
-      description: new FormControl('', Validators.required),
-      descriptionEng: new FormControl('', Validators.required),
+      description: new FormControl(
+        this.headerInfo ? this.headerInfo.description : '',
+        Validators.required
+      ),
+      descriptionEng: new FormControl(
+        this.headerInfo ? this.headerInfo.descriptionEng : '',
+        Validators.required
+      ),
     });
   }
 
