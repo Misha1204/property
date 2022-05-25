@@ -22,6 +22,8 @@ export class AddHeaderComponent implements OnInit {
 
   imagesCounter = 1;
   filesCounter = 1;
+  imagesAddressCounter = 1;
+  filesAddressCounter = 1;
 
   constructor(
     private fb: FormBuilder,
@@ -116,15 +118,15 @@ export class AddHeaderComponent implements OnInit {
   onUpdateHeader() {
     if (this.headerInfo && this.headerInfo.images.length > 0) {
       this.headerInfo.images.forEach(image => {
-        this.formData.append(`image${this.imagesCounter}`, image);
-        this.imagesCounter++;
+        this.formData.append(`imageAddress${this.imagesAddressCounter}`, image);
+        this.imagesAddressCounter++;
       });
     }
 
     if (this.headerInfo && this.headerInfo.files.length > 0) {
       this.headerInfo.files.forEach(file => {
-        this.formData.append(`file${this.filesCounter}`, file);
-        this.filesCounter++;
+        this.formData.append(`fileAddress${this.filesAddressCounter}`, file);
+        this.filesAddressCounter++;
       });
     }
 
