@@ -11,9 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 
 
 @RestController
@@ -99,47 +97,54 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
         if (image1 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getImages()[0]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[0]);
             images[0] = "";
         } else {
             String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
             images[0] = "assets/images/" + imageName1;
         }
         if (image2 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getImages()[1]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[1]);
             images[1] = "";
         } else {
             String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
             images[1] = "assets/images/" + imageName2;
         }
         if (image3 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getImages()[2]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[2]);
             images[2] = "";
         } else {
             String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
             images[2] = "assets/images/" + imageName3;
         }
         if (image4 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getImages()[3]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[3]);
             images[3] = "";
         } else {
             String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
             images[3] = "assets/images/" + imageName4;
         }
         if (file1 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getFiles()[0]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[0]);
             files[0] = "";
         } else {
             String fileName1 = saveFile(file1, FILE_DIRECTORY, file1.getOriginalFilename());
             files[0] = "assets/" + fileName1;
         }
         if (file2 == null) {
-            Files.delete(Paths.get(headerService.getHeader().getFiles()[1]));
+            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[1]);
             files[1] = "";
         } else {
             String fileName2 = saveFile(file2, FILE_DIRECTORY, file2.getOriginalFilename());
             files[1] = "assets/" + fileName2;
         }
+
+//        if(description==null){
+//            description = "";
+//        }
+//        if(descriptionEng==null){
+//            descriptionEng = "";
+//        }
         headerService.updateHeader(description, descriptionEng, images, files);
     }
 
