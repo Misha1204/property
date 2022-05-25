@@ -63,41 +63,12 @@ public class PropertyController {
             , @RequestPart("countryEng") String countryEng
             , @RequestPart("descriptionEng") String descriptionEng
     ) throws IOException {
-
-//        File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
-//        myImage1.createNewFile();
-//        FileOutputStream fos1 = new FileOutputStream(myImage1);
-//        fos1.write(image1.getBytes());
-//        fos1.close();
-
         String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
         String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
         String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
         String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
+        String fileName = saveFile(file, FILE_DIRECTORY, file.getOriginalFilename());
 
-        File myImage2 = new File(IMAGES_DIRECTORY + image2.getOriginalFilename());
-        myImage2.createNewFile();
-        FileOutputStream fos2 = new FileOutputStream(myImage2);
-        fos2.write(image2.getBytes());
-        fos2.close();
-
-        File myImage3 = new File(IMAGES_DIRECTORY + image3.getOriginalFilename());
-        myImage3.createNewFile();
-        FileOutputStream fos3 = new FileOutputStream(myImage3);
-        fos3.write(image3.getBytes());
-        fos3.close();
-
-        File myImage4 = new File(IMAGES_DIRECTORY + image4.getOriginalFilename());
-        myImage4.createNewFile();
-        FileOutputStream fos4 = new FileOutputStream(myImage4);
-        fos4.write(image4.getBytes());
-        fos4.close();
-
-        File myFile = new File(FILE_DIRECTORY + file.getOriginalFilename());
-        myFile.createNewFile();
-        FileOutputStream fos = new FileOutputStream(myFile);
-        fos.write(file.getBytes());
-        fos.close();
         Property property = new Property();
         property.setName(name);
         property.setTitle(title);
@@ -110,10 +81,10 @@ public class PropertyController {
         property.setCountryEng(countryEng);
         property.setDescriptionEng(descriptionEng);
         property.setImages(new String[]{ "assets/images/" + imageName1,
-                "assets/images/" + image2.getOriginalFilename(),
-                "assets/images/" + image3.getOriginalFilename(),
-                "assets/images/" + image4.getOriginalFilename()});
-        property.setFile("assets/" + file.getOriginalFilename());
+                "assets/images/" + imageName2,
+                "assets/images/" + imageName3,
+                "assets/images/" + imageName4});
+        property.setFile("assets/" + fileName);
         long id = propertyService.postProperty(property);
         return new ResponseEntity<Object>("sent", HttpStatus.OK);
     }

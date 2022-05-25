@@ -11,6 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 
 @RestController
@@ -46,125 +49,111 @@ public class HeaderController {
             , @RequestPart("description") String description
             , @RequestPart("descriptionEng") String descriptionEng
     ) throws IOException {
-        File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
-        myImage1.createNewFile();
-        FileOutputStream fos1 = new FileOutputStream(myImage1);
-        fos1.write(image1.getBytes());
-        fos1.close();
-
-        File myImage2 = new File(IMAGES_DIRECTORY + image2.getOriginalFilename());
-        myImage2.createNewFile();
-        FileOutputStream fos2 = new FileOutputStream(myImage2);
-        fos2.write(image2.getBytes());
-        fos2.close();
-
-        File myImage3 = new File(IMAGES_DIRECTORY + image3.getOriginalFilename());
-        myImage3.createNewFile();
-        FileOutputStream fos3 = new FileOutputStream(myImage3);
-        fos3.write(image3.getBytes());
-        fos3.close();
-
-        File myImage4 = new File(IMAGES_DIRECTORY + image4.getOriginalFilename());
-        myImage4.createNewFile();
-        FileOutputStream fos4 = new FileOutputStream(myImage4);
-        fos4.write(image4.getBytes());
-        fos4.close();
-
-        File myFile1 = new File(FILE_DIRECTORY + file1.getOriginalFilename());
-        myFile1.createNewFile();
-        FileOutputStream fos5 = new FileOutputStream(myFile1);
-        fos5.write(file1.getBytes());
-        fos5.close();
-
-        File myFile2 = new File(FILE_DIRECTORY + file2.getOriginalFilename());
-        myFile2.createNewFile();
-        FileOutputStream fos6 = new FileOutputStream(myFile1);
-        fos6.write(file2.getBytes());
-        fos6.close();
+        String[] images = new String[4];
+        String[] files = new String[2];
+        if (image1 != null) {
+            String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
+            images[0] = "assets/images/" + imageName1;
+        }
+        if (image2 != null) {
+            String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
+            images[1] = "assets/images/" + imageName2;
+        }
+        if (image3 != null) {
+            String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
+            images[2] = "assets/images/" + imageName3;
+        }
+        if (image4 != null) {
+            String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
+            images[3] = "assets/images/" + imageName4;
+        }
+        if (file1 != null) {
+            String fileName1 = saveFile(file1, FILE_DIRECTORY, file1.getOriginalFilename());
+            files[0] = "assets/" + fileName1;
+        }
+        if (file2 != null) {
+            String fileName2 = saveFile(file2, FILE_DIRECTORY, file2.getOriginalFilename());
+            files[1] = "assets/" + fileName2;
+        }
 
         Header header = new Header();
         header.setDescription(description);
         header.setDescriptionEng(descriptionEng);
-        header.setImages(new String[]{"assets/images/" + image1.getOriginalFilename(),
-                "assets/images/" + image2.getOriginalFilename(),
-                "assets/images/" + image3.getOriginalFilename(),
-                "assets/images/" + image4.getOriginalFilename()});
-        header.setFiles(new String[]{"assets/" + file1.getOriginalFilename(), "assets/" + file2.getOriginalFilename()});
+        header.setImages(images);
+        header.setFiles(files);
 
         headerService.postHeader(header);
         return new ResponseEntity<Object>("sent", HttpStatus.OK);
     }
 
-//    @Value("${images.upload-dir}")
-//    String IMAGES_DIRECTORY;
-
-//    @PostMapping(path = "/uploadImages")
-//    public ResponseEntity<Object> uploadImages(@RequestParam("image1") MultipartFile image1,
-//                                               @RequestParam("image2") MultipartFile image2,
-//                                               @RequestParam("image3") MultipartFile image3,
-//                                               @RequestParam("image4") MultipartFile image4) throws IOException {
-//
-//        File myImage1 = new File(IMAGES_DIRECTORY + image1.getOriginalFilename());
-//        myImage1.createNewFile();
-//        FileOutputStream fos1 = new FileOutputStream(myImage1);
-//        fos1.write(image1.getBytes());
-//        fos1.close();
-//
-//        File myImage2 = new File(IMAGES_DIRECTORY + image2.getOriginalFilename());
-//        myImage2.createNewFile();
-//        FileOutputStream fos2 = new FileOutputStream(myImage2);
-//        fos2.write(image2.getBytes());
-//        fos2.close();
-//
-//        File myImage3 = new File(IMAGES_DIRECTORY + image3.getOriginalFilename());
-//        myImage3.createNewFile();
-//        FileOutputStream fos3 = new FileOutputStream(myImage3);
-//        fos3.write(image3.getBytes());
-//        fos3.close();
-//
-//        File myImage4 = new File(IMAGES_DIRECTORY + image4.getOriginalFilename());
-//        myImage4.createNewFile();
-//        FileOutputStream fos4 = new FileOutputStream(myImage4);
-//        fos4.write(image4.getBytes());
-//        fos4.close();
-//
-//        headerService.updateHeader( null, null,
-//                new String[]{"assets/images/" + image1.getOriginalFilename(),
-//                        "assets/images/" + image2.getOriginalFilename(),
-//                        "assets/images/" + image3.getOriginalFilename(),
-//                        "assets/images/" + image4.getOriginalFilename()},
-//                null);
-//        return new ResponseEntity<Object>("The images have been uploaded.", HttpStatus.OK);
-//    }
-
-//    @Value("${file.upload-dir}")
-//    String FILE_DIRECTORY;
-//
-//    @PostMapping(path = "/uploadFiles")
-//    public ResponseEntity<Object> uploadFile(@RequestParam("file1") MultipartFile file1,
-//                                             @RequestParam("file2") MultipartFile file2) throws IOException {
-//        File myFile1 = new File(FILE_DIRECTORY + file1.getOriginalFilename());
-//        myFile1.createNewFile();
-//        FileOutputStream fos1 = new FileOutputStream(myFile1);
-//        fos1.write(file1.getBytes());
-//        fos1.close();
-//
-//        File myFile2 = new File(FILE_DIRECTORY + file2.getOriginalFilename());
-//        myFile2.createNewFile();
-//        FileOutputStream fos2 = new FileOutputStream(myFile1);
-//        fos2.write(file2.getBytes());
-//        fos2.close();
-//
-//        headerService.updateHeader( null, null, null, new String[]{"assets/" + file1.getOriginalFilename(), "assets/" + file2.getOriginalFilename()});
-//        return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
-//    }
-
-    @PutMapping
-    public void updateHeader(@RequestParam(required = false) String description,
-                             @RequestParam(required = false) String descriptionEng,
-                             @RequestParam(required = false) String[] images,
-                             @RequestParam(required = false) String[] files){
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public void updateHeader(@RequestPart("image1") MultipartFile image1
+            , @RequestPart("image2") MultipartFile image2
+            , @RequestPart("image3") MultipartFile image3
+            , @RequestPart("image4") MultipartFile image4
+            , @RequestPart("file1") MultipartFile file1
+            , @RequestPart("file2") MultipartFile file2
+            , @RequestPart("description") String description
+            , @RequestPart("descriptionEng") String descriptionEng) throws IOException {
+        String[] images = new String[4];
+        String[] files = new String[2];
+        if (image1 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getImages()[0]));
+            images[0] = "";
+        } else {
+            String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
+            images[0] = "assets/images/" + imageName1;
+        }
+        if (image2 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getImages()[1]));
+            images[1] = "";
+        } else {
+            String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
+            images[1] = "assets/images/" + imageName2;
+        }
+        if (image3 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getImages()[2]));
+            images[2] = "";
+        } else {
+            String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
+            images[2] = "assets/images/" + imageName3;
+        }
+        if (image4 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getImages()[3]));
+            images[3] = "";
+        } else {
+            String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
+            images[3] = "assets/images/" + imageName4;
+        }
+        if (file1 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getFiles()[0]));
+            files[0] = "";
+        } else {
+            String fileName1 = saveFile(file1, FILE_DIRECTORY, file1.getOriginalFilename());
+            files[0] = "assets/" + fileName1;
+        }
+        if (file2 == null) {
+            Files.delete(Paths.get(headerService.getHeader().getFiles()[1]));
+            files[1] = "";
+        } else {
+            String fileName2 = saveFile(file2, FILE_DIRECTORY, file2.getOriginalFilename());
+            files[1] = "assets/" + fileName2;
+        }
         headerService.updateHeader(description, descriptionEng, images, files);
     }
+
+    public static String saveFile(MultipartFile file, String directory, String fileName) {
+        try {
+            Files.write(Paths.get(directory + fileName)
+                    , file.getBytes()
+                    , StandardOpenOption.CREATE);
+            return fileName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
 }
