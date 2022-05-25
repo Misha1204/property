@@ -1,15 +1,60 @@
 import { Component, OnInit } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-add-header',
   templateUrl: './add-header.component.html',
-  styleUrls: ['./add-header.component.scss']
+  styleUrls: ['./add-header.component.scss'],
 })
 export class AddHeaderComponent implements OnInit {
+  form!: FormGroup;
+  formData = new FormData();
 
-  constructor() { }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.form = this.fb.group({
+      description: new FormControl('', Validators.required),
+      descriptionEng: new FormControl('', Validators.required),
+    });
   }
 
+  onImageSelected(event: any) {
+    let counter = 1;
+    Object.getOwnPropertyNames(event.target.files).forEach(property => {
+      if (property !== 'length') {
+        this.formData.append(
+          `image${counter}`,
+          event.target.files[+property],
+          event.target.files[+property].name
+        );
+        counter++;
+      }
+    });
+  }
+
+  onPdfSelected(event: any) {
+    let counter = 1;
+    Object.getOwnPropertyNames(event.target.files).forEach(property => {
+      if (property !== 'length') {
+        this.formData.append(
+          `file${counter}`,
+          event.target.files[+property],
+          event.target.files[+property].name
+        );
+        counter++;
+      }
+    });
+  }
+
+  onUpdateHeader() {
+    Object.keys(this.form.value).forEach(key =>
+      this.formData.append(key, this.form.value[key])
+    );
+  }
 }

@@ -1,7 +1,7 @@
 .main-container {
   position: relative;
   width: 100%;
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 .content {
@@ -11,5 +11,47 @@
 
 .table {
   width: 100%;
-  background-color: red;
+
+  h1 {
+    margin-bottom: 50px;
+    font-weight: bold;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 15px;
+  }
+}
+
+.update-header-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 150px;
+  height: 35px;
+
+  color: #fff;
+
+  text-decoration: none;
+  background-color: #4f46e5;
+
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  margin-top: 30px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #463eda;
+  }
 }

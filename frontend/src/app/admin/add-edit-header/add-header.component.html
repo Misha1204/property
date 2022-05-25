@@ -1,7 +1,33 @@
 <main class="main-container">
   <div class="content">
     <div class="table">
-      <p>Header</p>
+      <h1>Update Header</h1>
+
+      <form *ngIf="form" [formGroup]="form" class="form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Description Geo</mat-label>
+          <textarea formControlName="description" matInput></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Description Eng</mat-label>
+          <textarea formControlName="descriptionEng" matInput></textarea>
+        </mat-form-field>
+
+        <div>
+          <label for="images">Images</label>
+          <input (change)="onImageSelected($event)" type="file" multiple />
+        </div>
+
+        <div>
+          <label for="files">Files</label>
+          <input (change)="onPdfSelected($event)" type="file" multiple />
+        </div>
+
+        <button (click)="onUpdateHeader()" class="update-header-btn">
+          Update Header
+        </button>
+      </form>
     </div>
   </div>
 </main>
