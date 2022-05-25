@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LandingPageService } from '../services/landng-page.service';
+import { LandingPageService } from '../../services/landng-page.service';
 
 @Component({
   selector: 'app-add-section',
@@ -61,9 +61,6 @@ export class AddSectionComponent implements OnInit {
     Object.keys(this.form.value).forEach(key =>
       this.formData.append(key, this.form.value[key])
     );
-
-    // const dataJson = JSON.stringify(this.form.value);
-    // this.formData.append('sectionData', dataJson);
 
     this.landingPageService.addSectionInfo(this.formData).subscribe();
   }

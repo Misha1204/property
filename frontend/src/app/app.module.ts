@@ -8,16 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ScrollLeftDirective } from './directives/scroll-left.directive';
 import { ScrollRightDirective } from './directives/scroll-right.directive';
-import { AdminComponent } from './admin/admin.component';
-import { EditSectionComponent } from './edit-section/edit-section.component';
-import { AuthComponent } from './auth/auth.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { AddSectionComponent } from './add-section/add-section.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,10 +17,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     LandingPageComponent,
     ScrollLeftDirective,
     ScrollRightDirective,
-    AdminComponent,
-    EditSectionComponent,
-    AuthComponent,
-    AddSectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,10 +24,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatInputModule,
-    MatButtonModule,
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
