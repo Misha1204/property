@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { LandingPageService } from 'src/app/services/landng-page.service';
 
 @Component({
   selector: 'app-add-header',
@@ -15,7 +16,10 @@ export class AddHeaderComponent implements OnInit {
   form!: FormGroup;
   formData = new FormData();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private landingPageService: LandingPageService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -56,5 +60,7 @@ export class AddHeaderComponent implements OnInit {
     Object.keys(this.form.value).forEach(key =>
       this.formData.append(key, this.form.value[key])
     );
+
+    this.landingPageService.addHeaderInfo(this.formData).subscribe();
   }
 }

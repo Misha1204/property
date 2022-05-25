@@ -1,65 +1,71 @@
 <div class="main-container">
   <div class="content">
     <div class="form-container">
+      <h1>Add Section</h1>
       <form *ngIf="this.form" [formGroup]="form">
-        <div>
-          <label for="name">Name Geo</label>
-          <input type="text" formControlName="name" />
-        </div>
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Name Geo</mat-label>
+          <input formControlName="name" matInput value="name" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Title Geo</mat-label>
+          <input formControlName="title" matInput value="title" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>City Geo</mat-label>
+          <input formControlName="city" matInput value="city" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Country Geo</mat-label>
+          <input formControlName="country" matInput value="country" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Description Geo</mat-label>
+          <input formControlName="description" matInput value="description" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Name Eng</mat-label>
+          <input formControlName="nameEng" matInput value="nameEng" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Title Eng</mat-label>
+          <input formControlName="titleEng" matInput value="titleEng" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>City Eng</mat-label>
+          <input formControlName="cityEng" matInput value="cityEng" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Country Eng</mat-label>
+          <input formControlName="countryEng" matInput value="countryEng" />
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width full-width" appearance="fill">
+          <mat-label>Description Eng</mat-label>
+          <input
+            formControlName="descriptionEng"
+            matInput
+            value="descriptionEng" />
+        </mat-form-field>
 
         <div>
-          <label for="title">Title Geo</label>
-          <input type="text" formControlName="title" />
-        </div>
+          <div>
+            <label for="images">Images</label>
+            <input type="file" (change)="onImageSelected($event)" multiple />
+          </div>
 
-        <div>
-          <label for="city">City Geo</label>
-          <input type="text" formControlName="city" />
-        </div>
-
-        <div>
-          <label for="country">Country Geo</label>
-          <input type="text" formControlName="country" />
-        </div>
-
-        <div>
-          <label for="description">Description Geo</label>
-          <input type="text" formControlName="description" />
-        </div>
-
-        <div>
-          <label for="nameEng">Name Eng</label>
-          <input type="text" formControlName="nameEng" />
-        </div>
-
-        <div>
-          <label for="titleEng">Title Eng</label>
-          <input type="text" formControlName="titleEng" />
-        </div>
-
-        <div>
-          <label for="cityEng">City Eng</label>
-          <input type="text" formControlName="cityEng" />
-        </div>
-
-        <div>
-          <label for="countryEng">Country Eng</label>
-          <input type="text" formControlName="countryEng" />
-        </div>
-
-        <div>
-          <label for="descriptionEng">Description Eng</label>
-          <input type="text" formControlName="descriptionEng" />
-        </div>
-
-        <div>
-          <label for="images">Images</label>
-          <input type="file" (change)="onImageSelected($event)" multiple />
-        </div>
-
-        <div>
-          <label for="file">PDF</label>
-          <input type="file" (change)="onPdfSelected($event)" />
+          <div class="pdf-container">
+            <label for="file">PDF</label>
+            <input type="file" (change)="onPdfSelected($event)" />
+          </div>
         </div>
 
         <button (click)="onCreateSection()" type="button">

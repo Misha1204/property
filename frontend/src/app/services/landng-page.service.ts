@@ -86,4 +86,8 @@ export class LandingPageService {
   addUserInfo(request: UserInfo) {
     return this.http.post(`http://localhost:8080/api/subscriber`, request);
   }
+
+  addHeaderInfo(formData: any) {
+    return this.http.post(`http://localhost:8080/api/header`, formData);
+  }
 }
