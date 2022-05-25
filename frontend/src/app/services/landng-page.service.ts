@@ -74,6 +74,10 @@ export class LandingPageService {
     return this.http.get<Header>(`http://localhost:8080/api/header`);
   }
 
+  updateHeaderInfo(formData: any) {
+    return this.http.put(`http://localhost:8080/api/header`, formData);
+  }
+
   // Section Methods
   getPropertyInfo() {
     return this.http.get<Section[]>(`http://localhost:8080/api/property`);

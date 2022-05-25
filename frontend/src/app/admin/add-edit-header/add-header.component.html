@@ -14,24 +14,47 @@
           <textarea formControlName="descriptionEng" matInput></textarea>
         </mat-form-field>
 
-        <div class="images-container">
-          <img
-            *ngFor="let image of headerInfo.images"
-            src="{{ image }}"
-            alt="" />
+        <div *ngIf="headerInfo" class="images-container">
+          <div
+            [ngClass]="{ 'margin-right-4': i < 3 }"
+            *ngFor="let image of headerInfo.images; let i = index">
+            <img src="{{ image }}" alt="" />
+            <span
+              (click)="deleteImage(image)"
+              class="material-symbols-outlined">
+              delete
+            </span>
+          </div>
         </div>
 
-        <div>
+        <div class="upload">
           <label for="images">Images</label>
-          <input (change)="onImageSelected($event)" type="file" multiple />
+          <input
+            (change)="onImageSelected($event)"
+            formControlName="images"
+            type="file"
+            multiple />
+          <span *ngIf="form.get('images')?.hasError('limitation')" class="error"
+            >შესაძლებელია მაქსიმუმ ოთხი ფოტოს ატვირთვა</span
+          >
         </div>
 
-        <div>
+        <div class="upload">
           <label for="files">Files</label>
-          <input (change)="onPdfSelected($event)" type="file" multiple />
+          <input
+            (change)="onPdfSelected($event)"
+            formControlName="files"
+            type="file"
+            multiple />
+          <span *ngIf="form.get('files')?.hasError('limitation')" class="error"
+            >შესაძლებელია მაქსიმუმ ორი PDF ფაილის ატვირთვა</span
+          >
         </div>
 
-        <button (click)="onUpdateHeader()" class="update-header-btn">
+        <button
+          [disabled]="!form.valid"
+          (click)="onUpdateHeader()"
+          class="update-header-btn">
           {{ headerInfo ? 'Update Header' : 'Add Header' }}
         </button>
       </form>

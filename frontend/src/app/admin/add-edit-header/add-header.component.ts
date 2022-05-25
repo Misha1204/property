@@ -20,6 +20,9 @@ export class AddHeaderComponent implements OnInit {
 
   headerInfo!: Header;
 
+  imagesCounter = 1;
+  filesCounter = 1;
+
   constructor(
     private fb: FormBuilder,
     private landingPageService: LandingPageService
@@ -30,8 +33,6 @@ export class AddHeaderComponent implements OnInit {
       .getHeaderInfo()
       .pipe(
         tap(res => {
-          console.log(res);
-
           if (res) {
             this.headerInfo = res;
             this.initForm();
@@ -53,42 +54,90 @@ export class AddHeaderComponent implements OnInit {
         this.headerInfo ? this.headerInfo.descriptionEng : '',
         Validators.required
       ),
+      images: new FormControl(''),
+      files: new FormControl(''),
     });
   }
 
   onImageSelected(event: any) {
-    let counter = 1;
+    if (
+      this.headerInfo &&
+      event.target.files.length + this.headerInfo.images.length > 4
+    ) {
+      this.form.get('images')?.reset();
+      this.form.get('images')?.setErrors({
+        limitation: 'შესაძლებელია მაქსიმუმ ოთხი ფოტოს ატვირთვა',
+      });
+      return;
+    }
+
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `image${counter}`,
+          `image${this.imagesCounter}`,
           event.target.files[+property],
           event.target.files[+property].name
         );
-        counter++;
+        this.imagesCounter++;
       }
     });
   }
 
   onPdfSelected(event: any) {
-    let counter = 1;
+    if (
+      this.headerInfo &&
+      event.target.files.length + this.headerInfo.files.length > 2
+    ) {
+      this.form.get('files')?.reset();
+      this.form.get('files')?.setErrors({
+        limitation: 'შესაძლებელია მაქსიმუმ ორი PDF ფაილის ატვირთვა',
+      });
+      return;
+    }
+
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `file${counter}`,
+          `file${this.filesCounter}`,
           event.target.files[+property],
           event.target.files[+property].name
         );
-        counter++;
+        this.filesCounter++;
       }
     });
   }
 
-  onUpdateHeader() {
-    Object.keys(this.form.value).forEach(key =>
-      this.formData.append(key, this.form.value[key])
+  deleteImage(image: string) {
+    this.headerInfo.images = this.headerInfo.images.filter(
+      res => res !== image
     );
+  }
 
-    this.landingPageService.addHeaderInfo(this.formData).subscribe();
+  onUpdateHeader() {
+    if (this.headerInfo && this.headerInfo.images.length > 0) {
+      this.headerInfo.images.forEach(image => {
+        this.formData.append(`image${this.imagesCounter}`, image);
+        this.imagesCounter++;
+      });
+    }
+
+    if (this.headerInfo && this.headerInfo.files.length > 0) {
+      this.headerInfo.files.forEach(file => {
+        this.formData.append(`file${this.filesCounter}`, file);
+        this.filesCounter++;
+      });
+    }
+
+    Object.keys(this.form.value).forEach(key => {
+      if (key !== 'images' && key !== 'files') {
+        this.formData.append(key, this.form.value[key]);
+      }
+    });
+
+    if (this.headerInfo) {
+      this.landingPageService.updateHeaderInfo(this.formData).subscribe();
+    } else {
+      this.landingPageService.addHeaderInfo(this.formData).subscribe();
+    }
   }
 }
