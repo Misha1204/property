@@ -93,50 +93,76 @@ public class HeaderController {
             , @RequestPart(value = "file1", required = false) MultipartFile file1
             , @RequestPart(value = "file2", required = false) MultipartFile file2
             , @RequestPart(value = "description", required = false) String description
-            , @RequestPart(value = "descriptionEng", required = false) String descriptionEng) throws IOException {
+            , @RequestPart(value = "descriptionEng", required = false) String descriptionEng
+            , @RequestPart(value = "imageAddress1", required = false) String imageAddress1
+            , @RequestPart(value = "imageAddress2", required = false) String imageAddress2
+            , @RequestPart(value = "imageAddress3", required = false) String imageAddress3
+            , @RequestPart(value = "imageAddress4", required = false) String imageAddress4
+            , @RequestPart(value = "fileAddress1", required = false) String fileAddress1
+            , @RequestPart(value = "fileAddress2", required = false) String fileAddress2) throws IOException {
         String[] images = new String[4];
         String[] files = new String[2];
+        int index = 0;
+        int index2 = 0;
+        if (imageAddress1 != null){
+            images[index++] = imageAddress1;
+        }
+        if (imageAddress2 != null){
+            images[index++] = imageAddress2;
+        }
+        if (imageAddress3 != null){
+            images[index++] = imageAddress3;
+        }
+        if (imageAddress4 != null){
+            images[index] = imageAddress4;
+        }
         if (image1 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[0]);
-            images[0] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[index++]);
+            images[index] = "";
         } else {
             String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
-            images[0] = "assets/images/" + imageName1;
+            images[index] = "assets/images/" + imageName1;
         }
         if (image2 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[1]);
-            images[1] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[index++]);
+            images[index] = "";
         } else {
             String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
-            images[1] = "assets/images/" + imageName2;
+            images[index] = "assets/images/" + imageName2;
         }
         if (image3 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[2]);
-            images[2] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[index++]);
+            images[index] = "";
         } else {
             String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
-            images[2] = "assets/images/" + imageName3;
+            images[index] = "assets/images/" + imageName3;
         }
         if (image4 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[3]);
-            images[3] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getImages()[index++]);
+            images[index] = "";
         } else {
             String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
-            images[3] = "assets/images/" + imageName4;
+            images[index] = "assets/images/" + imageName4;
+        }
+        if (fileAddress1 != null){
+            images[index2++] = fileAddress1;
+        }
+        if (fileAddress2 != null){
+            images[index] = fileAddress2;
         }
         if (file1 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[0]);
-            files[0] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[index2++]);
+            files[index2] = "";
         } else {
             String fileName1 = saveFile(file1, FILE_DIRECTORY, file1.getOriginalFilename());
-            files[0] = "assets/" + fileName1;
+            files[index2] = "assets/" + fileName1;
         }
         if (file2 == null) {
-            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[1]);
-            files[1] = "";
+            FileSystems.getDefault().getPath(headerService.getHeader().getFiles()[index2++]);
+            files[index2] = "";
         } else {
             String fileName2 = saveFile(file2, FILE_DIRECTORY, file2.getOriginalFilename());
-            files[1] = "assets/" + fileName2;
+            files[index2] = "assets/" + fileName2;
         }
 
 //        if(description==null){
