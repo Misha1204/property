@@ -21,6 +21,13 @@ public class SliderService {
         return sliderRepository.findAll();
     }
 
+    public Slider getSlider(Long sliderId) {
+        if (sliderRepository.existsById(sliderId)) {
+            return sliderRepository.findById(sliderId).get();
+        }
+        return null;
+    }
+
     public void postSlider(Slider slider) {
         sliderRepository.save(slider);
     }
@@ -40,4 +47,5 @@ public class SliderService {
             if (image != null) slider.setImage(image);
         }
     }
+
 }

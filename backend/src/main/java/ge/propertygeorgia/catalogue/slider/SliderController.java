@@ -1,10 +1,12 @@
 package ge.propertygeorgia.catalogue.slider;
 
 
-
+import ge.propertygeorgia.catalogue.FileUtils;
+import ge.propertygeorgia.catalogue.property.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,12 +15,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
-@RequestMapping (path = "/api/slider")
+@RequestMapping(path = "/api/slider")
 public class SliderController {
 
     private final SliderService sliderService;
+    @Value("${images.upload-dir}")
+    String IMAGES_DIRECTORY;
 
     @Autowired
     public SliderController(SliderService slierService) {
@@ -30,26 +35,22 @@ public class SliderController {
         return sliderService.getSliders();
     }
 
-    @PostMapping
-    public void postSlider(@RequestBody Slider slider) {
-       sliderService.postSlider(slider);
+
+    @GetMapping(path = "/{sliderId}")
+    public Slider getProperty(@PathVariable("sliderId") Long sliderId) {
+        return sliderService.getSlider(sliderId);
     }
 
-    @Value("${images.upload-dir}")
-    String IMAGES_DIRECTORY;
-
-    @PostMapping(path = "/uploadImage/{sliderId}")
-    public ResponseEntity<Object> uploadImages(@PathVariable("sliderId") Long sliderId,
-                                               @RequestParam("image") MultipartFile image) throws IOException {
-
-        File myImage = new File(IMAGES_DIRECTORY + image.getOriginalFilename());
-        myImage.createNewFile();
-        FileOutputStream fos = new FileOutputStream(myImage);
-        fos.write(image.getBytes());
-        fos.close();
-
-        sliderService.updateSlider(sliderId, null, "assets/images/" + image.getOriginalFilename());
-        return new ResponseEntity<Object>("The image has been uploaded.", HttpStatus.OK);
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> postSlider(@RequestPart(value = "link", required = false) String link
+            , @RequestPart(value = "image", required = false) MultipartFile image) {
+        String imageAddress = FileUtils.postFile(image,IMAGES_DIRECTORY,"assets/images/");
+        Slider slider = new Slider();
+        slider.setLink(link);
+        slider.setImage(imageAddress);
+        sliderService.postSlider(slider);
+        return new ResponseEntity<Object>("The slide container has been created.", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{sliderId}")
@@ -57,11 +58,17 @@ public class SliderController {
         sliderService.deleteSlider(sliderId);
     }
 
-    @PutMapping(path = "/{sliderId}")
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
     public void updateProperty(@PathVariable("sliderId") long sliderId,
-                               @RequestParam(required = false) String link,
-                               @RequestParam(required = false) String image) {
-        sliderService.updateSlider(sliderId, link, image);
+                               @RequestPart(value = "link", required = false) String link,
+                               @RequestPart(value = "image", required = false) MultipartFile image,
+                               @RequestPart(value = "imageAddress", required = false) String imageAddress) {
+
+        imageAddress = FileUtils.updateFile(image,imageAddress,IMAGES_DIRECTORY);
+        if(Objects.equals(image,sliderService.getSlider(sliderId).getImage())) FileUtils.deleteFile(sliderService.getSlider(sliderId).getImage());
+
+        sliderService.updateSlider(sliderId, link, imageAddress);
     }
 
 }

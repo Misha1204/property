@@ -1,6 +1,5 @@
 package ge.propertygeorgia.catalogue.property;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import ge.propertygeorgia.catalogue.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,12 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 @RestController
@@ -23,6 +16,10 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
+    @Value("${images.upload-dir}")
+    String IMAGES_DIRECTORY;
+    @Value("${file.upload-dir}")
+    String FILE_DIRECTORY;
 
     @Autowired
     public PropertyController(PropertyService propertyService) {
@@ -40,29 +37,23 @@ public class PropertyController {
     }
 
 
-    @Value("${images.upload-dir}")
-    String IMAGES_DIRECTORY;
-    @Value("${file.upload-dir}")
-    String FILE_DIRECTORY;
-
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Object> postProperty(
-            @RequestPart("image1") MultipartFile image1
-            , @RequestPart("image2") MultipartFile image2
-            , @RequestPart("image3") MultipartFile image3
-            , @RequestPart("image4") MultipartFile image4
-            , @RequestPart("file") MultipartFile file
-            , @RequestPart("name") String name
-            , @RequestPart("title") String title
-            , @RequestPart("city") String city
-            , @RequestPart("country") String country
-            , @RequestPart("description") String description
-            , @RequestPart("nameEng") String nameEng
-            , @RequestPart("titleEng") String titleEng
-            , @RequestPart("cityEng") String cityEng
-            , @RequestPart("countryEng") String countryEng
-            , @RequestPart("descriptionEng") String descriptionEng
+    public ResponseEntity<Object> postProperty(@RequestPart(value = "image1", required = false) MultipartFile image1
+            , @RequestPart(value = "image2", required = false) MultipartFile image2
+            , @RequestPart(value = "image3", required = false) MultipartFile image3
+            , @RequestPart(value = "image4", required = false) MultipartFile image4
+            , @RequestPart(value = "file", required = false) MultipartFile file
+            , @RequestPart(value = "name", required = false) String name
+            , @RequestPart(value = "title", required = false) String title
+            , @RequestPart(value = "city", required = false) String city
+            , @RequestPart(value = "country", required = false) String country
+            , @RequestPart(value = "description", required = false) String description
+            , @RequestPart(value = "nameEng", required = false) String nameEng
+            , @RequestPart(value = "titleEng", required = false) String titleEng
+            , @RequestPart(value = "cityEng", required = false) String cityEng
+            , @RequestPart(value = "countryEng", required = false) String countryEng
+            , @RequestPart(value = "descriptionEng", required = false) String descriptionEng
     ) {
         String[] images = new String[4];
         String fileAddress;
