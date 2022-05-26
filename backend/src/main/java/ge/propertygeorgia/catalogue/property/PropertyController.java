@@ -1,6 +1,7 @@
 package ge.propertygeorgia.catalogue.property;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import ge.propertygeorgia.catalogue.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -62,12 +63,14 @@ public class PropertyController {
             , @RequestPart("cityEng") String cityEng
             , @RequestPart("countryEng") String countryEng
             , @RequestPart("descriptionEng") String descriptionEng
-    ) throws IOException {
-        String imageName1 = saveFile(image1, IMAGES_DIRECTORY, image1.getOriginalFilename());
-        String imageName2 = saveFile(image2, IMAGES_DIRECTORY, image2.getOriginalFilename());
-        String imageName3 = saveFile(image3, IMAGES_DIRECTORY, image3.getOriginalFilename());
-        String imageName4 = saveFile(image4, IMAGES_DIRECTORY, image4.getOriginalFilename());
-        String fileName = saveFile(file, FILE_DIRECTORY, file.getOriginalFilename());
+    ) {
+        String[] images = new String[4];
+        String fileAddress;
+        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY, "assets/images/");
+        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY, "assets/images/");
+        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY, "assets/images/");
+        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY, "assets/images/");
+        fileAddress = FileUtils.postFile(file, FILE_DIRECTORY, "assets/");
 
         Property property = new Property();
         property.setName(name);
@@ -80,71 +83,56 @@ public class PropertyController {
         property.setCityEng(cityEng);
         property.setCountryEng(countryEng);
         property.setDescriptionEng(descriptionEng);
-        property.setImages(new String[]{ "assets/images/" + imageName1,
-                "assets/images/" + imageName2,
-                "assets/images/" + imageName3,
-                "assets/images/" + imageName4});
-        property.setFile("assets/" + fileName);
+        property.setImages(images);
+        property.setFile(fileAddress);
         long id = propertyService.postProperty(property);
-        return new ResponseEntity<Object>("sent", HttpStatus.OK);
+        return new ResponseEntity<Object>("Property section has been created.", HttpStatus.OK);
     }
 
-
-//    @PostMapping(path = "/uploadImages/{propertyId}")
-//    public ResponseEntity<Object> uploadImages(@PathVariable("propertyId") Long propertyId,
-//                                               ) throws IOException {
-//
-//
-//
-//        propertyService.updateProperty(propertyId, null, null, null,
-//                null, null, null, null,
-//                null, null, null,
-//               ,
-//                null);
-//        return new ResponseEntity<Object>("The images have been uploaded.", HttpStatus.OK);
-//    }
-
-
-//    @PostMapping(path = "/uploadFile/{propertyId}")
-//    public ResponseEntity<Object> uploadFile(@PathVariable("propertyId") long propertyId, @RequestParam("file") MultipartFile file) throws IOException {
-//
-//        propertyService.updateProperty(propertyId, null, null, null, null,
-//                null, null, null, null, null, null, null, "assets/" + file.getOriginalFilename());
-//        return new ResponseEntity<Object>("The file has been uploaded.", HttpStatus.OK);
-//    }
 
     @DeleteMapping(path = "/{propertyId}")
     public void deleteProperty(@PathVariable("propertyId") long propertyId) {
         propertyService.deleteProperty(propertyId);
     }
 
-    @PutMapping(path = "/{propertyId}")
-    public void updateProperty(@PathVariable("propertyId") long propertyId,
-                               @RequestParam(required = false) String name,
-                               @RequestParam(required = false) String title,
-                               @RequestParam(required = false) String city,
-                               @RequestParam(required = false) String country,
-                               @RequestParam(required = false) String description,
-                               @RequestParam(required = false) String nameEng,
-                               @RequestParam(required = false) String titleEng,
-                               @RequestParam(required = false) String cityEng,
-                               @RequestParam(required = false) String countryEng,
-                               @RequestParam(required = false) String descriptionEng,
-                               @RequestParam(required = false) String[] images,
-                               @RequestParam(required = false) String file) {
+    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public void updateProperty(@PathVariable("propertyId") long propertyId
+            , @RequestPart(value = "image1", required = false) MultipartFile image1
+            , @RequestPart(value = "image2", required = false) MultipartFile image2
+            , @RequestPart(value = "image3", required = false) MultipartFile image3
+            , @RequestPart(value = "image4", required = false) MultipartFile image4
+            , @RequestPart(value = "file", required = false) MultipartFile file
+            , @RequestPart(value = "name", required = false) String name
+            , @RequestPart(value = "title", required = false) String title
+            , @RequestPart(value = "city", required = false) String city
+            , @RequestPart(value = "country", required = false) String country
+            , @RequestPart(value = "description", required = false) String description
+            , @RequestPart(value = "nameEng", required = false) String nameEng
+            , @RequestPart(value = "titleEng", required = false) String titleEng
+            , @RequestPart(value = "cityEng", required = false) String cityEng
+            , @RequestPart(value = "countryEng", required = false) String countryEng
+            , @RequestPart(value = "descriptionEng", required = false) String descriptionEng
+            , @RequestPart(value = "imageAddress1", required = false) String imageAddress1
+            , @RequestPart(value = "imageAddress2", required = false) String imageAddress2
+            , @RequestPart(value = "imageAddress3", required = false) String imageAddress3
+            , @RequestPart(value = "imageAddress4", required = false) String imageAddress4
+            , @RequestPart(value = "fileAddress1", required = false) String fileAddress) {
+        String[] oldImages = propertyService.getProperty(propertyId).getImages();
+        String oldFile = propertyService.getProperty(propertyId).getFile();
+        String[] images = new String[4];
+
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY);
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY);
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY);
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY);
+        fileAddress = FileUtils.updateFile(file, fileAddress, FILE_DIRECTORY);
+
+        FileUtils.deleteFiles(oldImages, images);
+        FileUtils.deleteFiles(new String[]{oldFile}, new String[]{fileAddress});
+
         propertyService.updateProperty(propertyId, name, title, city, country, description,
-                nameEng, titleEng, cityEng, countryEng, descriptionEng, images, file);
+                nameEng, titleEng, cityEng, countryEng, descriptionEng, images, fileAddress);
     }
 
-    public static String saveFile(MultipartFile file, String directory, String fileName) {
-        try {
-            Files.write(Paths.get(directory + fileName)
-                    , file.getBytes()
-                    , StandardOpenOption.CREATE);
-            return fileName;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 }

@@ -1,5 +1,6 @@
 package ge.propertygeorgia.catalogue.header;
 
+import ge.propertygeorgia.catalogue.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -7,14 +8,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.Arrays;
-import java.util.Objects;
-
 
 @RestController
 @RequestMapping(path = "/api/header")
@@ -52,12 +45,12 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
 
-        images[0] = postFile(image1, IMAGES_DIRECTORY,"assets/images/" );
-        images[1] = postFile(image2, IMAGES_DIRECTORY,"assets/images/" );
-        images[2] = postFile(image3, IMAGES_DIRECTORY,"assets/images/" );
-        images[3] = postFile(image4, IMAGES_DIRECTORY,"assets/images/" );
-        files[0] = postFile(file1, FILE_DIRECTORY,"assets/" );
-        files[1] = postFile(file2, FILE_DIRECTORY,"assets/" );
+        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY,"assets/images/" );
+        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY,"assets/images/" );
+        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY,"assets/images/" );
+        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY,"assets/images/" );
+        files[0] = FileUtils.postFile(file1, FILE_DIRECTORY,"assets/" );
+        files[1] = FileUtils.postFile(file2, FILE_DIRECTORY,"assets/" );
 
 
         Header header = new Header();
@@ -90,63 +83,17 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
 
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY);
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY);
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY);
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY);
+        files[0] = FileUtils.updateFile(file1, fileAddress1, FILE_DIRECTORY);
+        files[1] = FileUtils.updateFile(file2, fileAddress2, FILE_DIRECTORY);
 
-//      Files.deleteIfExists(FileSystems.getDefault().getPath(headerService.getHeader().getImages()[0]));
-        images[0] = updateFile(image1, imageAddress1, IMAGES_DIRECTORY);
-        images[1] = updateFile(image2, imageAddress2, IMAGES_DIRECTORY);
-        images[2] = updateFile(image3, imageAddress3, IMAGES_DIRECTORY);
-        images[3] = updateFile(image4, imageAddress4, IMAGES_DIRECTORY);
-        files[0] = updateFile(file1, fileAddress1, FILE_DIRECTORY);
-        files[1] = updateFile(file2, fileAddress2, FILE_DIRECTORY);
-
-        deleteFiles(oldImages, images);
-        deleteFiles(oldFiles, files);
+        FileUtils.deleteFiles(oldImages, images);
+        FileUtils.deleteFiles(oldFiles, files);
 
         headerService.updateHeader(description, descriptionEng, images, files);
-    }
-
-    public static String postFile(MultipartFile file, String directory, String path){
-        if (file != null) {
-            String fileName = String.valueOf(file.hashCode()).concat(file.getOriginalFilename());
-            saveFile(file, directory, fileName);
-            return path.concat(fileName);
-        }
-        return "";
-    }
-
-    public static void saveFile(MultipartFile file, String directory, String fileName) {
-        try {
-            Files.write(Paths.get(directory + fileName)
-                    , file.getBytes()
-                    , StandardOpenOption.CREATE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String updateFile(MultipartFile file, String fileAddress, String directory) {
-        if (file == null) {
-            return fileAddress;
-        } else {
-            return postFile(file, directory,"assets/images/");
-        }
-    }
-
-    public static void deleteFiles(String[] oldFiles, String[] newFiles) {
-        for (String oldFile : oldFiles) {
-            boolean delete = true;
-            for (String newFile : newFiles) {
-                if (Objects.equals(oldFile, newFile)) {
-                    delete = false;
-                    break;
-                }
-            }
-            if (delete) deleteFile(oldFile);
-        }
-    }
-
-    public static void deleteFile(String fileAddress){
-        boolean result = new File(fileAddress).delete();
     }
 
 
