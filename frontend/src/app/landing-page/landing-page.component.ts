@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
+import { Header } from '../models/header.model';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 import { LandingPageService } from '../services/landng-page.service';
@@ -17,7 +18,14 @@ export class LandingPageComponent implements OnInit {
   currentLanguage: string = 'Eng';
 
   // Header images
-  headerImages!: { imageSrc: string }[];
+  headerInfo!: {
+    description: string;
+    descriptionEng: string;
+    files: string[];
+    id: number;
+    images: string[];
+  };
+
   companyLogos!: any;
   activeHeaderImageIndex: number = 0;
 
@@ -61,8 +69,17 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.headerImages = this.landingPageService.headerImages;
     this.companyLogos = this.landingPageService.companyLogos;
+
+    this.landingPageService
+      .getHeaderInfo()
+      .pipe(
+        tap((res: any) => {
+          console.log(res);
+          this.headerInfo = res;
+        })
+      )
+      .subscribe();
 
     this.landingPageService
       .getPropertyInfo()
@@ -93,7 +110,7 @@ export class LandingPageComponent implements OnInit {
   // Slide through images in header
   slideHeaderImages(direction: string) {
     if (direction === 'forward') {
-      if (this.activeHeaderImageIndex < this.headerImages.length - 1) {
+      if (this.activeHeaderImageIndex < this.headerInfo.images.length - 1) {
         this.activeHeaderImageIndex++;
       } else {
         this.activeHeaderImageIndex = 0;
@@ -102,7 +119,7 @@ export class LandingPageComponent implements OnInit {
       if (this.activeHeaderImageIndex > 0) {
         this.activeHeaderImageIndex--;
       } else {
-        this.activeHeaderImageIndex = this.headerImages.length - 1;
+        this.activeHeaderImageIndex = this.headerInfo.images.length - 1;
       }
     }
   }

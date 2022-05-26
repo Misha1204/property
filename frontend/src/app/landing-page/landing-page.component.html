@@ -8,12 +8,21 @@
           alt="logo" />
 
         <p class="header-left-paragraph">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam,
-          consequatur rerum!
+          {{
+            currentLanguage === 'Eng'
+              ? headerInfo.descriptionEng
+              : headerInfo.description
+          }}
         </p>
 
         <div class="header-left-btn-container">
-          <p>Look up for more information here:</p>
+          <p>
+            {{
+              currentLanguage === 'Eng'
+                ? 'Look up for more information here:'
+                : 'დამატებითი ინფორმაციისთვის გადმოწერეთ'
+            }}
+          </p>
 
           <button>
             {{ currentLanguage === 'Eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
@@ -25,11 +34,13 @@
     <div
       [ngStyle]="{
         'background-image':
-          'url(' + headerImages[activeHeaderImageIndex]['imageSrc'] + ')'
+          'url(' + headerInfo.images[activeHeaderImageIndex] + ')'
       }"
       class="header-right-container">
       <div class="header-right-info">
-        <button class="header-right-learn-more-btn">Learn More</button>
+        <button class="header-right-learn-more-btn">
+          {{ currentLanguage === 'Eng' ? 'Learn More' : 'გაიგე მეტი' }}
+        </button>
 
         <div class="icons"></div>
 
@@ -49,13 +60,13 @@
             class="material-symbols-outlined">
             arrow_back_ios
           </span>
-          <div *ngFor="let image of headerImages; let i = index">
+          <div *ngFor="let image of headerInfo.images; let i = index">
             <img
               (click)="activeHeaderImageIndex = i"
               [ngClass]="{
                 'header-slider-image-border': i === activeHeaderImageIndex
               }"
-              [src]="image.imageSrc"
+              [src]="image"
               alt="building" />
           </div>
           <span
@@ -101,7 +112,7 @@
     <div
       [ngStyle]="{
         'background-image':
-          'url(' + headerImages[activeHeaderImageIndex]['imageSrc'] + ')'
+          'url(' + headerInfo.images[activeHeaderImageIndex] + ')'
       }"
       class="mobile-image-container">
       <div class="mobile-header-slider-dots-container">

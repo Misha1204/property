@@ -91,7 +91,9 @@ export class AddHeaderComponent implements OnInit {
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `image${this.deletedImageIds[counter]}`,
+          `image${
+            this.headerInfo ? this.deletedImageIds[counter] : counter + 1
+          }`,
           event.target.files[+property],
           event.target.files[+property].name
         );
@@ -116,7 +118,7 @@ export class AddHeaderComponent implements OnInit {
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `file${this.deletedFileIds[counter]}`,
+          `file${this.headerInfo ? this.deletedFileIds[counter] : counter + 1}`,
           event.target.files[+property],
           event.target.files[+property].name
         );

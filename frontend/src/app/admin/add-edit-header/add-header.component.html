@@ -39,7 +39,7 @@
           >
         </div>
 
-        <div class="pdf-file-names">
+        <div *ngIf="headerInfo" class="pdf-file-names">
           <div *ngFor="let file of headerInfo.files" class="pdf-file-name">
             <p>{{ file.file }}</p>
             <span
