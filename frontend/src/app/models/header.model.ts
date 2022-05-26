@@ -1,7 +1,7 @@
 export interface Header {
   description: string;
   descriptionEng: string;
-  files: string[];
+  files: { id: number; file: any }[];
   id: number;
-  images: string[];
+  images: { id: number; image: any }[];
 }

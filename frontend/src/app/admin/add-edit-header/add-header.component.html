@@ -18,9 +18,9 @@
           <div
             [ngClass]="{ 'margin-right-4': i < 3 }"
             *ngFor="let image of headerInfo.images; let i = index">
-            <img src="{{ image }}" alt="" />
+            <img src="{{ image.image }}" alt="" />
             <span
-              (click)="deleteImage(image)"
+              (click)="deleteImage(image.id)"
               class="material-symbols-outlined">
               delete
             </span>
@@ -37,6 +37,17 @@
           <span *ngIf="form.get('images')?.hasError('limitation')" class="error"
             >შესაძლებელია მაქსიმუმ ოთხი ფოტოს ატვირთვა</span
           >
+        </div>
+
+        <div class="pdf-file-names">
+          <div *ngFor="let file of headerInfo.files" class="pdf-file-name">
+            <p>{{ file.file }}</p>
+            <span
+              (click)="deleteFile(file.id)"
+              class="material-symbols-outlined">
+              delete
+            </span>
+          </div>
         </div>
 
         <div class="upload">

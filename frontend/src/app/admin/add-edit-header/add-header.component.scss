@@ -90,3 +90,18 @@
   font-size: 8px;
   color: red;
 }
+
+.pdf-file-names {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.pdf-file-name {
+  display: flex;
+
+  font-size: 14px;
+}
+
+span {
+  cursor: pointer;
+}

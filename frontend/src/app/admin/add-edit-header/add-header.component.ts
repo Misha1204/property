@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { tap } from 'rxjs';
+import { delay, map, tap } from 'rxjs';
 import { Header } from 'src/app/models/header.model';
 import { LandingPageService } from 'src/app/services/landng-page.service';
 
@@ -20,10 +20,8 @@ export class AddHeaderComponent implements OnInit {
 
   headerInfo!: Header;
 
-  imagesCounter = 1;
-  filesCounter = 1;
-  imagesAddressCounter = 1;
-  filesAddressCounter = 1;
+  deletedImageIds: number[] = [];
+  deletedFileIds: number[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -31,16 +29,32 @@ export class AddHeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getHeaderInfo();
+  }
+
+  getHeaderInfo() {
     this.landingPageService
       .getHeaderInfo()
       .pipe(
         tap(res => {
-          if (res) {
-            this.headerInfo = res;
-            this.initForm();
-          } else {
+          if (!res) {
             this.initForm();
           }
+        }),
+        map(res => {
+          if (res) {
+            for (let i = 0; i < res.images.length; i++) {
+              res.images[i] = { id: i + 1, image: res.images[i] };
+            }
+
+            for (let i = 0; i < res.files.length; i++) {
+              res.files[i] = { id: i + 1, file: res.files[i] };
+            }
+
+            this.headerInfo = res;
+            this.initForm();
+          }
+          return res;
         })
       )
       .subscribe();
@@ -73,14 +87,15 @@ export class AddHeaderComponent implements OnInit {
       return;
     }
 
+    let counter = 0;
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `image${this.imagesCounter}`,
+          `image${this.deletedImageIds[counter]}`,
           event.target.files[+property],
           event.target.files[+property].name
         );
-        this.imagesCounter++;
+        counter++;
       }
     });
   }
@@ -97,36 +112,43 @@ export class AddHeaderComponent implements OnInit {
       return;
     }
 
+    let counter = 0;
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `file${this.filesCounter}`,
+          `file${this.deletedFileIds[counter]}`,
           event.target.files[+property],
           event.target.files[+property].name
         );
-        this.filesCounter++;
+        counter++;
       }
     });
   }
 
-  deleteImage(image: string) {
+  deleteImage(imageId: number) {
     this.headerInfo.images = this.headerInfo.images.filter(
-      res => res !== image
+      res => res.id !== imageId
     );
+    this.deletedImageIds.push(imageId);
+  }
+
+  deleteFile(fileId: number) {
+    this.headerInfo.files = this.headerInfo.files.filter(
+      res => res.id !== fileId
+    );
+    this.deletedFileIds.push(fileId);
   }
 
   onUpdateHeader() {
     if (this.headerInfo && this.headerInfo.images.length > 0) {
       this.headerInfo.images.forEach(image => {
-        this.formData.append(`imageAddress${this.imagesAddressCounter}`, image);
-        this.imagesAddressCounter++;
+        this.formData.append(`imageAddress${image.id}`, image.image);
       });
     }
 
     if (this.headerInfo && this.headerInfo.files.length > 0) {
       this.headerInfo.files.forEach(file => {
-        this.formData.append(`fileAddress${this.filesAddressCounter}`, file);
-        this.filesAddressCounter++;
+        this.formData.append(`fileAddress${file.id}`, file.file);
       });
     }
 
@@ -137,9 +159,37 @@ export class AddHeaderComponent implements OnInit {
     });
 
     if (this.headerInfo) {
-      this.landingPageService.updateHeaderInfo(this.formData).subscribe();
+      this.landingPageService
+        .updateHeaderInfo(this.formData)
+        .pipe(delay(500))
+        .subscribe({
+          next: () => {
+            this.resetData();
+          },
+          error: () => {
+            this.resetData();
+          },
+        });
     } else {
-      this.landingPageService.addHeaderInfo(this.formData).subscribe();
+      this.landingPageService
+        .addHeaderInfo(this.formData)
+        .pipe(delay(500))
+        .subscribe({
+          next: () => {
+            this.resetData();
+          },
+          error: () => {
+            this.resetData();
+          },
+        });
     }
+  }
+
+  resetData() {
+    this.form.reset();
+    this.formData = new FormData();
+    this.deletedImageIds = [];
+    this.deletedFileIds = [];
+    this.getHeaderInfo();
   }
 }
