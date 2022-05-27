@@ -26,9 +26,9 @@ public class SiteUserController {
     }
 
     @PostMapping(path = "/login")
-    public void login(@RequestPart(value = "username") String username
+    public boolean login(@RequestPart(value = "username") String username
             , @RequestPart(value = "password") String password){
-        siteUserService.logIn(username, password, true);
+        return siteUserService.logIn(username, password, true);
     }
 
     @PostMapping(path = "/logout")
