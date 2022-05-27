@@ -19,15 +19,16 @@ public class SiteUserController {
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Object> createUser(@RequestPart(value = "username", required = false) String username
-            , @RequestPart(value = "password", required = true) String password) {
+    public ResponseEntity<Object> createUser(@RequestPart(value = "username") String username
+            , @RequestPart(value = "password") String password) {
         long hashcode = siteUserService.createUser(username, password);
         return new ResponseEntity<Object>(hashcode, HttpStatus.OK);
     }
 
     @PostMapping(path = "/login")
-    public void login() {
-        siteUserService.logIn(true);
+    public void login(@RequestPart(value = "username") String username
+            , @RequestPart(value = "password") String password){
+        siteUserService.logIn(username, password, true);
     }
 
     @PostMapping(path = "/logout")

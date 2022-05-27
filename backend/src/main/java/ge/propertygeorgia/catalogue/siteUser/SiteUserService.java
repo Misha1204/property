@@ -26,11 +26,15 @@ public class SiteUserService {
     }
 
     @Transactional
-    public void logIn( boolean loggedIn) {
+    public void logIn(String username, String password, boolean loggedIn) {
         if (siteUserRepository.existsById(1L)) {
             SiteUser siteUser = siteUserRepository.findById(1L)
                     .orElse(null);
-            siteUser.setLoggedIn(loggedIn);
+            long hashCode = password.hashCode();
+            if(siteUser.getUsername().equals(username) && siteUser.getPassword()==hashCode){
+                siteUser.setLoggedIn(loggedIn);
+            }
+
         }
     }
 
