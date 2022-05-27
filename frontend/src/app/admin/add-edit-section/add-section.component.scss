@@ -33,10 +33,11 @@
 
 form {
   width: 60%;
-  div {
-    display: flex;
-    flex-direction: column;
-  }
+}
+
+.upload-filed-container {
+  display: flex;
+  flex-direction: column;
 }
 
 button {
@@ -60,4 +61,57 @@ button {
 
 .pdf-container {
   margin-top: 10px;
+}
+
+.images-container {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  margin-top: 20px;
+
+  .image-container {
+    position: relative;
+    width: 22%;
+    height: 100px;
+  }
+  img {
+    width: 100%;
+    height: 100px;
+
+    object-fit: cover;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.margin-right-4 {
+  margin-right: 4%;
+}
+
+.upload-image-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.pdf-file-names {
+  width: 100%;
+  margin-top: 50px;
+}
+
+.pdf-file-name {
+  display: flex;
+
+  font-size: 14px;
+}
+
+span {
+  cursor: pointer;
 }

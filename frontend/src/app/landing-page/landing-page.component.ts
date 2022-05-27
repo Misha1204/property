@@ -28,40 +28,10 @@ export class LandingPageComponent implements OnInit {
 
   companyLogos!: any;
   activeHeaderImageIndex: number = 0;
+  activeSectionImageIndex: number = 0;
 
   // Sections
-  sections: Section[] = [
-    {
-      id: 1,
-      name: 'სახელი',
-      title: 'სათაური',
-      city: 'თბილისი',
-      country: 'საქართველო',
-      description: 'აღწერა',
-      nameEng: 'Name',
-      titleEng: 'Title',
-      cityEng: 'Tbilisi',
-      countryEng: 'Georgia',
-      descriptionEng: 'Description',
-      images: ['assets/images/6016.jpg'],
-      file: '',
-    },
-    {
-      id: 2,
-      name: 'სახელი',
-      title: 'სათაური',
-      city: 'თბილისი',
-      country: 'საქართველო',
-      description: 'აღწერა',
-      nameEng: 'Name',
-      titleEng: 'Title',
-      cityEng: 'Tbilisi',
-      countryEng: 'Georgia',
-      descriptionEng: 'Description',
-      images: ['assets/images/1802071.jpg'],
-      file: '',
-    },
-  ];
+  sections!: Section[];
 
   constructor(
     private landingPageService: LandingPageService,
@@ -75,7 +45,6 @@ export class LandingPageComponent implements OnInit {
       .getHeaderInfo()
       .pipe(
         tap((res: any) => {
-          console.log(res);
           this.headerInfo = res;
         })
       )
@@ -85,6 +54,8 @@ export class LandingPageComponent implements OnInit {
       .getPropertyInfo()
       .pipe(
         tap(res => {
+          console.log(res);
+
           this.sections = res;
         })
       )
@@ -120,6 +91,22 @@ export class LandingPageComponent implements OnInit {
         this.activeHeaderImageIndex--;
       } else {
         this.activeHeaderImageIndex = this.headerInfo.images.length - 1;
+      }
+    }
+  }
+
+  slideSectionImages(direction: string, section: any) {
+    if (direction === 'forward') {
+      if (this.activeSectionImageIndex < section.images.length - 1) {
+        this.activeSectionImageIndex++;
+      } else {
+        this.activeSectionImageIndex = 0;
+      }
+    } else {
+      if (this.activeSectionImageIndex > 0) {
+        this.activeSectionImageIndex--;
+      } else {
+        this.activeSectionImageIndex = section.images.length - 1;
       }
     }
   }

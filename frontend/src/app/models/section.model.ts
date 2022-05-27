@@ -10,6 +10,6 @@ export interface Section {
   cityEng: string;
   countryEng: string;
   descriptionEng: string;
-  images: string[];
+  images: { id: number; image: any }[];
   file: string;
 }

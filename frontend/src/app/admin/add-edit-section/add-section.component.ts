@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { pipe, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { Section } from 'src/app/models/section.model';
 import { LandingPageService } from '../../services/landng-page.service';
 
@@ -17,6 +17,9 @@ export class AddSectionComponent implements OnInit {
   sectionId!: number | null;
   section!: Section;
 
+  deletedImageIds: number[] = [];
+  deletedFileIds: number[] = [];
+
   constructor(
     private fb: FormBuilder,
     private landingPageService: LandingPageService,
@@ -26,15 +29,26 @@ export class AddSectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getSections();
+  }
+
+  getSections() {
     if (!this.sectionId) {
       this.initForm();
-    } else {
+    } else if (this.sectionId) {
       this.landingPageService
         .getPropertyInfoById(this.sectionId)
         .pipe(
-          tap(res => {
+          map(res => {
+            for (let i = 0; i < res.images.length; i++) {
+              res.images[i] = { id: i + 1, image: res.images[i] };
+            }
+
+            this.formData.append(`fileAddress1`, res.file);
             this.section = res;
             this.initForm();
+
+            return res;
           })
         )
         .subscribe();
@@ -61,11 +75,25 @@ export class AddSectionComponent implements OnInit {
   }
 
   onImageSelected(event: any) {
-    let counter = 1;
+    // let counter = 1;
+    // Object.getOwnPropertyNames(event.target.files).forEach(property => {
+    //   if (property !== 'length') {
+    //     this.formData.append(
+    //       `image${counter}`,
+    //       event.target.files[+property],
+    //       event.target.files[+property].name
+    //     );
+    //     counter++;
+    //   }
+    // });
+
+    let counter = 0;
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
         this.formData.append(
-          `image${counter}`,
+          `image${
+            this.sectionId ? this.deletedImageIds[counter] : counter + 1
+          }`,
           event.target.files[+property],
           event.target.files[+property].name
         );
@@ -87,6 +115,34 @@ export class AddSectionComponent implements OnInit {
       this.formData.append(key, this.form.value[key])
     );
 
-    this.landingPageService.addSectionInfo(this.formData).subscribe();
+    if (this.section && this.section.images.length > 0) {
+      this.section.images.forEach(image => {
+        this.formData.append(`imageAddress${image.id}`, image.image);
+      });
+    }
+
+    if (!this.sectionId) {
+      this.landingPageService.addSectionInfo(this.formData).subscribe();
+    } else {
+      this.landingPageService
+        .editSection(this.sectionId, this.formData)
+        .subscribe();
+    }
+  }
+
+  deleteImage(imageId: number) {
+    this.section.images = this.section.images.filter(res => res.id !== imageId);
+    this.deletedImageIds.push(imageId);
+  }
+
+  deleteFile() {
+    this.section.file = '';
+  }
+
+  resetData() {
+    this.form.reset();
+    this.formData = new FormData();
+    this.deletedImageIds = [];
+    this.getSections();
   }
 }

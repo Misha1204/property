@@ -19,6 +19,10 @@ export class SectionsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngOnInit(): void {
+    this.getSections();
+  }
+
+  getSections() {
     this.landingPageService
       .getPropertyInfo()
       .pipe(
@@ -30,9 +34,11 @@ export class SectionsComponent implements OnInit {
       .subscribe();
   }
 
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
+  deleteSection(sectionId: number) {
+    this.landingPageService.deleteSection(sectionId).subscribe({
+      next: () => {
+        this.getSections();
+      },
+    });
   }
-
-  deleteSection(sectionId: number) {}
 }

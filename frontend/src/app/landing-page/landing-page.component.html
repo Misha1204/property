@@ -1,5 +1,5 @@
 <div class="main-container">
-  <header class="header">
+  <header *ngIf="headerInfo" class="header">
     <div class="header-left-container">
       <div class="header-left-info">
         <img
@@ -10,8 +10,8 @@
         <p class="header-left-paragraph">
           {{
             currentLanguage === 'Eng'
-              ? headerInfo.descriptionEng
-              : headerInfo.description
+              ? headerInfo?.descriptionEng
+              : headerInfo?.description
           }}
         </p>
 
@@ -60,7 +60,7 @@
             class="material-symbols-outlined">
             arrow_back_ios
           </span>
-          <div *ngFor="let image of headerInfo.images; let i = index">
+          <div *ngFor="let image of headerInfo?.images; let i = index">
             <img
               (click)="activeHeaderImageIndex = i"
               [ngClass]="{
@@ -79,7 +79,7 @@
     </div>
   </header>
 
-  <header class="mobile-header">
+  <header *ngIf="headerInfo" class="mobile-header">
     <div class="mobile-header-logo-icons">
       <div></div>
       <div class="mobile-logo">
@@ -151,7 +151,7 @@
     </div>
   </div>
 
-  <main class="main">
+  <main *ngIf="sections" class="main">
     <section
       *ngFor="let section of sections; let i = index"
       class="section"
@@ -159,16 +159,20 @@
       <h1 class="section-title">
         {{ currentLanguage === 'Eng' ? section.nameEng : section.name }}
       </h1>
-      <div class="section-info-container">
-        <img
-          (click)="(activeHeaderImageIndex)"
-          [src]="section.images[0]"
-          alt="building" />
-
-        <span class="material-symbols-outlined slider-arrow-back">
+      <div
+        [ngStyle]="{
+          'background-image':
+            'url(' + section.images[activeSectionImageIndex] + ')'
+        }"
+        class="section-info-container">
+        <span
+          (click)="slideSectionImages('back', section)"
+          class="material-symbols-outlined slider-arrow-back">
           arrow_back_ios
         </span>
-        <span class="material-symbols-outlined slider-arrow-forward">
+        <span
+          (click)="slideSectionImages('forward', section)"
+          class="material-symbols-outlined slider-arrow-forward">
           arrow_forward_ios
         </span>
 
@@ -177,7 +181,9 @@
             {{ currentLanguage === 'Eng' ? section.titleEng : section.title }}
           </h1>
           <div class="section-slider-dots-container">
-            <div *ngFor="let image of section.images"></div>
+            <div
+              [ngClass]="{ 'opacity-1': j === activeSectionImageIndex }"
+              *ngFor="let image of section.images; let j = index"></div>
           </div>
           <button>Learn More</button>
         </div>
@@ -194,8 +200,8 @@
             <p>
               {{
                 currentLanguage === 'Eng'
-                  ? section.descriptionEng
-                  : section.description
+                  ? section?.descriptionEng
+                  : section?.description
               }}
             </p>
           </div>

@@ -7,6 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { LandingPageService } from 'src/app/services/landng-page.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -36,12 +39,31 @@ export class AuthComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   matcher = new MyErrorStateMatcher();
 
-  constructor(private fb: FormBuilder) {}
+  formData = new FormData();
+
+  constructor(
+    private fb: FormBuilder,
+    private landingPageService: LandingPageService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
 
   onLogin() {
-    console.log(this.emailFormControl.value);
-    console.log(this.passwordFormControl.value);
+    this.formData.append('username', this.emailFormControl.value);
+    this.formData.append('password', this.passwordFormControl.value);
+    this.landingPageService.login(this.formData).subscribe({
+      next: res => {
+        if (res) {
+          localStorage.setItem('IS_USER_LOGGED_IN', 'TRUE');
+          this.router.navigate(['/admin/add_header']);
+          this.formData = new FormData();
+        } else {
+          this.toastr.error('მომხმარებლის ელ-ფოსტა ან პაროლი არასწორია');
+          this.formData = new FormData();
+        }
+      },
+    });
   }
 }

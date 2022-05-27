@@ -56,13 +56,38 @@
             value="descriptionEng" />
         </mat-form-field>
 
-        <div>
-          <div>
+        <div class="images-and-upload-container">
+          <div *ngIf="sectionId" class="images-container">
+            <div
+              class="image-container"
+              [ngClass]="{ 'margin-right-4': i < 3 }"
+              *ngFor="let image of section.images; let i = index">
+              <img src="{{ image.image }}" alt="" />
+              <span
+                (click)="deleteImage(image.id)"
+                class="material-symbols-outlined">
+                delete
+              </span>
+            </div>
+          </div>
+
+          <div class="upload-image-container">
             <label for="images">Images</label>
             <input type="file" (change)="onImageSelected($event)" multiple />
           </div>
+        </div>
 
-          <div class="pdf-container">
+        <div class="pdf-container">
+          <div *ngIf="section" class="pdf-file-names">
+            <div class="pdf-file-name">
+              <p>{{ section.file }}</p>
+              <span (click)="deleteFile()" class="material-symbols-outlined">
+                delete
+              </span>
+            </div>
+          </div>
+
+          <div class="upload-image-container">
             <label for="file">PDF</label>
             <input type="file" (change)="onPdfSelected($event)" />
           </div>

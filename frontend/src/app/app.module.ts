@@ -10,6 +10,7 @@ import { ScrollLeftDirective } from './directives/scroll-left.directive';
 import { ScrollRightDirective } from './directives/scroll-right.directive';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+    }),
   ],
   providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent],
