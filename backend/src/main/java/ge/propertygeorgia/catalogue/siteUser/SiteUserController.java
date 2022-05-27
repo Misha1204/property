@@ -25,19 +25,19 @@ public class SiteUserController {
         return new ResponseEntity<Object>(hashcode, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/login/{siteUserId}")
-    public void login(@PathVariable("siteUserId") Long siteUserId) {
-        siteUserService.logIn(siteUserId, true);
+    @PostMapping(path = "/login")
+    public void login() {
+        siteUserService.logIn(true);
     }
 
-    @PostMapping(path = "/logout/{siteUserId}")
-    public void logout(@PathVariable("siteUserId") Long siteUserId) {
-        siteUserService.logOut(siteUserId, false);
+    @PostMapping(path = "/logout")
+    public void logout() {
+        siteUserService.logOut( false);
     }
 
-    @GetMapping(path = "/{siteUserId}")
-    public boolean isLoggedIn(@PathVariable("siteUserId") Long siteUserId) {
-        return siteUserService.isLoggedIn(siteUserId);
+    @GetMapping()
+    public boolean isLoggedIn() {
+        return siteUserService.isLoggedIn();
     }
 
 }

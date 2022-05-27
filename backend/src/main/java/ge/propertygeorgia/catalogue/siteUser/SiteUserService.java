@@ -26,24 +26,24 @@ public class SiteUserService {
     }
 
     @Transactional
-    public void logIn(long siteUserId, boolean loggedIn) {
-        if (siteUserRepository.existsById(siteUserId)) {
-            SiteUser siteUser = siteUserRepository.findById(siteUserId)
+    public void logIn( boolean loggedIn) {
+        if (siteUserRepository.existsById(1L)) {
+            SiteUser siteUser = siteUserRepository.findById(1L)
                     .orElse(null);
             siteUser.setLoggedIn(loggedIn);
         }
     }
 
     @Transactional
-    public void logOut(long siteUserId, boolean loggedOut) {
-        if (siteUserRepository.existsById(siteUserId)) {
-            SiteUser siteUser = siteUserRepository.findById(siteUserId)
+    public void logOut( boolean loggedOut) {
+        if (siteUserRepository.existsById(1L)) {
+            SiteUser siteUser = siteUserRepository.findById(1L)
                     .orElse(null);
             siteUser.setLoggedIn(loggedOut);
         }
     }
 
-    public boolean isLoggedIn(long siteUserId) {
-            return siteUserRepository.findById(siteUserId).get().isLoggedIn();
+    public boolean isLoggedIn() {
+            return siteUserRepository.findById(1L).get().isLoggedIn();
     }
 }
