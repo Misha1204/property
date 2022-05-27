@@ -10,13 +10,15 @@ public class SiteUser {
     private long id;
     private String username;
     private long password;
+    private boolean loggedIn;
 
     public SiteUser() {}
 
-    public SiteUser(long id, String username, int password) {
+    public SiteUser(long id, String username, int password, boolean loggedIn) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.loggedIn = loggedIn;
     }
 
     public long getId() {
@@ -41,6 +43,14 @@ public class SiteUser {
 
     public void setPassword(long password) {
         this.password = password;
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
     @Override
