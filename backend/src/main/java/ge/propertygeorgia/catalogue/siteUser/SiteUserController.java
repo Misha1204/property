@@ -25,7 +25,8 @@ public class SiteUserController {
         return new ResponseEntity<Object>(hashcode, HttpStatus.OK);
     }
 
-    @PostMapping(path = "/login")
+    @PostMapping(path = "/login", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
     public boolean login(@RequestPart(value = "username") String username
             , @RequestPart(value = "password") String password){
         return siteUserService.logIn(username, password, true);
