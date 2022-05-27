@@ -86,7 +86,7 @@ public class PropertyController {
         propertyService.deleteProperty(propertyId);
     }
 
-    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+    @PutMapping(path = "/{propertyId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
     public void updateProperty(@PathVariable("propertyId") long propertyId
             , @RequestPart(value = "image1", required = false) MultipartFile image1
@@ -108,7 +108,7 @@ public class PropertyController {
             , @RequestPart(value = "imageAddress2", required = false) String imageAddress2
             , @RequestPart(value = "imageAddress3", required = false) String imageAddress3
             , @RequestPart(value = "imageAddress4", required = false) String imageAddress4
-            , @RequestPart(value = "fileAddress1", required = false) String fileAddress) {
+            , @RequestPart(value = "fileAddress", required = false) String fileAddress) {
         String[] oldImages = propertyService.getProperty(propertyId).getImages();
         String oldFile = propertyService.getProperty(propertyId).getFile();
         String[] images = new String[4];

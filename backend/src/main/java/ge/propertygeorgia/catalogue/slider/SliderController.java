@@ -54,7 +54,7 @@ public class SliderController {
         sliderService.deleteSlider(sliderId);
     }
 
-    @PutMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+    @PutMapping(path = "/{sliderId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
     public void updateProperty(@PathVariable("sliderId") long sliderId,
                                @RequestPart(value = "link", required = false) String link,
