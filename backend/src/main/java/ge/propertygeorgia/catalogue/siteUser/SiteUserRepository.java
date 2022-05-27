@@ -1,8 +1,8 @@
-package ge.propertygeorgia.catalogue.user;
+package ge.propertygeorgia.catalogue.siteUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface SiteUserRepository extends JpaRepository<SiteUser, Long> {
 }

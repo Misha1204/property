@@ -1,21 +1,19 @@
-package ge.propertygeorgia.catalogue.user;
+package ge.propertygeorgia.catalogue.siteUser;
 
 import javax.persistence.*;
 
 @Entity
 @Table
-public class User {
+public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String username;
-    private int password;
+    private long password;
 
-    public User() {
+    public SiteUser() {}
 
-    }
-
-    public User(long id, String username, int password) {
+    public SiteUser(long id, String username, int password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -37,11 +35,20 @@ public class User {
         this.username = username;
     }
 
-    public int getPassword() {
+    public long getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(long password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password=" + password +
+                '}';
     }
 }
