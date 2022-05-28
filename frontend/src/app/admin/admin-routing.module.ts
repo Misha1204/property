@@ -4,9 +4,9 @@ import { AuthGuard } from '../guards/auth.guard';
 import { AddHeaderComponent } from './add-edit-header/add-header.component';
 import { AddSectionComponent } from './add-edit-section/add-section.component';
 import { AdminComponent } from './admin.component';
-import { AuthComponent } from '../auth/auth/auth.component';
 import { SectionsComponent } from './sections/sections.component';
 import { LogosSectionComponent } from './logos-section/logos-section.component';
+import { AddEditCompanyLogosComponent } from './add-edit-company-logos/add-edit-company-logos.component';
 
 const routes: Routes = [
   {
@@ -33,6 +33,14 @@ const routes: Routes = [
       {
         path: 'company_logos',
         component: LogosSectionComponent,
+      },
+      {
+        path: 'company_logos/add_logo',
+        component: AddEditCompanyLogosComponent,
+      },
+      {
+        path: 'company_logos/edit_logos/:id',
+        component: AddEditCompanyLogosComponent,
       },
     ],
   },

@@ -12,6 +12,7 @@ import { AddHeaderComponent } from './add-edit-header/add-header.component';
 import { AddSectionComponent } from './add-edit-section/add-section.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogosSectionComponent } from './logos-section/logos-section.component';
+import { AddEditCompanyLogosComponent } from './add-edit-company-logos/add-edit-company-logos.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LogosSectionComponent } from './logos-section/logos-section.component';
     AddHeaderComponent,
     AddSectionComponent,
     LogosSectionComponent,
+    AddEditCompanyLogosComponent,
   ],
   imports: [
     CommonModule,

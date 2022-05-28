@@ -141,8 +141,8 @@
         arrow_back_ios
       </span>
 
-      <a *ngFor="let logo of companyLogos" href="#">
-        <img class="logo" [src]="logo.imageSrc" alt="" />
+      <a *ngFor="let logo of companyLogos" href="{{ logo.link }}">
+        <img class="logo" [src]="logo.image" alt="" />
       </a>
 
       <span scrollRight class="material-symbols-outlined company-logos-forward">

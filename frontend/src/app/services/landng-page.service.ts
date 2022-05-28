@@ -10,6 +10,11 @@ import { UserInfo } from '../models/user-info.model';
   providedIn: 'root',
 })
 export class LandingPageService {
+  admin = {
+    email: 'admin@admin.admin',
+    password: '12345678',
+  };
+
   constructor(private http: HttpClient) {}
 
   companyLogos = [
@@ -52,16 +57,20 @@ export class LandingPageService {
   ];
 
   // Auth
-  login(request: any) {
-    return this.http.post(`http://localhost:8080/api/user/login`, request);
+  login(request: { email: string; password: string }) {
+    if (
+      this.admin.email === request.email &&
+      this.admin.password === request.password
+    ) {
+      localStorage.setItem('IS_USER_LOGGED_IN', 'TRUE');
+      return true;
+    }
+
+    return false;
   }
 
   logout() {
-    return this.http.post(`http://localhost:8080/api/user/logout`, {}).pipe(
-      tap(res => {
-        localStorage.clear();
-      })
-    );
+    localStorage.clear();
   }
 
   // Header Methods
@@ -93,6 +102,10 @@ export class LandingPageService {
     );
   }
 
+  deleteSection(sectionId: number) {
+    return this.http.delete(`http://localhost:8080/api/property/${sectionId}`);
+  }
+
   uploadImages(fd: any) {
     return this.http.post(
       `http://localhost:8080/api/property/uploadImages/4`,
@@ -108,7 +121,22 @@ export class LandingPageService {
     return this.http.post(`http://localhost:8080/api/header`, formData);
   }
 
-  deleteSection(sectionId: number) {
-    return this.http.delete(`http://localhost:8080/api/property/${sectionId}`);
+  // Company logos
+  getCompanyLogos() {
+    return this.http.get<
+      {
+        id: 0;
+        link: 'string';
+        image: 'string';
+      }[]
+    >(`http://localhost:8080/api/slider`);
+  }
+
+  addCompanyLogo(formData: any) {
+    return this.http.post(`http://localhost:8080/api/slider`, formData);
+  }
+
+  deleteCompanyLogo(logoId: number) {
+    return this.http.delete(`http://localhost:8080/api/slider/${logoId}`);
   }
 }

@@ -39,8 +39,6 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.companyLogos = this.landingPageService.companyLogos;
-
     this.landingPageService
       .getHeaderInfo()
       .pipe(
@@ -57,6 +55,15 @@ export class LandingPageComponent implements OnInit {
           console.log(res);
 
           this.sections = res;
+        })
+      )
+      .subscribe();
+
+    this.landingPageService
+      .getCompanyLogos()
+      .pipe(
+        tap(res => {
+          this.companyLogos = res;
         })
       )
       .subscribe();

@@ -1,6 +1,8 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { map } from 'rxjs';
 import { Section } from 'src/app/models/section.model';
 import { LandingPageService } from '../../services/landng-page.service';
@@ -23,7 +25,10 @@ export class AddSectionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private landingPageService: LandingPageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location,
+    private toastr: ToastrService
   ) {
     this.sectionId = <number | null>this.route.snapshot.paramMap.get('id');
   }
@@ -75,18 +80,6 @@ export class AddSectionComponent implements OnInit {
   }
 
   onImageSelected(event: any) {
-    // let counter = 1;
-    // Object.getOwnPropertyNames(event.target.files).forEach(property => {
-    //   if (property !== 'length') {
-    //     this.formData.append(
-    //       `image${counter}`,
-    //       event.target.files[+property],
-    //       event.target.files[+property].name
-    //     );
-    //     counter++;
-    //   }
-    // });
-
     let counter = 0;
     Object.getOwnPropertyNames(event.target.files).forEach(property => {
       if (property !== 'length') {
@@ -122,7 +115,16 @@ export class AddSectionComponent implements OnInit {
     }
 
     if (!this.sectionId) {
-      this.landingPageService.addSectionInfo(this.formData).subscribe();
+      this.landingPageService.addSectionInfo(this.formData).subscribe({
+        next: () => {
+          this.toastr.success('სექცია წარმატებით დაემატა');
+          this.location.back();
+        },
+        error: () => {
+          this.router.navigate(['../']);
+          this.location.back();
+        },
+      });
     } else {
       this.landingPageService
         .editSection(this.sectionId, this.formData)

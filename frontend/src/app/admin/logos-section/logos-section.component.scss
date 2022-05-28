@@ -1,0 +1,48 @@
+.main-container {
+  position: relative;
+  width: 100%;
+  margin-top: 70px;
+}
+
+.content {
+  width: 60%;
+  margin-left: 30%;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.add-section-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100px;
+  height: 35px;
+
+  color: #fff;
+
+  text-decoration: none;
+  background-color: #4f46e5;
+
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+span {
+  cursor: pointer;
+}

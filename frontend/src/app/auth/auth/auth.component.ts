@@ -51,19 +51,15 @@ export class AuthComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogin() {
-    this.formData.append('username', this.emailFormControl.value);
-    this.formData.append('password', this.passwordFormControl.value);
-    this.landingPageService.login(this.formData).subscribe({
-      next: res => {
-        if (res) {
-          localStorage.setItem('IS_USER_LOGGED_IN', 'TRUE');
-          this.router.navigate(['/admin/add_header']);
-          this.formData = new FormData();
-        } else {
-          this.toastr.error('მომხმარებლის ელ-ფოსტა ან პაროლი არასწორია');
-          this.formData = new FormData();
-        }
-      },
-    });
+    const userInfo = {
+      email: this.emailFormControl.value,
+      password: this.passwordFormControl.value,
+    };
+
+    if (this.landingPageService.login(userInfo)) {
+      this.router.navigate(['/admin/add_header']);
+    } else {
+      this.toastr.error('მომხმარებლის ელ-ფოსტა ან პაროლი არასწორია');
+    }
   }
 }

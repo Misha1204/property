@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LandingPageService } from '../services/landng-page.service';
 
@@ -16,10 +16,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {}
 
   logout() {
-    this.landingPageService.logout().subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-    });
+    this.landingPageService.logout();
+    this.router.navigate(['/login']);
   }
 }

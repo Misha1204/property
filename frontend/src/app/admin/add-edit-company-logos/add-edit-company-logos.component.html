@@ -1,0 +1,21 @@
+<main class="main-container">
+  <div class="content">
+    <div class="table">
+      <h1>Update Header</h1>
+
+      <form *ngIf="form" [formGroup]="form" class="form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Enter Url</mat-label>
+          <input formControlName="link" matInput />
+        </mat-form-field>
+
+        <div class="image-input-container">
+          <label for="">Upload Image</label>
+          <input (change)="onImageSelected($event)" type="file" />
+        </div>
+
+        <button (click)="onUpload()">Upload</button>
+      </form>
+    </div>
+  </div>
+</main>

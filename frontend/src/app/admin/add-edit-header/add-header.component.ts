@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { delay, map, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { Header } from 'src/app/models/header.model';
 import { LandingPageService } from 'src/app/services/landng-page.service';
 
@@ -161,29 +161,23 @@ export class AddHeaderComponent implements OnInit {
     });
 
     if (this.headerInfo) {
-      this.landingPageService
-        .updateHeaderInfo(this.formData)
-        .pipe(delay(500))
-        .subscribe({
-          next: () => {
-            this.resetData();
-          },
-          error: () => {
-            this.resetData();
-          },
-        });
+      this.landingPageService.updateHeaderInfo(this.formData).subscribe({
+        next: () => {
+          this.resetData();
+        },
+        error: () => {
+          this.resetData();
+        },
+      });
     } else {
-      this.landingPageService
-        .addHeaderInfo(this.formData)
-        .pipe(delay(500))
-        .subscribe({
-          next: () => {
-            this.resetData();
-          },
-          error: () => {
-            this.resetData();
-          },
-        });
+      this.landingPageService.addHeaderInfo(this.formData).subscribe({
+        next: () => {
+          this.resetData();
+        },
+        error: () => {
+          this.resetData();
+        },
+      });
     }
   }
 
