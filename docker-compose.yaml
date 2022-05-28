@@ -1,0 +1,20 @@
+services:
+  catalogue:
+    build: .
+    volumes:
+      - ./production.properties:/app/application.properties
+    depends_on:
+      - postgres
+    ports:
+      - 8080:8080
+
+  postgres:
+    image: postgres:14.1-alpine
+    restart: always
+    volumes:
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
