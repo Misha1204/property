@@ -54,6 +54,8 @@ public class SubscriberController {
                 , "Phone"
                 , "Address"
                 , "Property ID"
+                , "Property Name"
+                , "Property Title"
                 };
         String[] nameMapping = {"id"
                 , "name"
@@ -61,6 +63,8 @@ public class SubscriberController {
                 , "phone"
                 , "address"
                 , "propertyId"
+                , "propertyName"
+                , "propertyTitle"
                 };
 
         csvWriter.writeHeader(csvHeader);
