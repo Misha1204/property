@@ -18,7 +18,7 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
-    public List<PropertyDTO> getProperties(String language) {
+    public List<PropertyDTO> getPropertyDTOs(String language) {
         return propertyRepository
                 .findAll()
                 .stream()
@@ -27,10 +27,22 @@ public class PropertyService {
 
     }
 
-    public PropertyDTO getProperty(long propertyId, String language) {
+    public List<Property> getProperties() {
+        return propertyRepository
+                .findAll();
+    }
+
+    public PropertyDTO getPropertyDTO(long propertyId, String language) {
         if (propertyRepository.existsById(propertyId)) {
             Property property = propertyRepository.findById(propertyId).get();
             return createPropertyDto(property, language);
+        }
+        return null;
+    }
+
+    public Property getProperty(long propertyId) {
+        if (propertyRepository.existsById(propertyId)) {
+            return propertyRepository.findById(propertyId).get();
         }
         return null;
     }

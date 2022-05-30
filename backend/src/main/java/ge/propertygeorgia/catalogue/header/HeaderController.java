@@ -28,12 +28,15 @@ public class HeaderController {
         this.headerService = headerService;
     }
 
-    @GetMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
-            , MediaType.APPLICATION_JSON_VALUE})
-    public HeaderDTO getHeader(@RequestPart("language") String language) {
-        return headerService.getHeader(language);
+    @GetMapping(path = "/{language}")
+    public HeaderDTO getHeader(@PathVariable("language") String language) {
+        return headerService.getHeaderDTO(language);
     }
 
+    @GetMapping()
+    public Header getHeader() {
+        return headerService.getHeader();
+    }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
@@ -82,8 +85,8 @@ public class HeaderController {
             , @RequestPart(value = "imageAddress4", required = false) String imageAddress4
             , @RequestPart(value = "fileAddress1", required = false) String fileAddress1
             , @RequestPart(value = "fileAddress2", required = false) String fileAddress2) {
-        String[] oldImages = headerService.getHeader("").getImages();
-        String[] oldFiles = headerService.getHeader("").getFiles();
+        String[] oldImages = headerService.getHeader().getImages();
+        String[] oldFiles = headerService.getHeader().getFiles();
         String[] images = new String[4];
         String[] files = new String[2];
 
