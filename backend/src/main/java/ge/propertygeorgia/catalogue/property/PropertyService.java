@@ -24,7 +24,6 @@ public class PropertyService {
                 .stream()
                 .map(property -> createPropertyDTO(property, language))
                 .collect(Collectors.toList());
-
     }
 
     public List<Property> getProperties() {

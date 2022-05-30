@@ -31,13 +31,13 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
-    @GetMapping(path = "/{language}")
+    @GetMapping(path = "language/{language}")
     public List<PropertyDTO> getPropertyDTOs(@PathVariable("language") String language) {
         return propertyService.getPropertyDTOs(language);
     }
 
     @GetMapping()
-    public List<Property> getPropertyDTOs() {
+    public List<Property> getProperties() {
         return propertyService.getProperties();
     }
 
@@ -48,8 +48,8 @@ public class PropertyController {
     }
 
     @GetMapping(path = "/{propertyId}")
-    public Property getProperty(@PathVariable("propertyId") Long propertyId
-           ) {
+    public Property getProperty(@PathVariable("propertyId") Long propertyId) {
+        System.out.println("---------------------------->" + propertyId);
         return propertyService.getProperty(propertyId);
     }
 
