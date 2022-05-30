@@ -11,6 +11,7 @@ import { ScrollRightDirective } from './directives/scroll-right.directive';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ExtendDirective } from './directives/extend.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     LandingPageComponent,
     ScrollLeftDirective,
     ScrollRightDirective,
+    ExtendDirective,
   ],
   imports: [
     BrowserModule,

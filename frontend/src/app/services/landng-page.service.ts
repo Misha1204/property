@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
-import { SectionPostRequest } from '../models/add-section.model';
+import { environment } from '../../environments/environment';
 import { Header } from '../models/header.model';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
@@ -16,45 +15,6 @@ export class LandingPageService {
   };
 
   constructor(private http: HttpClient) {}
-
-  companyLogos = [
-    {
-      imageSrc: 'assets/company-logos/gcf.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Fiabci.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/gcf.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Fiabci.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/gcf.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Fiabci.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/gcf.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Fiabci.png',
-    },
-    {
-      imageSrc: 'assets/company-logos/Bank_of_georgia.png',
-    },
-  ];
 
   // Auth
   login(request: { email: string; password: string }) {
@@ -75,50 +35,50 @@ export class LandingPageService {
 
   // Header Methods
   getHeaderInfo() {
-    return this.http.get<Header>(`http://localhost:8080/api/header`);
+    return this.http.get<Header>(`${environment.api_url}/api/header`);
   }
 
   updateHeaderInfo(formData: any) {
-    return this.http.put(`http://localhost:8080/api/header`, formData);
+    return this.http.put(`${environment.api_url}/api/header`, formData);
   }
 
   // Section Methods
   getPropertyInfo() {
-    return this.http.get<Section[]>(`http://localhost:8080/api/property`);
+    return this.http.get<Section[]>(`${environment.api_url}/api/property`);
   }
 
   getPropertyInfoById(id: number) {
-    return this.http.get<Section>(`http://localhost:8080/api/property/${id}`);
+    return this.http.get<Section>(`${environment.api_url}/api/property/${id}`);
   }
 
   addSectionInfo(formData: any) {
-    return this.http.post(`http://localhost:8080/api/property`, formData);
+    return this.http.post(`${environment.api_url}/api/property`, formData);
   }
 
   editSection(sectionId: number, formData: any) {
     return this.http.put(
-      `http://localhost:8080/api/property/${sectionId}`,
+      `${environment.api_url}/api/property/${sectionId}`,
       formData
     );
   }
 
   deleteSection(sectionId: number) {
-    return this.http.delete(`http://localhost:8080/api/property/${sectionId}`);
+    return this.http.delete(`${environment.api_url}/api/property/${sectionId}`);
   }
 
   uploadImages(fd: any) {
     return this.http.post(
-      `http://localhost:8080/api/property/uploadImages/4`,
+      `${environment.api_url}/api/property/uploadImages/4`,
       fd
     );
   }
 
   addUserInfo(request: UserInfo) {
-    return this.http.post(`http://localhost:8080/api/subscriber`, request);
+    return this.http.post(`${environment.api_url}/api/subscriber`, request);
   }
 
   addHeaderInfo(formData: any) {
-    return this.http.post(`http://localhost:8080/api/header`, formData);
+    return this.http.post(`${environment.api_url}/api/header`, formData);
   }
 
   // Company logos
@@ -129,14 +89,14 @@ export class LandingPageService {
         link: 'string';
         image: 'string';
       }[]
-    >(`http://localhost:8080/api/slider`);
+    >(`${environment.api_url}/api/slider`);
   }
 
   addCompanyLogo(formData: any) {
-    return this.http.post(`http://localhost:8080/api/slider`, formData);
+    return this.http.post(`${environment.api_url}/api/slider`, formData);
   }
 
   deleteCompanyLogo(logoId: number) {
-    return this.http.delete(`http://localhost:8080/api/slider/${logoId}`);
+    return this.http.delete(`${environment.api_url}/api/slider/${logoId}`);
   }
 }

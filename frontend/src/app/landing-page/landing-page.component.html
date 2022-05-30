@@ -160,18 +160,18 @@
         {{ currentLanguage === 'Eng' ? section.nameEng : section.name }}
       </h1>
       <div
+        #sectionRef
         [ngStyle]="{
-          'background-image':
-            'url(' + section.images[activeSectionImageIndex] + ')'
+          'background-image': 'url(' + section.images[0] + ')'
         }"
         class="section-info-container">
         <span
-          (click)="slideSectionImages('back', section)"
+          (click)="slideSectionImages(sectionRef, 'back', section)"
           class="material-symbols-outlined slider-arrow-back">
           arrow_back_ios
         </span>
         <span
-          (click)="slideSectionImages('forward', section)"
+          (click)="slideSectionImages(sectionRef, 'forward', section)"
           class="material-symbols-outlined slider-arrow-forward">
           arrow_forward_ios
         </span>
@@ -182,7 +182,9 @@
           </h1>
           <div class="section-slider-dots-container">
             <div
-              [ngClass]="{ 'opacity-1': j === activeSectionImageIndex }"
+              [ngClass]="{
+                'opacity-1': j === 0 && activeSectionImageIndex === 0
+              }"
               *ngFor="let image of section.images; let j = index"></div>
           </div>
           <button>Learn More</button>
@@ -235,6 +237,43 @@
             </button>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section *ngFor="let section of sections" class="section-mobile">
+      <div class="section-mobile-slider">
+        <div class="section-mobile-slider-header">
+          <h1>Aliance</h1>
+          <span>Download</span>
+        </div>
+
+        <div
+          *ngFor="let image of section.images"
+          class="section-mobile-image-container">
+          <img class="section-mobile-image" [src]="image" alt="" />
+        </div>
+      </div>
+
+      <div class="section-mobile-info">
+        <div
+          [ngStyle]="{ height: extended ? 'fit-content' : '72px' }"
+          class="section-mobile-info-location-description-container">
+          <div class="section-mobile-location">
+            <span>Batumi | Georgia</span>
+          </div>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
+            autem corporis architecto hic fugiat deleniti repudiandae fuga ullam
+            voluptatem! Culpa nulla vitae nihil eaque, nobis distinctio
+            repudiandae error recusandae minima!
+          </p>
+        </div>
+
+        <button
+          (click)="extendCollapseSectionInfo()"
+          class="section-mobile-info-extend-btn">
+          Extend
+        </button>
       </div>
     </section>
   </main>

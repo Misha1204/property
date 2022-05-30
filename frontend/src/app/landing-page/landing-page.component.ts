@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs';
-import { Header } from '../models/header.model';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 import { LandingPageService } from '../services/landng-page.service';
@@ -29,6 +28,8 @@ export class LandingPageComponent implements OnInit {
   companyLogos!: any;
   activeHeaderImageIndex: number = 0;
   activeSectionImageIndex: number = 0;
+
+  extended = false;
 
   // Sections
   sections!: Section[];
@@ -102,7 +103,11 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  slideSectionImages(direction: string, section: any) {
+  slideSectionImages(
+    sectionRef: HTMLElement,
+    direction?: string | undefined,
+    section?: any
+  ) {
     if (direction === 'forward') {
       if (this.activeSectionImageIndex < section.images.length - 1) {
         this.activeSectionImageIndex++;
@@ -116,6 +121,20 @@ export class LandingPageComponent implements OnInit {
         this.activeSectionImageIndex = section.images.length - 1;
       }
     }
+
+    sectionRef.style.backgroundImage = `url(${
+      section.images[this.activeSectionImageIndex]
+    })`;
+
+    (
+      sectionRef.children[2].children[1].children[
+        this.activeSectionImageIndex
+      ] as HTMLElement
+    ).classList.add('opacity-1');
+  }
+
+  extendCollapseSectionInfo() {
+    this.extended = !this.extended;
   }
 
   // Handle form submition
