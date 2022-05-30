@@ -22,7 +22,7 @@ public class PropertyService {
         return propertyRepository
                 .findAll()
                 .stream()
-                .map(property -> createPropertyDto(property, language))
+                .map(property -> createPropertyDTO(property, language))
                 .collect(Collectors.toList());
 
     }
@@ -35,7 +35,7 @@ public class PropertyService {
     public PropertyDTO getPropertyDTO(long propertyId, String language) {
         if (propertyRepository.existsById(propertyId)) {
             Property property = propertyRepository.findById(propertyId).get();
-            return createPropertyDto(property, language);
+            return createPropertyDTO(property, language);
         }
         return null;
     }
@@ -78,7 +78,7 @@ public class PropertyService {
         }
     }
 
-    public PropertyDTO createPropertyDto(Property property, String language){
+    public PropertyDTO createPropertyDTO(Property property, String language){
         PropertyDTO propertyDTO = new PropertyDTO();
         propertyDTO.setId(property.getId());
         propertyDTO.setImages(property.getImages());

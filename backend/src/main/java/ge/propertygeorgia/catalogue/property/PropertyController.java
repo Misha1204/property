@@ -47,7 +47,7 @@ public class PropertyController {
         return propertyService.getPropertyDTO(propertyId, language);
     }
 
-    @GetMapping()
+    @GetMapping(path = "/{propertyId}")
     public Property getProperty(@PathVariable("propertyId") Long propertyId
            ) {
         return propertyService.getProperty(propertyId);
