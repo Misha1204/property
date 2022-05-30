@@ -53,7 +53,6 @@ public class SubscriberController {
                 , "E-Mail"
                 , "Phone"
                 , "Address"
-                , "Description"
                 , "Property ID"
                 };
         String[] nameMapping = {"id"
