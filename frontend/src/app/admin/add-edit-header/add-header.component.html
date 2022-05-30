@@ -3,6 +3,10 @@
     <div class="table">
       <h1>Update Header</h1>
 
+      <a href="/api/subscriber/export" (click)="downloadExcel()"
+        >Download Pdf</a
+      >
+
       <form *ngIf="form" [formGroup]="form" class="form">
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Description Geo</mat-label>

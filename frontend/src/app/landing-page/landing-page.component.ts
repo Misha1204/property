@@ -15,14 +15,12 @@ export class LandingPageComponent implements OnInit {
   form!: FormGroup;
 
   // Language variables
-  currentLanguage: string = 'Eng';
+  currentLanguage: string = 'eng';
 
   // Header images
   headerInfo!: {
     description: string;
-    descriptionEng: string;
     files: string[];
-    id: number;
     images: string[];
   };
 
@@ -30,7 +28,7 @@ export class LandingPageComponent implements OnInit {
   activeHeaderImageIndex: number = 0;
   activeSectionImageIndex: number = 0;
 
-  extended = false;
+  isMobileInfoExtended = false;
 
   // Sections
   sections!: Section[];
@@ -42,34 +40,9 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.landingPageService
-      .getHeaderInfo()
-      .pipe(
-        tap((res: any) => {
-          console.log(res);
-
-          this.headerInfo = res;
-        })
-      )
-      .subscribe();
-
-    this.landingPageService
-      .getPropertyInfo()
-      .pipe(
-        tap(res => {
-          this.sections = res;
-        })
-      )
-      .subscribe();
-
-    this.landingPageService
-      .getCompanyLogos()
-      .pipe(
-        tap(res => {
-          this.companyLogos = res;
-        })
-      )
-      .subscribe();
+    this.getHeaderInfo();
+    this.getPropertyInfo();
+    this.getSliderInfo();
 
     this.initForm();
   }
@@ -83,9 +56,46 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
+  getHeaderInfo() {
+    this.landingPageService
+      .getHeaderInfo(this.currentLanguage)
+      .pipe(
+        tap((res: any) => {
+          this.headerInfo = res;
+        })
+      )
+      .subscribe();
+  }
+
+  getPropertyInfo() {
+    this.landingPageService
+      .getPropertyInfo(this.currentLanguage)
+      .pipe(
+        tap(res => {
+          console.log(res);
+          this.sections = res;
+        })
+      )
+      .subscribe();
+  }
+
+  getSliderInfo() {
+    this.landingPageService
+      .getCompanyLogos()
+      .pipe(
+        tap(res => {
+          this.companyLogos = res;
+        })
+      )
+      .subscribe();
+  }
+
   // Change Language of the page
   changeCurrentLanguage(event: Event) {
     this.currentLanguage = (event.target as HTMLInputElement).value;
+
+    this.getHeaderInfo();
+    this.getPropertyInfo();
   }
 
   // Slide through images in header
@@ -135,18 +145,27 @@ export class LandingPageComponent implements OnInit {
     ).classList.add('opacity-1');
   }
 
-  extendCollapseSectionInfo() {
-    this.extended = !this.extended;
+  extendCollapseSectionInfo(mobileSectionInfoRef: HTMLElement) {
+    this.isMobileInfoExtended = !this.isMobileInfoExtended;
+    if (this.isMobileInfoExtended) {
+      (mobileSectionInfoRef.children[0] as HTMLElement).style.height = '150px';
+    } else {
+      (mobileSectionInfoRef.children[0] as HTMLElement).style.height = '72px';
+    }
   }
 
+  extendCollapseSendInfo() {}
+
   // Handle form submition
-  onSubmit(sectionId: number) {
+  onSubmit(section: Section) {
     const request: UserInfo = {
       name: this.form.get('name')?.value,
       email: this.form.get('email')?.value,
       phone: this.form.get('phone')?.value,
       address: this.form.get('address')?.value,
-      sectionId,
+      propertyId: section.id,
+      propertyName: section.name,
+      propertyTitle: section.title,
     };
 
     this.landingPageService.addUserInfo(request).subscribe({

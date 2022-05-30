@@ -24,9 +24,9 @@ export class SectionsComponent implements OnInit {
 
   getSections() {
     this.landingPageService
-      .getPropertyInfo()
+      .getAllProperties()
       .pipe(
-        tap(res => {
+        tap((res: any) => {
           this.dataSource = new MatTableDataSource<Section>(res);
           this.dataSource.paginator = this.paginator;
         })

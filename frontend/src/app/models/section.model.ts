@@ -5,11 +5,11 @@ export interface Section {
   city: string;
   country: string;
   description: string;
-  nameEng: string;
-  titleEng: string;
-  cityEng: string;
-  countryEng: string;
-  descriptionEng: string;
+  nameEng?: string;
+  titleEng?: string;
+  cityEng?: string;
+  countryEng?: string;
+  descriptionEng?: string;
   images: { id: number; image: any }[];
   file: string;
 }

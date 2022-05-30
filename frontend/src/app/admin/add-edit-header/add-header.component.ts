@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -25,7 +26,8 @@ export class AddHeaderComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private landingPageService: LandingPageService
+    private landingPageService: LandingPageService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -187,5 +189,13 @@ export class AddHeaderComponent implements OnInit {
     this.deletedImageIds = [];
     this.deletedFileIds = [];
     this.getHeaderInfo();
+  }
+
+  downloadExcel() {
+    this.http
+      .get(`/api/subscriber/export`, { responseType: 'arraybuffer' })
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 }
