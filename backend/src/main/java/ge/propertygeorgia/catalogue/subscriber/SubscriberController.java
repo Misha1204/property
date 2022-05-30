@@ -47,7 +47,8 @@ public class SubscriberController {
 
         List<Subscriber> subscribers = subscriberService.getSubsribers();
 
-        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
+        response.setCharacterEncoding("UTF-8");
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.EXCEL_PREFERENCE);
         String[] csvHeader = {"Subscriber ID"
                 , "Name"
                 , "E-Mail"
