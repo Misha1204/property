@@ -18,6 +18,10 @@ public class HeaderController {
     String IMAGES_DIRECTORY;
     @Value("${file.upload-dir}")
     String FILE_DIRECTORY;
+    @Value("${file.path}")
+    String FILE_PATH;
+    @Value("${image.path}")
+    String IMAGE_PATH;
 
     @Autowired
     public HeaderController(HeaderService headerService) {
@@ -45,12 +49,12 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
 
-        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY,"assets/images/" );
-        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY,"assets/images/" );
-        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY,"assets/images/" );
-        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY,"assets/images/" );
-        files[0] = FileUtils.postFile(file1, FILE_DIRECTORY,"assets/" );
-        files[1] = FileUtils.postFile(file2, FILE_DIRECTORY,"assets/" );
+        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY,IMAGE_PATH );
+        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY,IMAGE_PATH );
+        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY,IMAGE_PATH );
+        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY,IMAGE_PATH );
+        files[0] = FileUtils.postFile(file1, FILE_DIRECTORY,FILE_PATH );
+        files[1] = FileUtils.postFile(file2, FILE_DIRECTORY,FILE_PATH );
 
 
         Header header = new Header();
@@ -83,12 +87,12 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
 
-        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, "assets/images/");
-        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, "assets/images/");
-        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, "assets/images/");
-        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, "assets/images/");
-        files[0] = FileUtils.updateFile(file1, fileAddress1, FILE_DIRECTORY, "images/");
-        files[1] = FileUtils.updateFile(file2, fileAddress2, FILE_DIRECTORY, "images/");
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, IMAGE_PATH);
+        files[0] = FileUtils.updateFile(file1, fileAddress1, FILE_DIRECTORY, FILE_PATH);
+        files[1] = FileUtils.updateFile(file2, fileAddress2, FILE_DIRECTORY, FILE_PATH);
 
         FileUtils.deleteFiles(oldImages, images);
         FileUtils.deleteFiles(oldFiles, files);

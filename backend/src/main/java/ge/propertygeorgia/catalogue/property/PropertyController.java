@@ -20,6 +20,11 @@ public class PropertyController {
     String IMAGES_DIRECTORY;
     @Value("${file.upload-dir}")
     String FILE_DIRECTORY;
+    @Value("${file.path}")
+    String FILE_PATH;
+    @Value("${image.path}")
+    String IMAGE_PATH;
+
 
     @Autowired
     public PropertyController(PropertyService propertyService) {
@@ -57,11 +62,11 @@ public class PropertyController {
     ) {
         String[] images = new String[4];
         String fileAddress;
-        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY, "assets/images/");
-        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY, "assets/images/");
-        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY, "assets/images/");
-        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY, "assets/images/");
-        fileAddress = FileUtils.postFile(file, FILE_DIRECTORY, "assets/");
+        images[0] = FileUtils.postFile(image1, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[1] = FileUtils.postFile(image2, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[2] = FileUtils.postFile(image3, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY, IMAGE_PATH);
+        fileAddress = FileUtils.postFile(file, FILE_DIRECTORY, FILE_PATH);
 
         Property property = new Property();
         property.setName(name);
@@ -113,11 +118,11 @@ public class PropertyController {
         String oldFile = propertyService.getProperty(propertyId).getFile();
         String[] images = new String[4];
 
-        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, "assets/images/");
-        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, "assets/images/");
-        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, "assets/images/");
-        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, "assets/images/");
-        fileAddress = FileUtils.updateFile(file, fileAddress, FILE_DIRECTORY, "images/");
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, IMAGE_PATH);
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, IMAGE_PATH);
+        fileAddress = FileUtils.updateFile(file, fileAddress, FILE_DIRECTORY, FILE_PATH);
 
         FileUtils.deleteFiles(oldImages, images);
         FileUtils.deleteFiles(new String[]{oldFile}, new String[]{fileAddress});

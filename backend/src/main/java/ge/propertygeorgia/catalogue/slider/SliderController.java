@@ -20,6 +20,9 @@ public class SliderController {
     private final SliderService sliderService;
     @Value("${images.upload-dir}")
     String IMAGES_DIRECTORY;
+    @Value("${image.path}")
+    String IMAGE_PATH;
+
 
     @Autowired
     public SliderController(SliderService slierService) {
@@ -41,7 +44,7 @@ public class SliderController {
             , MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Object> postSlider(@RequestPart(value = "link", required = false) String link
             , @RequestPart(value = "image", required = false) MultipartFile image) {
-        String imageAddress = FileUtils.postFile(image,IMAGES_DIRECTORY,"assets/images/");
+        String imageAddress = FileUtils.postFile(image,IMAGES_DIRECTORY,IMAGE_PATH);
         Slider slider = new Slider();
         slider.setLink(link);
         slider.setImage(imageAddress);
@@ -61,7 +64,7 @@ public class SliderController {
                                @RequestPart(value = "image", required = false) MultipartFile image,
                                @RequestPart(value = "imageAddress", required = false) String imageAddress) {
 
-        imageAddress = FileUtils.updateFile(image,imageAddress,IMAGES_DIRECTORY, "assets/images/");
+        imageAddress = FileUtils.updateFile(image,imageAddress,IMAGES_DIRECTORY, IMAGE_PATH);
         if(Objects.equals(image,sliderService.getSlider(sliderId).getImage())) FileUtils.deleteFile(sliderService.getSlider(sliderId).getImage());
 
         sliderService.updateSlider(sliderId, link, imageAddress);
