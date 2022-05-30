@@ -31,14 +31,17 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
-    @GetMapping
-    public List<Property> getProperties() {
-        return propertyService.getProperties();
+    @GetMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public List<PropertyDTO> getProperties(@RequestPart("language") String language) {
+        return propertyService.getProperties(language);
     }
 
-    @GetMapping(path = "/{propertyId}")
-    public Property getProperty(@PathVariable("propertyId") Long propertyId) {
-        return propertyService.getProperty(propertyId);
+    @GetMapping(path = "/{propertyId}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
+            , MediaType.APPLICATION_JSON_VALUE})
+    public PropertyDTO getProperty(@PathVariable("propertyId") Long propertyId
+    , @RequestPart("language") String language) {
+        return propertyService.getProperty(propertyId, language);
     }
 
 
@@ -114,8 +117,8 @@ public class PropertyController {
             , @RequestPart(value = "imageAddress3", required = false) String imageAddress3
             , @RequestPart(value = "imageAddress4", required = false) String imageAddress4
             , @RequestPart(value = "fileAddress", required = false) String fileAddress) {
-        String[] oldImages = propertyService.getProperty(propertyId).getImages();
-        String oldFile = propertyService.getProperty(propertyId).getFile();
+        String[] oldImages = propertyService.getProperty(propertyId, "").getImages();
+        String oldFile = propertyService.getProperty(propertyId, "").getFile();
         String[] images = new String[4];
 
         images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, IMAGE_PATH);
