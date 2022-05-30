@@ -12,6 +12,7 @@ public class Header {
     private String descriptionEng;
     private String[] images = new String[4];
     private String[] files = new String[2];
+
     public Header () {
 
     }
