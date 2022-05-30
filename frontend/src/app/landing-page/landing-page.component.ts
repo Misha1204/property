@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { tap } from 'rxjs';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
@@ -36,7 +37,8 @@ export class LandingPageComponent implements OnInit {
 
   constructor(
     private landingPageService: LandingPageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +46,8 @@ export class LandingPageComponent implements OnInit {
       .getHeaderInfo()
       .pipe(
         tap((res: any) => {
+          console.log(res);
+
           this.headerInfo = res;
         })
       )
@@ -53,8 +57,6 @@ export class LandingPageComponent implements OnInit {
       .getPropertyInfo()
       .pipe(
         tap(res => {
-          console.log(res);
-
           this.sections = res;
         })
       )
@@ -150,9 +152,10 @@ export class LandingPageComponent implements OnInit {
     this.landingPageService.addUserInfo(request).subscribe({
       next: () => {
         this.form.reset();
+        this.toastr.success('მონაცემები წარმატებით დაემატა');
       },
       error: err => {
-        console.log(err);
+        this.toastr.error('მონაცემების დამატება ვერ მოხერხდა');
       },
     });
   }

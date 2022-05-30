@@ -1,7 +1,8 @@
 <div class="main-container">
+  <!-- Desctop Header -->
   <header *ngIf="headerInfo" class="header">
     <div class="header-left-container">
-      <div class="header-left-info">
+      <div class="header-left">
         <img
           class="header-left-image"
           src="../../assets/images/logo.png"
@@ -15,7 +16,7 @@
           }}
         </p>
 
-        <div class="header-left-btn-container">
+        <div class="header-left-download-btn-container">
           <p>
             {{
               currentLanguage === 'Eng'
@@ -24,9 +25,13 @@
             }}
           </p>
 
-          <button>
+          <a
+            class="header-left-download-btn"
+            href="/{{ headerInfo.files[0] }}"
+            target="_blank"
+            download="/{{ headerInfo.files[0] }}">
             {{ currentLanguage === 'Eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -37,7 +42,7 @@
           'url(' + headerInfo.images[activeHeaderImageIndex] + ')'
       }"
       class="header-right-container">
-      <div class="header-right-info">
+      <div class="header-right">
         <button class="header-right-learn-more-btn">
           {{ currentLanguage === 'Eng' ? 'Learn More' : 'გაიგე მეტი' }}
         </button>
@@ -46,6 +51,7 @@
 
         <select
           (change)="changeCurrentLanguage($event)"
+          class="header-right-select-language"
           name="language"
           id="language">
           <option value="Eng">Eng</option>
@@ -79,6 +85,7 @@
     </div>
   </header>
 
+  <!-- Mobile Header -->
   <header *ngIf="headerInfo" class="mobile-header">
     <div class="mobile-header-logo-icons">
       <div></div>
@@ -135,6 +142,7 @@
     </div>
   </header>
 
+  <!-- Company Logos Slider -->
   <div class="company-logos-slider">
     <div class="logos-container">
       <span scrollLeft class="material-symbols-outlined company-logos-back">
@@ -151,6 +159,7 @@
     </div>
   </div>
 
+  <!-- Sections -->
   <main *ngIf="sections" class="main">
     <section
       *ngFor="let section of sections; let i = index"

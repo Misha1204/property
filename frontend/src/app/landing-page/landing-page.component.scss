@@ -23,7 +23,7 @@
   );
 }
 
-.header-left-info {
+.header-left {
   margin-left: 18%;
   margin-top: 62px;
 }
@@ -46,7 +46,7 @@
   line-height: 50px;
 }
 
-.header-left-btn-container {
+.header-left-download-btn-container {
   display: flex;
   align-items: center;
   margin-top: 150px;
@@ -56,29 +56,34 @@
     font-size: 120%;
     color: rgb(167, 167, 167);
   }
+}
 
-  button {
-    width: 34.7%;
-    height: 72px;
+.header-left-download-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
 
-    margin-left: 11%;
-    font-size: 22px;
+  width: 34.7%;
+  height: 72px;
 
-    color: #fff;
-    font-weight: bold;
+  margin-left: 11%;
+  font-size: 22px;
 
-    border: none;
-    border-radius: 8px;
-    outline: none;
-    cursor: pointer;
+  color: #fff;
+  font-weight: bold;
 
-    background-image: linear-gradient(
-      180deg,
-      rgb(210, 171, 101) 0%,
-      rgb(139, 98, 23) 72%,
-      rgb(141, 100, 27) 100%
-    );
-  }
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+
+  background-image: linear-gradient(
+    180deg,
+    rgb(210, 171, 101) 0%,
+    rgb(139, 98, 23) 72%,
+    rgb(141, 100, 27) 100%
+  );
 }
 
 // Right Header
@@ -90,7 +95,7 @@
   background-repeat: no-repeat;
 }
 
-.header-right-info {
+.header-right {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,36 +103,36 @@
   margin-top: 76.3px;
   padding-left: 50px;
   padding-right: 50px;
+}
 
-  .header-right-learn-more-btn {
-    width: 157.4px;
-    height: 54px;
+.header-right-select-language {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  border: none;
 
-    backdrop-filter: blur(18px);
-    background: rgba(0, 0, 0, 0.4);
-    opacity: 0.9;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    cursor: pointer;
+  background-color: transparent;
+
+  option {
+    color: #000;
   }
+}
 
-  select {
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    outline: none;
-    border: none;
+.header-right-learn-more-btn {
+  width: 157.4px;
+  height: 54px;
 
-    background-color: transparent;
-
-    option {
-      color: #000;
-    }
-  }
+  backdrop-filter: blur(18px);
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0.9;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .header-right-slider-container {
@@ -166,7 +171,7 @@
   }
 }
 
-// Companie Logos slider
+// Companies Logos slider
 .company-logos-slider {
   display: flex;
   justify-content: center;
@@ -448,6 +453,8 @@
   border-radius: 8px;
   outline: none;
 
+  cursor: pointer;
+
   background-image: linear-gradient(
     180deg,
     rgb(210, 171, 101) 0%,
@@ -678,12 +685,12 @@
     font-size: 160%;
   }
 
-  .header-left-btn-container {
+  .header-left-download-btn-container {
     p {
       font-size: 90%;
     }
 
-    button {
+    a {
       font-size: 16px;
     }
   }
@@ -729,7 +736,7 @@
     margin-top: 470px;
   }
 
-  .header-left-btn-container {
+  .header-left-download-btn-container {
     margin-top: 100px;
 
     p {
@@ -737,7 +744,7 @@
       font-size: 120%;
     }
 
-    button {
+    a {
       width: 45.7%;
       height: 60px;
 
