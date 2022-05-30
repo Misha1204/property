@@ -83,12 +83,12 @@ public class HeaderController {
         String[] images = new String[4];
         String[] files = new String[2];
 
-        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY);
-        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY);
-        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY);
-        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY);
-        files[0] = FileUtils.updateFile(file1, fileAddress1, FILE_DIRECTORY);
-        files[1] = FileUtils.updateFile(file2, fileAddress2, FILE_DIRECTORY);
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, "assets/images/");
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, "assets/images/");
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, "assets/images/");
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, "assets/images/");
+        files[0] = FileUtils.updateFile(file1, fileAddress1, FILE_DIRECTORY, "images/");
+        files[1] = FileUtils.updateFile(file2, fileAddress2, FILE_DIRECTORY, "images/");
 
         FileUtils.deleteFiles(oldImages, images);
         FileUtils.deleteFiles(oldFiles, files);

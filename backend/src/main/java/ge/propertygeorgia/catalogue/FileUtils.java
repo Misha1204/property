@@ -28,11 +28,11 @@ public class FileUtils {
         }
     }
 
-    public static String updateFile(MultipartFile file, String fileAddress, String directory) {
+    public static String updateFile(MultipartFile file, String fileAddress, String directory, String path) {
         if (file == null) {
             return fileAddress;
         } else {
-            return postFile(file, directory,"assets/images/");
+            return postFile(file, directory,path);
         }
     }
 

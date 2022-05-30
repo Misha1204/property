@@ -61,7 +61,7 @@ public class SliderController {
                                @RequestPart(value = "image", required = false) MultipartFile image,
                                @RequestPart(value = "imageAddress", required = false) String imageAddress) {
 
-        imageAddress = FileUtils.updateFile(image,imageAddress,IMAGES_DIRECTORY);
+        imageAddress = FileUtils.updateFile(image,imageAddress,IMAGES_DIRECTORY, "assets/images/");
         if(Objects.equals(image,sliderService.getSlider(sliderId).getImage())) FileUtils.deleteFile(sliderService.getSlider(sliderId).getImage());
 
         sliderService.updateSlider(sliderId, link, imageAddress);

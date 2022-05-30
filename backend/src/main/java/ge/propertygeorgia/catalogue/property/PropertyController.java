@@ -113,11 +113,11 @@ public class PropertyController {
         String oldFile = propertyService.getProperty(propertyId).getFile();
         String[] images = new String[4];
 
-        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY);
-        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY);
-        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY);
-        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY);
-        fileAddress = FileUtils.updateFile(file, fileAddress, FILE_DIRECTORY);
+        images[0] = FileUtils.updateFile(image1, imageAddress1, IMAGES_DIRECTORY, "assets/images/");
+        images[1] = FileUtils.updateFile(image2, imageAddress2, IMAGES_DIRECTORY, "assets/images/");
+        images[2] = FileUtils.updateFile(image3, imageAddress3, IMAGES_DIRECTORY, "assets/images/");
+        images[3] = FileUtils.updateFile(image4, imageAddress4, IMAGES_DIRECTORY, "assets/images/");
+        fileAddress = FileUtils.updateFile(file, fileAddress, FILE_DIRECTORY, "images/");
 
         FileUtils.deleteFiles(oldImages, images);
         FileUtils.deleteFiles(new String[]{oldFile}, new String[]{fileAddress});
