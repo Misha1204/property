@@ -9,17 +9,13 @@
           alt="logo" />
 
         <p class="header-left-paragraph">
-          {{
-            currentLanguage === 'Eng'
-              ? headerInfo?.descriptionEng
-              : headerInfo?.description
-          }}
+          {{ headerInfo.description }}
         </p>
 
         <div class="header-left-download-btn-container">
           <p>
             {{
-              currentLanguage === 'Eng'
+              currentLanguage === 'eng'
                 ? 'Look up for more information here:'
                 : 'დამატებითი ინფორმაციისთვის გადმოწერეთ'
             }}
@@ -30,7 +26,7 @@
             href="/{{ headerInfo.files[0] }}"
             target="_blank"
             download="/{{ headerInfo.files[0] }}">
-            {{ currentLanguage === 'Eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
+            {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
           </a>
         </div>
       </div>
@@ -43,19 +39,33 @@
       }"
       class="header-right-container">
       <div class="header-right">
-        <button class="header-right-learn-more-btn">
-          {{ currentLanguage === 'Eng' ? 'Learn More' : 'გაიგე მეტი' }}
-        </button>
+        <!-- <button class="header-right-learn-more-btn">
+          {{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
+        </button> -->
 
-        <div class="icons"></div>
+        <div class="icons">
+          <a href="https://www.facebook.com/PropertyGeorgia">
+            <img src="../../assets/images/facebook.png" alt="facebook" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
+            <img src="../../assets/images/youtube.png" alt="youtube" />
+          </a>
+          <a
+            href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
+            <img src="../../assets/images/twitter.png" alt="twitter" />
+          </a>
+          <a href="https://www.linkedin.com/company/property-georgia/">
+            <img src="../../assets/images/linkedin.png" alt="linkedin" />
+          </a>
+        </div>
 
         <select
           (change)="changeCurrentLanguage($event)"
           class="header-right-select-language"
           name="language"
           id="language">
-          <option value="Eng">Eng</option>
-          <option value="Geo">Geo</option>
+          <option value="eng">Eng</option>
+          <option value="geo">Geo</option>
         </select>
       </div>
 
@@ -103,16 +113,33 @@
           (change)="changeCurrentLanguage($event)"
           name="language"
           id="language">
-          <option value="Eng">Eng</option>
-          <option value="Geo">Geo</option>
+          <option value="eng">Eng</option>
+          <option value="geo">Geo</option>
         </select>
       </div>
       <div></div>
       <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.facebook.com/PropertyGeorgia">
+          <img src="../../assets/images/facebook.png" alt="facebook" />
+        </a>
+      </div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
+          <img src="../../assets/images/youtube.png" alt="youtube" />
+        </a>
+      </div>
+      <div class="mobile-header-social-links">
+        <a
+          href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
+          <img src="../../assets/images/twitter.png" alt="twitter" />
+        </a>
+      </div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.linkedin.com/company/property-georgia/">
+          <img src="../../assets/images/linkedin.png" alt="linkedin" />
+        </a>
+      </div>
       <div></div>
     </div>
 
@@ -132,12 +159,11 @@
 
     <div class="mobile-header-description-container">
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry
+        {{ headerInfo.description }}
       </p>
 
       <button>
-        {{ currentLanguage === 'Eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
+        {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
       </button>
     </div>
   </header>
@@ -166,7 +192,7 @@
       class="section"
       [ngClass]="{ 'section-top-margin': i > 0 }">
       <h1 class="section-title">
-        {{ currentLanguage === 'Eng' ? section.nameEng : section.name }}
+        {{ section.name }}
       </h1>
       <div
         #sectionRef
@@ -187,7 +213,7 @@
 
         <div class="section-description-header-container">
           <h1>
-            {{ currentLanguage === 'Eng' ? section.titleEng : section.title }}
+            {{ section.title }}
           </h1>
           <div class="section-slider-dots-container">
             <div
@@ -196,24 +222,23 @@
               }"
               *ngFor="let image of section.images; let j = index"></div>
           </div>
-          <button>Learn More</button>
+          <a
+            href="{{ section.file }}"
+            target="_blank"
+            download="{{ section.file }}"
+            >{{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
+          </a>
         </div>
 
         <div class="section-description-form-container">
           <div class="section-description">
             <h4>
-              {{
-                currentLanguage === 'Eng' ? section.countryEng : section.country
-              }}
-              | {{ currentLanguage === 'Eng' ? section.cityEng : section.city }}
+              {{ section.country }}
+              | {{ section.city }}
             </h4>
 
             <p>
-              {{
-                currentLanguage === 'Eng'
-                  ? section?.descriptionEng
-                  : section?.description
-              }}
+              {{ section?.description }}
             </p>
           </div>
 
@@ -221,14 +246,18 @@
             <h4>Send contacts</h4>
 
             <div class="section-form">
-              <form class="form" [formGroup]="form">
+              <form *ngIf="form" class="form" [formGroup]="form">
                 <input
                   type="text"
-                  placeholder="Fullname"
+                  placeholder="{{
+                    currentLanguage === 'eng' ? 'Fullname' : 'სახელი'
+                  }}"
                   formControlName="name" />
                 <input
                   type="text"
-                  placeholder="Country"
+                  placeholder="{{
+                    currentLanguage === 'eng' ? 'Country' : 'ქვეყანა'
+                  }}"
                   formControlName="address" />
                 <input
                   type="text"
@@ -241,8 +270,8 @@
               </form>
             </div>
 
-            <button class="send-btn" (click)="onSubmit(section.id)">
-              {{ currentLanguage === 'Eng' ? 'Send' : 'გაგზავნა' }}
+            <button class="send-btn" (click)="onSubmit(section)">
+              {{ currentLanguage === 'eng' ? 'Send' : 'გაგზავნა' }}
             </button>
           </div>
         </div>
@@ -250,40 +279,99 @@
     </section>
 
     <section *ngFor="let section of sections" class="section-mobile">
-      <div class="section-mobile-slider">
-        <div class="section-mobile-slider-header">
-          <h1>Aliance</h1>
-          <span>Download</span>
-        </div>
+      <div class="section-mobile-slider-container">
+        <div class="section-mobile-slider">
+          <div class="section-mobile-slider-header">
+            <h1>Aliance</h1>
+            <span>
+              <a
+                href="{{ section.file }}"
+                target="_blank"
+                download="{{ section.file }}">
+                <span class="material-symbols-outlined"> file_download </span>
+              </a>
+            </span>
+          </div>
 
-        <div
-          *ngFor="let image of section.images"
-          class="section-mobile-image-container">
-          <img class="section-mobile-image" [src]="image" alt="" />
+          <div
+            *ngFor="let image of section.images"
+            class="section-mobile-image-container">
+            <img class="section-mobile-image" [src]="image" alt="" />
+          </div>
         </div>
       </div>
 
-      <div class="section-mobile-info">
-        <div
-          [ngStyle]="{ height: extended ? 'fit-content' : '72px' }"
-          class="section-mobile-info-location-description-container">
+      <div #extendMobileInfo class="section-mobile-info">
+        <div class="section-mobile-info-location-description-container">
           <div class="section-mobile-location">
             <span>Batumi | Georgia</span>
           </div>
           <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque
-            autem corporis architecto hic fugiat deleniti repudiandae fuga ullam
-            voluptatem! Culpa nulla vitae nihil eaque, nobis distinctio
-            repudiandae error recusandae minima!
+            {{
+              isMobileInfoExtended
+                ? section.description
+                : (section.description | truncate: 80)
+            }}
           </p>
         </div>
 
         <button
-          (click)="extendCollapseSectionInfo()"
+          (click)="extendCollapseSectionInfo(extendMobileInfo)"
           class="section-mobile-info-extend-btn">
-          Extend
+          <span *ngIf="!isMobileInfoExtended" class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span>
+          <span *ngIf="isMobileInfoExtended" class="material-symbols-outlined">
+            keyboard_arrow_up
+          </span>
         </button>
       </div>
+
+      <div #extendMobileform class="section-mobile-form-container">
+        <div class="section-mobile-send-contacts">
+          <span>Send Contacts</span>
+        </div>
+
+        <form
+          *ngIf="form"
+          class="form"
+          [formGroup]="form"
+          class="section-mobile-form">
+          <input
+            type="text"
+            placeholder="{{
+              currentLanguage === 'eng' ? 'Fullname' : 'სახელი'
+            }}"
+            formControlName="name" />
+          <input
+            type="text"
+            placeholder="{{
+              currentLanguage === 'eng' ? 'Country' : 'ქვეყანა'
+            }}"
+            formControlName="address" />
+          <input
+            type="text"
+            placeholder="+995555467844"
+            formControlName="phone" />
+          <input
+            type="text"
+            placeholder="person@gmail.com"
+            formControlName="email" />
+        </form>
+      </div>
+      <button
+        *ngIf="!isMobileFormExtended"
+        class="section-mobile-send-form-extend-btn"
+        (click)="extendCollapseForm(extendMobileform)">
+        <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+      </button>
+
+      <button
+        (click)="onSubmit(section, extendMobileform)"
+        class="section-mobile-send-form-btn"
+        *ngIf="isMobileFormExtended">
+        Send
+      </button>
     </section>
   </main>
 

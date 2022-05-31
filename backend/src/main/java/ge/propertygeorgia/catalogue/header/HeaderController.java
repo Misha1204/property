@@ -28,11 +28,15 @@ public class HeaderController {
         this.headerService = headerService;
     }
 
+    @GetMapping(path = "/{language}")
+    public HeaderDTO getHeader(@PathVariable("language") String language) {
+        return headerService.getHeaderDTO(language);
+    }
+
     @GetMapping()
     public Header getHeader() {
         return headerService.getHeader();
     }
-
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE
             , MediaType.APPLICATION_JSON_VALUE})
@@ -55,7 +59,6 @@ public class HeaderController {
         images[3] = FileUtils.postFile(image4, IMAGES_DIRECTORY,IMAGE_PATH );
         files[0] = FileUtils.postFile(file1, FILE_DIRECTORY,FILE_PATH );
         files[1] = FileUtils.postFile(file2, FILE_DIRECTORY,FILE_PATH );
-
 
         Header header = new Header();
         header.setDescription(description);

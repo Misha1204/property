@@ -3,5 +3,7 @@ export interface UserInfo {
   email: string;
   phone: string;
   address: string;
-  sectionId: number;
+  propertyId: number;
+  propertyName: string;
+  propertyTitle: string;
 }

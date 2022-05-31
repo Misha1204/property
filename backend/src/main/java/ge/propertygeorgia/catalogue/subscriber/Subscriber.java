@@ -21,17 +21,21 @@ public class Subscriber {
     private String phone;
     private String address;
     private long propertyId;
+    private String propertyName;
+    private String propertyTitle;
 
     public Subscriber() {
     }
 
-    public Subscriber(long id, String name, String email, String phone, String address, long propertyId) {
+    public Subscriber(long id, String name, String email, String phone, String address, long propertyId, String propertyName, String propertyTitle) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.address = address;
         this.propertyId = propertyId;
+        this.propertyName = propertyName;
+        this.propertyTitle = propertyTitle;
     }
 
     public String getName() {
@@ -82,13 +86,33 @@ public class Subscriber {
         this.id = id;
     }
 
+    public String getPropertyName() {
+        return propertyName;
+    }
+
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public String getPropertyTitle() {
+        return propertyTitle;
+    }
+
+    public void setPropertyTitle(String propertyTitle) {
+        this.propertyTitle = propertyTitle;
+    }
+
     @Override
     public String toString() {
         return "Subscriber{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
+                ", propertyId=" + propertyId +
+                ", propertyName='" + propertyName + '\'' +
+                ", propertyTitle='" + propertyTitle + '\'' +
                 '}';
     }
 }

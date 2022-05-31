@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PropertyService {
@@ -17,8 +18,25 @@ public class PropertyService {
         this.propertyRepository = propertyRepository;
     }
 
+    public List<PropertyDTO> getPropertyDTOs(String language) {
+        return propertyRepository
+                .findAll()
+                .stream()
+                .map(property -> createPropertyDTO(property, language))
+                .collect(Collectors.toList());
+    }
+
     public List<Property> getProperties() {
-        return propertyRepository.findAll();
+        return propertyRepository
+                .findAll();
+    }
+
+    public PropertyDTO getPropertyDTO(long propertyId, String language) {
+        if (propertyRepository.existsById(propertyId)) {
+            Property property = propertyRepository.findById(propertyId).get();
+            return createPropertyDTO(property, language);
+        }
+        return null;
     }
 
     public Property getProperty(long propertyId) {
@@ -59,5 +77,24 @@ public class PropertyService {
         }
     }
 
-
+    public PropertyDTO createPropertyDTO(Property property, String language){
+        PropertyDTO propertyDTO = new PropertyDTO();
+        propertyDTO.setId(property.getId());
+        propertyDTO.setImages(property.getImages());
+        propertyDTO.setFile(property.getFile());
+        if(language.equals("geo")) {
+            propertyDTO.setName(property.getName());
+            propertyDTO.setTitle(property.getTitle());
+            propertyDTO.setCity(property.getCity());
+            propertyDTO.setCountry(property.getCountry());
+            propertyDTO.setDescription(property.getDescription());
+        }else {
+            propertyDTO.setName(property.getNameEng());
+            propertyDTO.setTitle(property.getTitleEng());
+            propertyDTO.setCity(property.getCityEng());
+            propertyDTO.setCountry(property.getCountryEng());
+            propertyDTO.setDescription(property.getDescriptionEng());
+        }
+        return propertyDTO;
+    }
 }

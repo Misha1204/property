@@ -16,6 +16,18 @@ public class HeaderService {
         this.headerRepository = headerRepository;
     }
 
+    public HeaderDTO getHeaderDTO(String language) {
+        if (headerRepository.existsById(1l)) {
+            Header header = headerRepository.findById(1l).get();
+            HeaderDTO headerDTO = new HeaderDTO();
+            headerDTO.setImages(header.getImages());
+            headerDTO.setFiles(header.getFiles());
+            headerDTO.setDescription(language.equals("geo") ? header.getDescription() : header.getDescriptionEng());
+            return headerDTO;
+        }
+        return null;
+    }
+
     public Header getHeader() {
         if (headerRepository.existsById(1l)) {
             return headerRepository.findById(1l).get();

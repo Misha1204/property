@@ -12,6 +12,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ExtendDirective } from './directives/extend.directive';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ExtendDirective } from './directives/extend.directive';
     ScrollLeftDirective,
     ScrollRightDirective,
     ExtendDirective,
+    TruncatePipe,
   ],
   imports: [
     BrowserModule,

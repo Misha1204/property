@@ -33,8 +33,9 @@ export class LandingPageService {
   }
 
   // Header Methods
-  getHeaderInfo() {
-    return this.http.get<Header>(`/api/header`);
+  getHeaderInfo(language?: string) {
+    let languageParam = language ? '/' + language : '';
+    return this.http.get<Header>(`/api/header${languageParam}`);
   }
 
   updateHeaderInfo(formData: any) {
@@ -42,8 +43,13 @@ export class LandingPageService {
   }
 
   // Section Methods
-  getPropertyInfo() {
-    return this.http.get<Section[]>(`/api/property`);
+  getPropertyInfo(language?: string) {
+    let languageParam = language ? '/' + language : '';
+    return this.http.get<Section[]>(`/api/property/language${languageParam}`);
+  }
+
+  getAllProperties() {
+    return this.http.get(`/api/property`);
   }
 
   getPropertyInfoById(id: number) {
