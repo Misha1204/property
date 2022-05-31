@@ -54,6 +54,9 @@
             href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
             <img src="../../assets/images/twitter.png" alt="twitter" />
           </a>
+          <a href="https://www.linkedin.com/company/property-georgia/">
+            <img src="../../assets/images/linkedin.png" alt="linkedin" />
+          </a>
         </div>
 
         <select
@@ -132,7 +135,11 @@
           <img src="../../assets/images/twitter.png" alt="twitter" />
         </a>
       </div>
-      <div></div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.linkedin.com/company/property-georgia/">
+          <img src="../../assets/images/linkedin.png" alt="linkedin" />
+        </a>
+      </div>
       <div></div>
     </div>
 
@@ -152,8 +159,7 @@
 
     <div class="mobile-header-description-container">
       <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry
+        {{ headerInfo.description }}
       </p>
 
       <button>
@@ -220,8 +226,8 @@
             href="{{ section.file }}"
             target="_blank"
             download="{{ section.file }}"
-            >Learn More</a
-          >
+            >{{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
+          </a>
         </div>
 
         <div class="section-description-form-container">
@@ -240,14 +246,18 @@
             <h4>Send contacts</h4>
 
             <div class="section-form">
-              <form class="form" [formGroup]="form">
+              <form *ngIf="form" class="form" [formGroup]="form">
                 <input
                   type="text"
-                  placeholder="Fullname"
+                  placeholder="{{
+                    currentLanguage === 'eng' ? 'Fullname' : 'სახელი'
+                  }}"
                   formControlName="name" />
                 <input
                   type="text"
-                  placeholder="Country"
+                  placeholder="{{
+                    currentLanguage === 'eng' ? 'Country' : 'ქვეყანა'
+                  }}"
                   formControlName="address" />
                 <input
                   type="text"
@@ -273,7 +283,14 @@
         <div class="section-mobile-slider">
           <div class="section-mobile-slider-header">
             <h1>Aliance</h1>
-            <span>Download</span>
+            <span>
+              <a
+                href="{{ section.file }}"
+                target="_blank"
+                download="{{ section.file }}">
+                <span class="material-symbols-outlined"> file_download </span>
+              </a>
+            </span>
           </div>
 
           <div
@@ -315,12 +332,32 @@
           <span>Send Contacts</span>
         </div>
 
-        <div class="section-mobile-form">
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-          <input type="text" />
-        </div>
+        <form
+          *ngIf="form"
+          class="form"
+          [formGroup]="form"
+          class="section-mobile-form">
+          <input
+            type="text"
+            placeholder="{{
+              currentLanguage === 'eng' ? 'Fullname' : 'სახელი'
+            }}"
+            formControlName="name" />
+          <input
+            type="text"
+            placeholder="{{
+              currentLanguage === 'eng' ? 'Country' : 'ქვეყანა'
+            }}"
+            formControlName="address" />
+          <input
+            type="text"
+            placeholder="+995555467844"
+            formControlName="phone" />
+          <input
+            type="text"
+            placeholder="person@gmail.com"
+            formControlName="email" />
+        </form>
       </div>
       <button
         *ngIf="!isMobileFormExtended"

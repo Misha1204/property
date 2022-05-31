@@ -73,7 +73,6 @@ export class LandingPageComponent implements OnInit {
       .getPropertyInfo(this.currentLanguage)
       .pipe(
         tap(res => {
-          console.log(res);
           this.sections = res;
         })
       )
@@ -157,11 +156,8 @@ export class LandingPageComponent implements OnInit {
 
   extendCollapseForm(mobileFormRef: HTMLElement) {
     this.isMobileFormExtended = !this.isMobileFormExtended;
-    console.log(this.isMobileFormExtended);
-
     if (this.isMobileFormExtended) {
       mobileFormRef.style.height = '350px';
-      console.log(mobileFormRef.style.height);
     } else {
       mobileFormRef.style.height = '60px';
     }
