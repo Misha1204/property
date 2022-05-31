@@ -8,7 +8,9 @@ public class Header {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
+    @Column(length = 1000)
     private String description;
+    @Column(length = 1000)
     private String descriptionEng;
     private String[] images = new String[4];
     private String[] files = new String[2];

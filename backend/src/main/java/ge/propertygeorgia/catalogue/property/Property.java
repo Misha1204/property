@@ -21,11 +21,13 @@ public class Property {
     private String title;
     private String city;
     private String country;
+    @Column(length = 1000)
     private String description;
     private String nameEng;
     private String titleEng;
     private String cityEng;
     private String countryEng;
+    @Column(length = 1000)
     private String descriptionEng;
     private String[] images = new String[4];
     private String file;

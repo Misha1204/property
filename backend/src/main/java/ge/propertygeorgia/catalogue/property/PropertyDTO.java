@@ -9,7 +9,7 @@ public class PropertyDTO {
     private String city;
     private String country;
     private String description;
-    private String[] images = new String[4];
+    private String[] images;
     private String file;
 
     public long getId() {
