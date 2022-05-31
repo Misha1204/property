@@ -1,20 +1,24 @@
+version: "3"
 services:
   catalogue:
-    build: .
+    image: catalogue-application
+#    build: .
     volumes:
       - ./production.properties:/app/application.properties
+      - ./catalogue-resources/resources:/app/resources
     depends_on:
       - postgres
     ports:
-      - 8080:8080
+      - '127.0.0.1:8080:8080'
 
   postgres:
     image: postgres:14.1-alpine
-    restart: always
+#    restart: always
     volumes:
       - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
