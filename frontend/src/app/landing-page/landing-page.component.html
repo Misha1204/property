@@ -39,11 +39,22 @@
       }"
       class="header-right-container">
       <div class="header-right">
-        <button class="header-right-learn-more-btn">
+        <!-- <button class="header-right-learn-more-btn">
           {{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
-        </button>
+        </button> -->
 
-        <div class="icons"></div>
+        <div class="icons">
+          <a href="https://www.facebook.com/PropertyGeorgia">
+            <img src="../../assets/images/facebook.png" alt="facebook" />
+          </a>
+          <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
+            <img src="../../assets/images/youtube.png" alt="youtube" />
+          </a>
+          <a
+            href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
+            <img src="../../assets/images/twitter.png" alt="twitter" />
+          </a>
+        </div>
 
         <select
           (change)="changeCurrentLanguage($event)"
@@ -105,9 +116,22 @@
       </div>
       <div></div>
       <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.facebook.com/PropertyGeorgia">
+          <img src="../../assets/images/facebook.png" alt="facebook" />
+        </a>
+      </div>
+      <div class="mobile-header-social-links">
+        <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
+          <img src="../../assets/images/youtube.png" alt="youtube" />
+        </a>
+      </div>
+      <div class="mobile-header-social-links">
+        <a
+          href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
+          <img src="../../assets/images/twitter.png" alt="twitter" />
+        </a>
+      </div>
       <div></div>
       <div></div>
     </div>
@@ -274,16 +298,19 @@
           </p>
         </div>
 
-        <!-- [ngStyle]="{ height: extended ? 'fit-content' : '72px' }" -->
-
         <button
           (click)="extendCollapseSectionInfo(extendMobileInfo)"
           class="section-mobile-info-extend-btn">
-          <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+          <span *ngIf="!isMobileInfoExtended" class="material-symbols-outlined">
+            keyboard_arrow_down
+          </span>
+          <span *ngIf="isMobileInfoExtended" class="material-symbols-outlined">
+            keyboard_arrow_up
+          </span>
         </button>
       </div>
 
-      <div class="section-mobile-form-container">
+      <div #extendMobileform class="section-mobile-form-container">
         <div class="section-mobile-send-contacts">
           <span>Send Contacts</span>
         </div>
@@ -294,13 +321,20 @@
           <input type="text" />
           <input type="text" />
         </div>
-
-        <button
-          class="section-mobile-send-form-btn"
-          (click)="extendCollapseSendInfo()">
-          Extend
-        </button>
       </div>
+      <button
+        *ngIf="!isMobileFormExtended"
+        class="section-mobile-send-form-extend-btn"
+        (click)="extendCollapseForm(extendMobileform)">
+        <span class="material-symbols-outlined"> keyboard_arrow_down </span>
+      </button>
+
+      <button
+        (click)="onSubmit(section, extendMobileform)"
+        class="section-mobile-send-form-btn"
+        *ngIf="isMobileFormExtended">
+        Send
+      </button>
     </section>
   </main>
 

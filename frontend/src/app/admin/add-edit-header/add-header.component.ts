@@ -190,12 +190,4 @@ export class AddHeaderComponent implements OnInit {
     this.deletedFileIds = [];
     this.getHeaderInfo();
   }
-
-  downloadExcel() {
-    this.http
-      .get(`/api/subscriber/export`, { responseType: 'arraybuffer' })
-      .subscribe(res => {
-        console.log(res);
-      });
-  }
 }

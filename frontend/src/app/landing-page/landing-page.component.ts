@@ -29,6 +29,7 @@ export class LandingPageComponent implements OnInit {
   activeSectionImageIndex: number = 0;
 
   isMobileInfoExtended = false;
+  isMobileFormExtended = false;
 
   // Sections
   sections!: Section[];
@@ -154,10 +155,20 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  extendCollapseSendInfo() {}
+  extendCollapseForm(mobileFormRef: HTMLElement) {
+    this.isMobileFormExtended = !this.isMobileFormExtended;
+    console.log(this.isMobileFormExtended);
+
+    if (this.isMobileFormExtended) {
+      mobileFormRef.style.height = '350px';
+      console.log(mobileFormRef.style.height);
+    } else {
+      mobileFormRef.style.height = '60px';
+    }
+  }
 
   // Handle form submition
-  onSubmit(section: Section) {
+  onSubmit(section: Section, mobileFormRef?: HTMLElement) {
     const request: UserInfo = {
       name: this.form.get('name')?.value,
       email: this.form.get('email')?.value,
@@ -172,6 +183,10 @@ export class LandingPageComponent implements OnInit {
       next: () => {
         this.form.reset();
         this.toastr.success('მონაცემები წარმატებით დაემატა');
+        if (mobileFormRef) {
+          mobileFormRef.style.height = '60px';
+          this.isMobileFormExtended = false;
+        }
       },
       error: err => {
         this.toastr.error('მონაცემების დამატება ვერ მოხერხდა');
