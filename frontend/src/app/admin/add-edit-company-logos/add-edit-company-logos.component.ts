@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { LandingPageService } from 'src/app/services/landng-page.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class AddEditCompanyLogosComponent implements OnInit {
 
   constructor(
     private landingPageService: LandingPageService,
-    private location: Location
+    private location: Location,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -39,9 +41,19 @@ export class AddEditCompanyLogosComponent implements OnInit {
 
   onUpload() {
     this.formData.append('link', this.form.get('link')?.value);
-    this.landingPageService.addCompanyLogo(this.formData).subscribe(() => {
-      this.formData = new FormData();
-      this.location.back();
+    this.landingPageService.addCompanyLogo(this.formData).subscribe({
+      next: () => {
+        this.formData = new FormData();
+        this.toastr.success('ლოგო წარმატებით დაემატა');
+        this.location.back();
+      },
+      error: err => {
+        if (err.status === 200) {
+          this.formData = new FormData();
+          this.toastr.success('ლოგო წარმატებით დაემატა');
+          this.location.back();
+        }
+      },
     });
   }
 }

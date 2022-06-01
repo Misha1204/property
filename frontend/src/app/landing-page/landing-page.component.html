@@ -26,6 +26,7 @@
             href="/{{ headerInfo.files[0] }}"
             target="_blank"
             download="/{{ headerInfo.files[0] }}">
+            <img src="../../assets/images/download.png" alt="" />
             {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
           </a>
         </div>
@@ -143,17 +144,13 @@
       <div></div>
     </div>
 
-    <div
-      [ngStyle]="{
-        'background-image':
-          'url(' + headerInfo.images[activeHeaderImageIndex] + ')'
-      }"
-      class="mobile-image-container">
-      <div class="mobile-header-slider-dots-container">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="mobile-image-container">
+      <div class="mobile-header-image-slider">
+        <div
+          class="mobile-header-image-container"
+          *ngFor="let image of headerInfo.images">
+          <img class="mobile-header-image" [src]="image" alt="" />
+        </div>
       </div>
     </div>
 
@@ -163,6 +160,7 @@
       </p>
 
       <button>
+        <img src="../../assets/images/download.png" alt="" />
         {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
       </button>
     </div>
@@ -223,19 +221,24 @@
               *ngFor="let image of section.images; let j = index"></div>
           </div>
           <a
+            class="section-description-header-learn-more-btn"
             href="{{ section.file }}"
             target="_blank"
-            download="{{ section.file }}"
-            >{{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
+            download="{{ section.file }}">
+            <img src="../../assets/images/download.png" alt="" />
+            {{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
           </a>
         </div>
 
         <div class="section-description-form-container">
           <div class="section-description">
-            <h4>
-              {{ section.country }}
-              | {{ section.city }}
-            </h4>
+            <div class="section-description-location">
+              <img src="../../assets/images/location.png" alt="" />
+              <h4>
+                {{ section.country }}
+                | {{ section.city }}
+              </h4>
+            </div>
 
             <p>
               {{ section?.description }}
@@ -243,7 +246,16 @@
           </div>
 
           <div class="section-form-container">
-            <h4>Send contacts</h4>
+            <div class="section-form-header">
+              <img src="../../assets/images/contacts.png" alt="" />
+              <h4>
+                {{
+                  currentLanguage === 'eng'
+                    ? 'Send contacts'
+                    : 'დატოვეთ საკონტაქტო ინფორმაცია'
+                }}
+              </h4>
+            </div>
 
             <div class="section-form">
               <form *ngIf="form" class="form" [formGroup]="form">
@@ -304,6 +316,7 @@
       <div #extendMobileInfo class="section-mobile-info">
         <div class="section-mobile-info-location-description-container">
           <div class="section-mobile-location">
+            <img src="../../assets/images/location.png" alt="" />
             <span>Batumi | Georgia</span>
           </div>
           <p>
@@ -329,7 +342,10 @@
 
       <div #extendMobileform class="section-mobile-form-container">
         <div class="section-mobile-send-contacts">
-          <span>Send Contacts</span>
+          <div class="section-mobile-send-contact-icon">
+            <img src="../../assets/images/contacts.png" alt="" />
+            <span>Send Contacts</span>
+          </div>
         </div>
 
         <form
@@ -377,16 +393,36 @@
 
   <footer class="footer">
     <div class="footer-address-mail-container">
-      <div>
+      <div class="footer-address-mail">
+        <img src="../../assets/images/location.png" alt="" />
         <p>
           71 Vazha-Pshavela Ave. Tbilisi 0186, Georgia. Redix Business Center
         </p>
         <span>|</span>
+        <img src="../../assets/images/mail.png" alt="" />
         <p>Info@propertygeorgia.ge</p>
       </div>
     </div>
 
     <div class="copyright">
+      <p>Copyrights © 2022 All Rights Reserved by Property Georgia.</p>
+    </div>
+  </footer>
+
+  <footer class="footer-mobile">
+    <div class="footer-mobile-address-mail-container">
+      <div class="footer-mobile-address">
+        <img src="../../assets/images/location.png" alt="" />
+        <p>
+          71 Vazha-Pshavela Ave. Tbilisi 0186, Georgia. Redix Business Center
+        </p>
+      </div>
+      <div class="footer-mobile-mail">
+        <img src="../../assets/images/mail.png" alt="" />
+        <p>Info@propertygeorgia.ge</p>
+      </div>
+    </div>
+    <div class="footer-mobile-copyright">
       <p>Copyrights © 2022 All Rights Reserved by Property Georgia.</p>
     </div>
   </footer>

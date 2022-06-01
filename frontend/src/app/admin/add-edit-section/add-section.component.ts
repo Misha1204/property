@@ -128,7 +128,12 @@ export class AddSectionComponent implements OnInit {
     } else {
       this.landingPageService
         .editSection(this.sectionId, this.formData)
-        .subscribe();
+        .subscribe({
+          next: () => {
+            this.toastr.success('სექცია წარმატებით შეიცვალა');
+            this.location.back();
+          },
+        });
     }
   }
 

@@ -1,4 +1,6 @@
 .main-container {
+  display: flex;
+  justify-content: center;
   position: relative;
   width: 100%;
   margin-top: 50px;
@@ -6,7 +8,6 @@
 
 .content {
   width: 55%;
-  margin-left: 30%;
 }
 
 .form-container {

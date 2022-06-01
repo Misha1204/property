@@ -134,6 +134,11 @@ export class LandingPageComponent implements OnInit {
       }
     }
 
+    console.log(this.activeSectionImageIndex);
+    console.log(section.images[this.activeSectionImageIndex]);
+
+    console.log(sectionRef.children[2].children[1].children);
+
     sectionRef.style.backgroundImage = `url(${
       section.images[this.activeSectionImageIndex]
     })`;
@@ -148,7 +153,8 @@ export class LandingPageComponent implements OnInit {
   extendCollapseSectionInfo(mobileSectionInfoRef: HTMLElement) {
     this.isMobileInfoExtended = !this.isMobileInfoExtended;
     if (this.isMobileInfoExtended) {
-      (mobileSectionInfoRef.children[0] as HTMLElement).style.height = '150px';
+      (mobileSectionInfoRef.children[0] as HTMLElement).style.height =
+        'fit-content';
     } else {
       (mobileSectionInfoRef.children[0] as HTMLElement).style.height = '72px';
     }
@@ -175,18 +181,24 @@ export class LandingPageComponent implements OnInit {
       propertyTitle: section.title,
     };
 
-    this.landingPageService.addUserInfo(request).subscribe({
-      next: () => {
-        this.form.reset();
-        this.toastr.success('მონაცემები წარმატებით დაემატა');
-        if (mobileFormRef) {
-          mobileFormRef.style.height = '60px';
-          this.isMobileFormExtended = false;
-        }
-      },
-      error: err => {
-        this.toastr.error('მონაცემების დამატება ვერ მოხერხდა');
-      },
-    });
+    if (this.form.valid) {
+      this.landingPageService.addUserInfo(request).subscribe({
+        next: () => {
+          this.form.reset();
+          this.toastr.success('მონაცემები წარმატებით დაემატა');
+          if (mobileFormRef) {
+            mobileFormRef.style.height = '60px';
+            this.isMobileFormExtended = false;
+          }
+        },
+        error: err => {
+          this.toastr.error('მონაცემების დამატება ვერ მოხერხდა');
+        },
+      });
+    } else {
+      this.currentLanguage === 'eng'
+        ? this.toastr.error('All Fields are Required')
+        : this.toastr.error('გთხოვთ, შეავსოთ ყველა ველი');
+    }
   }
 }

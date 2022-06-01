@@ -1,24 +1,39 @@
-<div class="sidebar-container">
-  <ul class="list-container">
-    <li class="list-item">
-      <a routerLinkActive="active-link" routerLink="add_header">Header</a>
-    </li>
-    <li class="list-item">
-      <a routerLinkActive="active-link" routerLink="sections">Sections</a>
-    </li>
-    <li class="list-item">
-      <a routerLinkActive="active-link" routerLink="company_logos"
-        >Company Logos</a
-      >
-    </li>
-    <li class="list-item">
-      <a href="/api/subscriber/export">Export Data</a>
-    </li>
+<div class="admin-component-main-container">
+  <div class="sidebar-container">
+    <ul class="list-container">
+      <li class="list-item">
+        <a
+          routerLinkActive="active-link"
+          routerLink="add_header"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Header</a
+        >
+      </li>
+      <li class="list-item">
+        <a
+          routerLinkActive="active-link"
+          routerLink="sections"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Sections</a
+        >
+      </li>
+      <li class="list-item">
+        <a
+          routerLinkActive="active-link"
+          routerLink="company_logos"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >Company Logos</a
+        >
+      </li>
+      <li class="list-item">
+        <a href="/api/subscriber/export">Export Data</a>
+      </li>
 
-    <li class="list-item">
-      <button class="logout-btn" (click)="logout()">Log out</button>
-    </li>
-  </ul>
+      <li class="list-item">
+        <button class="logout-btn" (click)="logout()">Log out</button>
+      </li>
+    </ul>
+  </div>
+
+  <router-outlet></router-outlet>
 </div>
-
-<router-outlet></router-outlet>
