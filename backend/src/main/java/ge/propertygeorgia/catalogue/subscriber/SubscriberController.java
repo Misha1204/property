@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class SubscriberController {
 
     @PostMapping
     public void postSubscriber(@RequestBody Subscriber subscriber){
+        subscriber.setDate(LocalDate.now().toString());
         subscriberService.postSubscriber(subscriber);
     }
 
@@ -57,6 +60,7 @@ public class SubscriberController {
                 , "Property ID"
                 , "Property Name"
                 , "Property Title"
+                , "Date"
                 };
         String[] nameMapping = {"id"
                 , "name"
@@ -66,6 +70,7 @@ public class SubscriberController {
                 , "propertyId"
                 , "propertyName"
                 , "propertyTitle"
+                , "date"
                 };
 
         csvWriter.writeHeader(csvHeader);

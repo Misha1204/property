@@ -23,6 +23,7 @@ public class Subscriber {
     private long propertyId;
     private String propertyName;
     private String propertyTitle;
+    private String date;
 
     public Subscriber() {
     }
@@ -100,6 +101,14 @@ public class Subscriber {
 
     public void setPropertyTitle(String propertyTitle) {
         this.propertyTitle = propertyTitle;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

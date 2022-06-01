@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.supercsv.io.CsvBeanWriter;
@@ -18,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "api/property")
@@ -41,12 +43,19 @@ public class PropertyController {
 
     @GetMapping(path = "language/{language}")
     public List<PropertyDTO> getPropertyDTOs(@PathVariable("language") String language) {
-        return propertyService.getPropertyDTOs(language);
+        return propertyService.getPropertyDTOs(language)
+                .stream()
+                .sorted((a,b) -> Long.compare(a.getId(), b.getId()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping()
     public List<Property> getProperties() {
-        return propertyService.getProperties();
+        return
+                propertyService.getProperties()
+                        .stream()
+                        .sorted((a, b) -> Long.compare(a.getId(), b.getId()))
+                        .collect(Collectors.toList());
     }
 
     @GetMapping(path = "/{propertyId}/{language}")
@@ -150,55 +159,5 @@ public class PropertyController {
         propertyService.updateProperty(propertyId, name, title, city, country, description,
                 nameEng, titleEng, cityEng, countryEng, descriptionEng, images, fileAddress);
     }
-
-//    @GetMapping("/properties/export")
-//    public void exportToCSV(HttpServletResponse response) throws IOException {
-//        response.setContentType("text/csv");
-//        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-//        String currentDateTime = dateFormatter.format(new Date());
-//
-//        String headerKey = "Content-Disposition";
-//        String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
-//        response.setHeader(headerKey, headerValue);
-//
-//        List<Property> listProperties = propertyService.getProperties();
-//
-//        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-//        String[] csvHeader = {"Property ID"
-//                , "Name"
-//                , "Title"
-//                , "City"
-//                , "Country"
-//                , "Description"
-//                , "English Name"
-//                , "English Title"
-//                , "English City"
-//                , "English Country"
-//                , "English Description"
-//                , "Images"
-//                , "File"};
-//        String[] nameMapping = {"id"
-//                , "name"
-//                , "title"
-//                , "city"
-//                , "country"
-//                , "description"
-//                , "nameEng"
-//                , "titleEng"
-//                , "cityEng"
-//                , "countryEng"
-//                , "descriptionEng"
-//                , "images"
-//                , "file"};
-//
-//        csvWriter.writeHeader(csvHeader);
-//
-//        for (Property property : listProperties) {
-//            csvWriter.write(property, nameMapping);
-//        }
-//
-//        csvWriter.close();
-//
-//    }
 
 }
