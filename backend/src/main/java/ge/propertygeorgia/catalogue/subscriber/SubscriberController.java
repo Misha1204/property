@@ -9,6 +9,7 @@ import org.supercsv.prefs.CsvPreference;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -45,13 +46,15 @@ public class SubscriberController {
         String currentDateTime = dateFormatter.format(new Date());
 
         String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=users_" + currentDateTime + ".csv";
+        String headerValue = "attachment; filename=subscribers_" + currentDateTime + ".csv";
         response.setHeader(headerKey, headerValue);
 
         List<Subscriber> subscribers = subscriberService.getSubsribers();
 
         response.setCharacterEncoding("UTF-8");
-        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.EXCEL_PREFERENCE);
+        PrintWriter writer = response.getWriter();
+        writer.write('\uFEFF');
+        ICsvBeanWriter csvWriter = new CsvBeanWriter(writer, CsvPreference.STANDARD_PREFERENCE);
         String[] csvHeader = {"Subscriber ID"
                 , "Name"
                 , "E-Mail"
