@@ -27,7 +27,7 @@
             target="_blank"
             download="/{{ headerInfo.files[0] }}">
             <img src="../../assets/images/download.png" alt="" />
-            {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
+            {{ currentLanguage === 'eng' ? 'Download Catalog' : 'კატალოგის გადმოწერა' }}
           </a>
         </div>
       </div>
@@ -159,7 +159,7 @@
 
       <button>
         <img src="../../assets/images/download.png" alt="" />
-        {{ currentLanguage === 'eng' ? 'Download PDF' : 'გადმოწერეთ PDF' }}
+        {{ currentLanguage === 'eng' ? 'Download Catalog' : 'კატალოგის გადმოწერა' }}
       </button>
     </div>
   </header>
@@ -178,6 +178,15 @@
       <span scrollRight class="material-symbols-outlined company-logos-forward">
         arrow_forward_ios
       </span>
+    </div>
+  </div>
+
+<!--  Mobile Company Logos slider -->
+  <div class="mobile-company-logos-slider-container">
+    <div class="mobile-company-logos-slider">
+      <a *ngFor="let logo of companyLogos" href="{{ logo.link }}">
+        <img class="mobile-company-logos-img" [src]="logo.image" alt="logo">
+      </a>
     </div>
   </div>
 
@@ -249,7 +258,7 @@
               <h4>
                 {{
                   currentLanguage === 'eng'
-                    ? 'Send contacts'
+                    ? 'Register your interest'
                     : 'დატოვეთ საკონტაქტო ინფორმაცია'
                 }}
               </h4>
@@ -292,7 +301,7 @@
       <div class="section-mobile-slider-container">
         <div class="section-mobile-slider">
           <div class="section-mobile-slider-header">
-            <h1>Aliance</h1>
+            <h1>{{ section.name }}</h1>
             <span>
               <a
                 href="{{ section.file }}"
@@ -315,7 +324,7 @@
         <div class="section-mobile-info-location-description-container">
           <div class="section-mobile-location">
             <img src="../../assets/images/location.png" alt="" />
-            <span>Batumi | Georgia</span>
+            <span>{{ section.city }} | {{ section.country }}</span>
           </div>
           <p>
             {{
@@ -342,7 +351,7 @@
         <div class="section-mobile-send-contacts">
           <div class="section-mobile-send-contact-icon">
             <img src="../../assets/images/contacts.png" alt="" />
-            <span>Send Contacts</span>
+            <span>Register your interest</span>
           </div>
         </div>
 
