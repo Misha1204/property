@@ -5,6 +5,7 @@ import { tap } from 'rxjs';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 import { LandingPageService } from '../services/landng-page.service';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-landing-page',
@@ -15,7 +16,7 @@ export class LandingPageComponent implements OnInit {
   form!: FormGroup;
 
   // Language variables
-  currentLanguage: string = 'eng';
+  currentLanguage!: string;
 
   // Header images
   headerInfo!: {
@@ -37,8 +38,11 @@ export class LandingPageComponent implements OnInit {
   constructor(
     private landingPageService: LandingPageService,
     private fb: FormBuilder,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    private router: Router,
+  ) {
+    this.currentLanguage = router.url.slice(1);
+  }
 
   ngOnInit(): void {
     this.getHeaderInfo();
@@ -93,9 +97,10 @@ export class LandingPageComponent implements OnInit {
   // Change Language of the page
   changeCurrentLanguage(event: Event) {
     this.currentLanguage = (event.target as HTMLInputElement).value;
+    this.router.navigate([this.currentLanguage])
 
-    this.getHeaderInfo();
-    this.getPropertyInfo();
+    // this.getHeaderInfo();
+    // this.getPropertyInfo();
   }
 
   // Slide through images in header

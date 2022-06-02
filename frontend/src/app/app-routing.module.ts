@@ -6,6 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: LandingPageComponent,
+    redirectTo: 'eng'
+  },
+  {
+    path: 'eng',
+    component: LandingPageComponent,
+  },
+  {
+    path: 'geo',
+    component: LandingPageComponent,
   },
   {
     path: 'admin',

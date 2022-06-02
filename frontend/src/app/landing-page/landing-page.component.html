@@ -63,10 +63,9 @@
         <select
           (change)="changeCurrentLanguage($event)"
           class="header-right-select-language"
-          name="language"
-          id="language">
-          <option value="eng">Eng</option>
-          <option value="geo">Geo</option>
+          name="language">
+          <option [selected]="currentLanguage === 'eng'" value="eng">Eng</option>
+          <option [selected]="currentLanguage === 'geo'" value="geo">Geo</option>
         </select>
       </div>
 
@@ -112,10 +111,9 @@
         <select
           class="mobile-select-language"
           (change)="changeCurrentLanguage($event)"
-          name="language"
-          id="language">
-          <option value="eng">Eng</option>
-          <option value="geo">Geo</option>
+          name="language">
+          <option [selected]="currentLanguage === 'eng'" value="eng">Eng</option>
+          <option [selected]="currentLanguage === 'geo'" value="geo">Geo</option>
         </select>
       </div>
       <div></div>
