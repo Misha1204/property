@@ -12,4 +12,6 @@ export interface Section {
   descriptionEng?: string;
   images: { id: number; image: any }[];
   file: string;
+  isMobileDescriptionExtended: boolean;
+  isMobileFormExtended: boolean;
 }

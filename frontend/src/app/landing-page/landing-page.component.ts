@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { tap } from 'rxjs';
+import {map, tap} from 'rxjs';
 import { Section } from '../models/section.model';
 import { UserInfo } from '../models/user-info.model';
 import { LandingPageService } from '../services/landng-page.service';
@@ -76,6 +76,14 @@ export class LandingPageComponent implements OnInit {
     this.landingPageService
       .getPropertyInfo(this.currentLanguage)
       .pipe(
+        map((res) => {
+          res.forEach((section) => {
+            section.isMobileDescriptionExtended = false;
+            section.isMobileFormExtended = false;
+          })
+
+          return res;
+        }),
         tap(res => {
           this.sections = res;
         })
@@ -97,10 +105,7 @@ export class LandingPageComponent implements OnInit {
   // Change Language of the page
   changeCurrentLanguage(event: Event) {
     this.currentLanguage = (event.target as HTMLInputElement).value;
-    this.router.navigate([this.currentLanguage])
-
-    // this.getHeaderInfo();
-    // this.getPropertyInfo();
+    this.router.navigate([this.currentLanguage]);
   }
 
   // Slide through images in header
@@ -139,11 +144,6 @@ export class LandingPageComponent implements OnInit {
       }
     }
 
-    console.log(this.activeSectionImageIndex);
-    console.log(section.images[this.activeSectionImageIndex]);
-
-    console.log(sectionRef.children[2].children[1].children);
-
     sectionRef.style.backgroundImage = `url(${
       section.images[this.activeSectionImageIndex]
     })`;
@@ -155,9 +155,9 @@ export class LandingPageComponent implements OnInit {
     ).classList.add('opacity-1');
   }
 
-  extendCollapseSectionInfo(mobileSectionInfoRef: HTMLElement) {
-    this.isMobileInfoExtended = !this.isMobileInfoExtended;
-    if (this.isMobileInfoExtended) {
+  extendCollapseSectionInfo(mobileSectionInfoRef: HTMLElement, index: number) {
+    this.sections[index].isMobileDescriptionExtended = !this.sections[index].isMobileDescriptionExtended;
+    if (this.sections[index].isMobileDescriptionExtended) {
       (mobileSectionInfoRef.children[0] as HTMLElement).style.height =
         'fit-content';
     } else {
@@ -165,9 +165,9 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  extendCollapseForm(mobileFormRef: HTMLElement) {
-    this.isMobileFormExtended = !this.isMobileFormExtended;
-    if (this.isMobileFormExtended) {
+  extendCollapseForm(mobileFormRef: HTMLElement, index: number) {
+    this.sections[index].isMobileFormExtended = !this.sections[index].isMobileFormExtended
+    if (this.sections[index].isMobileFormExtended) {
       mobileFormRef.style.height = '350px';
     } else {
       mobileFormRef.style.height = '60px';

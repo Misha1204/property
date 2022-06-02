@@ -157,10 +157,18 @@
         {{ headerInfo.description }}
       </p>
 
-      <button>
+      <a
+        class="header-left-download-btn"
+        href="/{{ headerInfo.files[0] }}"
+        target="_blank"
+        download="/{{ headerInfo.files[0] }}">
         <img src="../../assets/images/download.png" alt="" />
         {{ currentLanguage === 'eng' ? 'Download Catalog' : 'კატალოგის გადმოწერა' }}
-      </button>
+      </a>
+<!--      <button>-->
+<!--        <img src="../../assets/images/download.png" alt="" />-->
+<!--        {{ currentLanguage === 'eng' ? 'Download Catalog' : 'კატალოგის გადმოწერა' }}-->
+<!--      </button>-->
     </div>
   </header>
 
@@ -297,7 +305,7 @@
       </div>
     </section>
 
-    <section *ngFor="let section of sections" class="section-mobile">
+    <section *ngFor="let section of sections; let i = index;" class="section-mobile">
       <div class="section-mobile-slider-container">
         <div class="section-mobile-slider">
           <div class="section-mobile-slider-header">
@@ -312,8 +320,10 @@
             </span>
           </div>
 
+
           <span class="material-symbols-outlined mobile-section-slider-arrow-back">arrow_back_ios</span>
           <span class="material-symbols-outlined mobile-section-slider-arrow-forward">arrow_forward_ios</span>
+
 
           <div
             *ngFor="let image of section.images"
@@ -331,7 +341,7 @@
           </div>
           <p>
             {{
-              isMobileInfoExtended
+              section.isMobileDescriptionExtended
                 ? section.description
                 : (section.description | truncate: 80)
             }}
@@ -339,12 +349,12 @@
         </div>
 
         <button
-          (click)="extendCollapseSectionInfo(extendMobileInfo)"
+          (click)="extendCollapseSectionInfo(extendMobileInfo, i)"
           class="section-mobile-info-extend-btn">
-          <span *ngIf="!isMobileInfoExtended" class="material-symbols-outlined">
+          <span *ngIf="!section.isMobileDescriptionExtended" class="material-symbols-outlined">
             keyboard_arrow_down
           </span>
-          <span *ngIf="isMobileInfoExtended" class="material-symbols-outlined">
+          <span *ngIf="section.isMobileDescriptionExtended" class="material-symbols-outlined">
             keyboard_arrow_up
           </span>
         </button>
@@ -386,16 +396,16 @@
         </form>
       </div>
       <button
-        *ngIf="!isMobileFormExtended"
+        *ngIf="!section.isMobileFormExtended"
         class="section-mobile-send-form-extend-btn"
-        (click)="extendCollapseForm(extendMobileform)">
+        (click)="extendCollapseForm(extendMobileform, i)">
         <span class="material-symbols-outlined"> keyboard_arrow_down </span>
       </button>
 
       <button
         (click)="onSubmit(section, extendMobileform)"
         class="section-mobile-send-form-btn"
-        *ngIf="isMobileFormExtended">
+        *ngIf="section.isMobileFormExtended">
         Send
       </button>
     </section>

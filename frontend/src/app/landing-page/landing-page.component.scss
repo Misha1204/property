@@ -743,7 +743,7 @@
     text-align: center;
   }
 
-  button {
+  a {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -1136,7 +1136,7 @@
 
   .mobile-section-slider-arrow-back {
     position: absolute;
-    top: 23%;
+    top: 100px;
     left: 3%;
     color: #fff;
     font-weight: bold;
@@ -1144,7 +1144,7 @@
 
   .mobile-section-slider-arrow-forward {
     position: absolute;
-    top: 23%;
+    top: 100px;
     right: 3%;
     color: #fff;
     font-weight: bold;
