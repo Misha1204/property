@@ -3,10 +3,13 @@
   <header *ngIf="headerInfo" class="header">
     <div class="header-left-container">
       <div class="header-left">
-        <img
-          class="header-left-image"
-          src="../../assets/images/logo.png"
-          alt="logo" />
+        <a
+          href="https://propertygeorgia.ge/ge"
+          >
+          <img
+            class="header-left-image"
+            src="../../assets/images/logo.png" alt="logo">
+        </a>
 
         <p class="header-left-paragraph">
           {{ headerInfo.description }}
@@ -101,10 +104,13 @@
       <div></div>
       <div class="mobile-logo">
         <div>
-          <img
-            class="mobile-logo-image"
-            src="../../assets/images/logo.png"
-            alt="logo" />
+          <a
+            href="https://propertygeorgia.ge/ge">
+            <img
+              class="mobile-logo-image"
+              src="../../assets/images/logo.png"
+              alt="logo" >
+          </a>
         </div>
       </div>
       <div>
@@ -158,7 +164,7 @@
       </p>
 
       <a
-        class="header-left-download-btn"
+        class="mobile-header-left-download-btn"
         href="/{{ headerInfo.files[0] }}"
         target="_blank"
         download="/{{ headerInfo.files[0] }}">
@@ -308,9 +314,8 @@
     <section *ngFor="let section of sections; let i = index;" class="section-mobile">
       <div class="section-mobile-slider-container">
         <div class="section-mobile-slider">
-          <div class="section-mobile-slider-header">
-            <h1>{{ section.name }}</h1>
-            <span>
+            <h1 class="section-mobile-slider-header">{{ section.name }}</h1>
+            <span class="section-mobile-slider-download">
               <a
                 href="{{ section.file }}"
                 target="_blank"
@@ -318,7 +323,7 @@
                 <span class="material-symbols-outlined"> file_download </span>
               </a>
             </span>
-          </div>
+
 
 
           <span class="material-symbols-outlined mobile-section-slider-arrow-back">arrow_back_ios</span>
