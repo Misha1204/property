@@ -21,7 +21,7 @@ public class EmailSenderService {
     @Autowired
     private SubscriberService subscriberService;
 
-    @Scheduled(cron = "0 56 05 ? * *")
+    @Scheduled(cron = "0 54 06 ? * *")
     public void sendMail() throws MessagingException, IOException {
 
             MimeMessage message = mailSender.createMimeMessage();
@@ -32,7 +32,7 @@ public class EmailSenderService {
             helper.setText("");
             FileSystemResource file
                     = new FileSystemResource(subscriberService.exportToCSV());
-            helper.addAttachment("Top Properties Subscribers", file);
+            helper.addAttachment("Top_Properties_Subscribers.csv", file);
 
             mailSender.send(message);
 

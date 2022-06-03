@@ -26,7 +26,7 @@ public class SubscriberService {
     private final SubscriberRepository subscriberRepository;
 
     @Autowired
-    public SubscriberService(SubscriberRepository subscriberRepository){
+    public SubscriberService(SubscriberRepository subscriberRepository) {
         this.subscriberRepository = subscriberRepository;
     }
 
@@ -60,7 +60,16 @@ public class SubscriberService {
         try (CSVPrinter printer = new CSVPrinter(out, CSVFormat.DEFAULT
                 .withHeader(headers))) {
             for (Subscriber subscriber : subscribers) {
-                printer.printRecord(subscriber);
+                printer.printRecord(subscriber.getId()
+                        , subscriber.getName()
+                        , subscriber.getEmail()
+                , subscriber.getPhone()
+                , subscriber.getAddress()
+                , subscriber.getPropertyId()
+                , subscriber.getPropertyName()
+                , subscriber.getPropertyTitle()
+                , subscriber.getDate());
+
             }
         }
 
