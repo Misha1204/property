@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 @Service
@@ -21,18 +22,18 @@ public class EmailSenderService {
     @Autowired
     private SubscriberService subscriberService;
 
-    @Scheduled(cron = "0 54 06 ? * *")
+    @Scheduled(cron = "0 00 18 ? * *")
     public void sendMail() throws MessagingException, IOException {
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom("toppropertiesservice@gmail.com");
-            helper.setTo("cn528491@gmail.com");
-            helper.setSubject("Top Properties Subscribers - List");
+            helper.setTo("Info@propertygeorgia.ge");
+            helper.setSubject("Top Properties Subscribers" + LocalDate.now());
             helper.setText("");
             FileSystemResource file
                     = new FileSystemResource(subscriberService.exportToCSV());
-            helper.addAttachment("Top_Properties_Subscribers.csv", file);
+            helper.addAttachment("Subscribers_" + LocalDate.now().toString() + ".csv", file);
 
             mailSender.send(message);
 
