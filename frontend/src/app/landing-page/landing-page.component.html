@@ -3,13 +3,32 @@
   <header *ngIf="headerInfo" class="header">
     <div class="header-left-container">
       <div class="header-left">
-        <a
-          href="https://propertygeorgia.ge/ge"
+        <div class="header-logo-and-social-media-container">
+          <a
+            href="https://propertygeorgia.ge/ge"
           >
-          <img
-            class="header-left-image"
-            src="../../assets/images/logo.png" alt="logo">
-        </a>
+            <img
+              class="header-left-image"
+              src="../../assets/images/logo.png" alt="logo">
+          </a>
+
+          <div class="icons">
+            <a href="https://www.facebook.com/PropertyGeorgia">
+              <img src="../../assets/images/facebook.png" alt="facebook" />
+            </a>
+            <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
+              <img src="../../assets/images/youtube.png" alt="youtube" />
+            </a>
+            <a
+              href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
+              <img src="../../assets/images/twitter.png" alt="twitter" />
+            </a>
+            <a href="https://www.linkedin.com/company/property-georgia/">
+              <img src="../../assets/images/linkedin.png" alt="linkedin" />
+            </a>
+          </div>
+        </div>
+
 
         <p class="header-left-paragraph">
           {{ headerInfo.description }}
@@ -46,22 +65,6 @@
         <!-- <button class="header-right-learn-more-btn">
           {{ currentLanguage === 'eng' ? 'Learn More' : 'გაიგე მეტი' }}
         </button> -->
-
-        <div class="icons">
-          <a href="https://www.facebook.com/PropertyGeorgia">
-            <img src="../../assets/images/facebook.png" alt="facebook" />
-          </a>
-          <a href="https://www.youtube.com/channel/UCL_WMGJp8kEqXqYvoaL12DQ">
-            <img src="../../assets/images/youtube.png" alt="youtube" />
-          </a>
-          <a
-            href="https://twitter.com/propertygeorgia?fbclid=IwAR0Ud5UMFJZqn_nc6_N70LvQRFch647I39_HYWtzbq1DAbgTC9-yGkTH5Wg">
-            <img src="../../assets/images/twitter.png" alt="twitter" />
-          </a>
-          <a href="https://www.linkedin.com/company/property-georgia/">
-            <img src="../../assets/images/linkedin.png" alt="linkedin" />
-          </a>
-        </div>
 
         <select
           (change)="changeCurrentLanguage($event)"

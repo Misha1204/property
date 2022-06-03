@@ -12,6 +12,13 @@
   height: 841px;
 }
 
+.header-logo-and-social-media-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 10%;
+}
+
 // Left Header
 .header-left-container {
   width: 50.41%;
@@ -29,7 +36,7 @@
 }
 
 .header-left-image {
-  width: 19.8%;
+  width: 50%;
   height: 61.4px;
 
   object-fit: contain;
@@ -109,7 +116,7 @@
 .icons {
   display: flex;
   justify-content: space-between;
-  width: 20%;
+  width: 30%;
 
   a {
     text-decoration: none;
@@ -969,6 +976,11 @@
 
       font-size: 10px;
     }
+
+    img {
+      width: 10px;
+      height: 10px;
+    }
   }
 
   .header-right-images-container {
@@ -980,43 +992,6 @@
 }
 
 @media only screen and (max-width: 1000px) {
-
-
-  //.header-right-container {
-  //  height: 700px;
-  //  background-size: 100% 700px;
-  //}
-
-  //.header-left-paragraph {
-  //  width: 90%;
-  //  height: 170px;
-  //
-  //  margin-top: 200px;
-  //  font-size: 130%;
-  //}
-
-  //.header-right-slider-container {
-  //  margin-top: 485px;
-  //}
-
-  //.header-left-download-btn-container {
-  //  margin-top: 100px;
-  //
-  //  p {
-  //    width: 27.58%;
-  //    font-size: 80%;
-  //  }
-  //
-  //  a {
-  //    width: 40%;
-  //    height: 50px;
-  //
-  //    font-size: 13px;
-  //  }
-  //}
-
-
-
   .section-description-location {
     h4 {
       font-size: 14px;
@@ -1072,7 +1047,34 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 850px) {
+
+  .header-left-download-btn-container {
+    margin-top: 40px;
+
+    p {
+      width: 35.58%;
+      font-size: 50%;
+    }
+
+    a {
+      width: 42%;
+      margin-bottom: 5px;
+      font-size: 9px
+    }
+
+    img {
+      width: 9px;
+      height: 9px;
+    }
+  }
+
+  .header-left-download-btn {
+    font-size: 8px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
   .header {
     display: none;
   }
