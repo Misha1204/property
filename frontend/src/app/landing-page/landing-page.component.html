@@ -200,7 +200,7 @@
 
 <!--  Mobile Company Logos slider -->
   <div class="mobile-company-logos-slider-container">
-    <div class="mobile-company-logos-slider">
+    <div #mobileSlider class="mobile-company-logos-slider">
       <a *ngFor="let logo of companyLogos" href="{{ logo.link }}">
         <img class="mobile-company-logos-img" [src]="logo.image" alt="logo">
       </a>

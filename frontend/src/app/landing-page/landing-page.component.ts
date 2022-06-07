@@ -1,19 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 import {map, tap} from 'rxjs';
-import { Section } from '../models/section.model';
-import { UserInfo } from '../models/user-info.model';
-import { LandingPageService } from '../services/landng-page.service';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Section} from '../models/section.model';
+import {UserInfo} from '../models/user-info.model';
+import {LandingPageService} from '../services/landng-page.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.scss'],
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
+
+  @ViewChild('mobileSlider') mobileSlider!: any;
 
   // Language variables
   currentLanguage!: string;
@@ -50,6 +52,17 @@ export class LandingPageComponent implements OnInit {
     this.getSliderInfo();
 
     this.initForm();
+  }
+
+  ngAfterViewInit() {
+    const element = this.mobileSlider.nativeElement as HTMLElement;
+
+    setInterval(() => {
+      element.scrollLeft += element.clientWidth;
+      if (element.scrollLeft >= element.scrollWidth - element.clientWidth) {
+        element.scrollLeft = 0;
+      }
+    }, 5000);
   }
 
   initForm() {
@@ -151,7 +164,7 @@ export class LandingPageComponent implements OnInit {
     (
       sectionRef.children[2].children[1].children[
         this.activeSectionImageIndex
-      ] as HTMLElement
+        ] as HTMLElement
     ).classList.add('opacity-1');
   }
 
