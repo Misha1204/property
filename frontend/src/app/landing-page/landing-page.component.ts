@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {map, tap} from 'rxjs';
-import {Section} from '../models/section.model';
-import {UserInfo} from '../models/user-info.model';
-import {LandingPageService} from '../services/landng-page.service';
-import {Router} from "@angular/router";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { map, tap } from 'rxjs';
+import { Section } from '../models/section.model';
+import { UserInfo } from '../models/user-info.model';
+import { LandingPageService } from '../services/landng-page.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -41,9 +41,9 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     private landingPageService: LandingPageService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private router: Router,
+    private router: Router
   ) {
-    this.currentLanguage = router.url.slice(1);
+    this.currentLanguage = router.url.slice(1, 4);
   }
 
   ngOnInit(): void {
@@ -89,11 +89,11 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     this.landingPageService
       .getPropertyInfo(this.currentLanguage)
       .pipe(
-        map((res) => {
-          res.forEach((section) => {
+        map(res => {
+          res.forEach(section => {
             section.isMobileDescriptionExtended = false;
             section.isMobileFormExtended = false;
-          })
+          });
 
           return res;
         }),
@@ -164,12 +164,13 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
     (
       sectionRef.children[2].children[1].children[
         this.activeSectionImageIndex
-        ] as HTMLElement
+      ] as HTMLElement
     ).classList.add('opacity-1');
   }
 
   extendCollapseSectionInfo(mobileSectionInfoRef: HTMLElement, index: number) {
-    this.sections[index].isMobileDescriptionExtended = !this.sections[index].isMobileDescriptionExtended;
+    this.sections[index].isMobileDescriptionExtended =
+      !this.sections[index].isMobileDescriptionExtended;
     if (this.sections[index].isMobileDescriptionExtended) {
       (mobileSectionInfoRef.children[0] as HTMLElement).style.height =
         'fit-content';
@@ -179,7 +180,8 @@ export class LandingPageComponent implements OnInit, AfterViewInit {
   }
 
   extendCollapseForm(mobileFormRef: HTMLElement, index: number) {
-    this.sections[index].isMobileFormExtended = !this.sections[index].isMobileFormExtended
+    this.sections[index].isMobileFormExtended =
+      !this.sections[index].isMobileFormExtended;
     if (this.sections[index].isMobileFormExtended) {
       mobileFormRef.style.height = '350px';
     } else {
